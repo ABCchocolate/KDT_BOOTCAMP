@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자식선택자</title>
+</head>
+<style>
+    /*문서 내의 box라는 요소의 직계 자식의 폰트색을 빨간색으로 바꾸다*/
+    /*선택자 중 아이디를 붙인 선택자는 #을 앞에 붙여야한다.*/
+    #box > h1{
+        color: red;
+    }
+    
+</style>
+<body>
+    <!--division의 약자(분할)-->
+    <div id = "box">
+        <h1>제목1</h1>
+        <div>
+            <h1>제목2</h1>
+        </div>
+    </div>  
+</body>
+</html>

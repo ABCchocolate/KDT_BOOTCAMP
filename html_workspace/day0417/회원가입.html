@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 폼</title>
+    <link rel="stylesheet" href="../day0417/css/style.css">
+    <!--CSS의 3가지 적용 방법 중 , 내부 css는 style 태그 안에 CSS의 코드를 작성한다-->
+    <!-- <style>
+        td{
+            font-size : 9x;
+            color : red
+        }
+        
+        input{
+            background-color: yellow;
+            
+        }
+    </style> -->
+    <!--스타일의 재사용성을 높이기 위해, 여러 문서에 걸쳐서 사용되는 css는 공동의 파일로 저장해놓고 재사용하자-->
+
+</head>
+
+<body>
+    <!-- 2행-->
+    <table width=500px border="2px" align="center">
+        <tr align="center">
+            <td colspan="2">
+                회원가입
+            </td>
+        </tr>
+        <tr>
+            <td style = "font-size: 9px;">
+                ID
+            </td>
+            <td>
+                <input type="text" placeholder="ID를 입력하세요.">
+            </td>
+        </tr>
+        <tr>
+            <td style = "font-size: 9px;">
+                password
+            </td>
+            <td>
+                <input type="password" placeholder="비밀번호를 입력하세요." -;>
+            </td>
+        </tr>
+        <tr>
+            <td style = "font-size: 9px;">
+                이름
+            </td>
+            <td>
+                <input type="text" placeholder="이름을 입력">
+            </td>
+        </tr>
+        <tr>
+            <td style = "font-size: 9px;">
+                이메일
+            </td>
+            <td>
+                <input type="text" placeholder="메일 아이디를 입력해주세요"> @
+                <select>
+                
+                    <option value=" ">gmail.com</option>
+                    <option value=" ">naver.com</option>
+                    <option value=" ">daum.net</option>
+
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td style = "font-size: 9px;">
+                메일 수신 여부
+            </td>
+            <td>
+                <input type="radio" name="receive">동의
+                <input type="radio" name="receive">거절
+            </td>
+        </tr>
+        <tr>
+            <td style = "font-size: 9px;">
+                보유 기술
+            </td>
+            <td>
+                Java <input type = "checkbox">
+                MySQL <input type = "checkbox">
+                Spring <input type = "checkbox">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <button>회원가입</button>    
+            </td>
+            
+        </tr>
+    </table>
+</body>
+
+</html>
