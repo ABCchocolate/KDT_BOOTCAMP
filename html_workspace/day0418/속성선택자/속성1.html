@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+/* 아래의 두개의 링크의 차이점
+1) href의 값이 틀리다. 따라서 선택자가 될 수 있다.
+2) taget 속성의 존재 여부 (따라서 선택자가 될 수 있다.)
+*/
+a[target] {
+    text-decoration:none;
+    color: greenyellow;
+}
+a[href = "http://daum.net"]{
+    text-decoration:none;
+    color:forestgreen;
+}
+    
+</style>
+<body>
+    <!-- a 태그는 target을 지정하지 않으면 디폴트가 _self이다.-->
+    <a href="http://google.com" target="_blank">이 링크를 누르면 새창으로 열린다.</a>
+    <a href="http://daum.net">이 링크를 누르면 현재 페이지가 전환됨</a>
+</body>
+</html>
