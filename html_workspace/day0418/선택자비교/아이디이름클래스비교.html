@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #box{
+        background-color: yellow;
+    }
+    .mystyle{
+        color:red;
+    }
+    p[name="photo"]{
+        color:green;
+    }
+</style>
+<body>
+    <!--아이디는 절대로 중복을 허용하지 않으므로 문서 내의 오직 한 개만 존재해야한다.-->
+    <p id = "box">난 아이디로 식별해</p>
+    <!--클래스는 재사용이 가능하다-->
+    <p class = "mystyle">난 클래스로 식별해</p>
+    <p class = "mystyle">난 클래스로 식별해</p>
+    <p class = "mystyle">난 클래스로 식별해</p>
+    <p class = "mystyle">난 클래스로 식별해</p>
+    <p class = "mystyle">난 클래스로 식별해</p>
+    <!--name 과 ID 중 name은 여러 번 올 수 있다. 허나 ID는 유일하다.-->
+    <p name = "photo">난 이름으로 식별해</p>
+    <p name = "photo">난 이름으로 식별해</p>
+</body>
+</html>
