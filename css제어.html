@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script>
+
+
+    // ----------------너비 --------------------
+
+
+    let w = 300;
+    //현재 여전사의 css중 width의 크기를 높이기
+    function setWidthUp() {
+        //문서내의 pic이라 불리는 요소의 스타일중에서 width를 증가시키기
+        w += 50;
+        document.querySelector("#pic").style.width = w + "px";
+    }
+
+    //현재 여전사의 css중 width의 크기를 낮추기
+    function setWidthDown() {
+        //문서내의 pic이라 불리는 요소의 스타일중에서 width를 증가시키기
+        w -= 50;
+        document.querySelector("#pic").style.width = w + "px";
+    }
+
+    //------------------------ 높이 ----------------------------
+    let h = 100;
+    //여전사의 높이 늘리기
+    function setHeightUp() {
+        //문서 내 pic이라 불리는 요소의 스타일 중에서 height증가시키기
+        h += 50;
+        document.querySelector("#pic").style.height = h + "px";
+    }
+
+    //여전사의 높이 줄이기
+    function setHeightDown() {
+        //문서 내 pic이라 불리는 요소의 스타일 중에서 height증가시키기
+        h -= 50;
+        document.querySelector("#pic").style.height = h + "px";
+    }
+
+
+
+    //------------------------투명도-----------------------------
+
+    let O = 100;
+    //현재 여전사의 투명도를 높이기
+    function setOpacityUp() {
+        //문서내의 pic요소의 스타일중 투명도 값을 증가시켜본다.
+        O -= 10;
+        document.querySelector("#pic").style.opacity = O + "%";
+    }
+
+
+    //현재 여전사의 투명도를 낮추기
+    function setOpacityDown() {
+        //문서내의 pic요소의 스타일중 투명도 값을 증가시켜본다.
+        O += 10;
+        document.querySelector("#pic").style.opacity = O + "%";
+    }
+
+
+    //-------------------------- 각도 --------------------------
+    let R = 0;
+    //현재 여전사의 시계방향 각도 돌리기
+    function setRotateUp() {
+        //문서 내의 pic이라는 요소에 적용된 rotate값을 증가시켜본다.
+        R += 15;
+        document.querySelector("#pic").style.transform = "rotate(" + R + "deg)";
+    }
+
+    //현재 여전사의 반시계 방향 각도 돌리기
+    function setRotateDown() {
+        //문서 내의 pic이라는 요소에 적용된 rotate값을 증가시켜본다.
+        R -= 15;
+        document.querySelector("#pic").style.transform = "rotate(" + R + "deg)";
+    }
+
+</script>
+
+<style>
+ * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+}
+
+#wrapper {
+    max-width: 900px;
+    height: 800px;
+    background-color: green;
+    margin: 20px auto;
+    border: 2px solid black;
+    display: flex;
+}
+
+#Nav {
+    width: 200px;
+    background-color: beige;
+    text-align: center;
+    padding-top: 20px;
+    border-right: 1px solid #ccc;
+}
+
+#section {
+    flex-grow: 1;
+    background-color: bisque;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    margin-bottom: 30px;
+}
+
+.Menu {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.Menu:hover {
+    background-color: #f0f0f0;
+}
+
+.Menu p {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+img.btn {
+    width: 40px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+img.btn:hover {
+    transform: scale(1.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+#pic {
+    width: 300px;
+    height: 350px;
+    opacity: 1;
+    transform: rotate(0deg);
+    transition: 
+        width 0.3s ease,
+        height 0.3s ease,
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+/* 반응형 대응 */
+@media (max-width: 768px) {
+    #wrapper {
+        flex-direction: column;
+        height: auto;
+    }
+
+    #Nav {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        border-right: none;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .container {
+        width: 45%;
+        margin: 10px 0;
+    }
+
+    #section {
+        width: 100%;
+        padding: 40px 0;
+    }
+}
+
+</style>
+
+
+<body>
+    <div id="wrapper">
+        <div id="Nav">
+            <!--너비-->
+            <div class="container">
+                <div class="Menu">
+                    <p>너비 조절</p>
+                    <img class="btn" src="../../../image/plus_btn.png" alt="" onclick="setWidthUp()">
+                    <img class="btn" src="../../../image/minus_btn.png" alt="" onclick="setWidthDown()">
+                </div>
+            </div>
+            <!--높이-->
+            <div class="container">
+                <div class="Menu">
+                    <p>높이 조절
+                    <p></p>
+                    <img class="btn" src="../../../image/plus_btn.png" alt="" onclick="setHeightUp()">
+                    <img class="btn" src="../../../image/minus_btn.png" alt="" onclick="setHeightDown()">
+                </div>
+            </div>
+            <!--투명도-->
+            <div class="container">
+                <div class="Menu">
+                    <p>투명도 조절</p>
+                    <img class="btn" src="../../../image/plus_btn.png" alt="" onclick="setOpacityUp()">
+                    <img class="btn" src="../../../image/minus_btn.png" alt="" onclick="setOpacityDown()">
+                </div>
+            </div>
+            <!--각도 조절-->
+            <div class="container">
+                <div class="Menu">
+                    <p>각도</p>
+                    <img class="btn" src="../../../image/plus_btn.png" alt="" onclick="setRotateUp()">
+                    <img class="btn" src="../../../image/minus_btn.png" alt="" onclick="setRotateDown()">
+                </div>
+            </div>
+        </div>
+        <div id="section">
+            <img id="pic" src="../../../image/warior.png" alt="">
+        </div>
+        
+        
+    </div>
+</body>
+
+</html>
