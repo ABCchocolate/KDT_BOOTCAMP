@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    let x = 1;
+
+
+    //현재 보고 있는 사진의 다음 사진이 나오도록 처리한다.
+    function next(){
+        x++;
+        document.querySelector("#pic").src = "../../../image/Gio/geographic/animal"+x+".jpg";
+    }
+
+    //현재 보고 있는 사진의 전 사진이 나오도록 처리한다.
+
+    function before(){
+        x--;
+        document.querySelector("#pic").src = "../../../image/Gio/geographic/animal"+x+".jpg";
+    }
+</script>
+<style>
+    #wrapper{
+        width: 600px;
+        height: 600px;
+        margin: auto;
+        background-color: blanchedalmond;
+    }
+
+    #controller{
+        height: 50px;
+        background-color: antiquewhite;
+        
+        /* 컨텐츠에 대한 수평 중앙 정렬 */
+        text-align: center;
+        /* 중앙 정렬을 하기 위해서는 글자 크기 또한 같게 조정해야한다. */
+        line-height: 50px;
+    }
+    #photo{
+        height: 550px;
+        background-color: beige;
+    }
+    #controller button:nth-child(1){
+        background-color: pink;
+        width: 80px;
+        height: 45px;
+        border-radius: 5px;
+    }
+    #controller button:nth-child(2){
+        width: 80px;
+        height: 45px;
+        background-color: pink;
+        border-radius: 5px;
+    }
+
+    img{
+        height: 100%;
+        width: 100%;
+    }
+    #sentence{
+        height: 45px;
+        margin:auto;
+        text-align: center;
+        line-height: 50px;
+    }
+
+    .button:hover{
+        background-color: salmon;
+    }
+</style>
+<body>
+    <div id = "wrapper">
+        <div id = "controller">
+            <button onclick="before()">이전</button>
+            <button onclick="next()">다음</button>
+        </div>
+        <div id = "photo">
+            <img id = "pic" src="../../../image/Gio/geographic/animal1.jpg" alt="">
+        </div>
+        <div id = "sentence">
+            ♥ 귀엽다 ♥ 
+        </div>
+    </div>
+    
+</body>
+</html>

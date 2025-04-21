@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    //개발자가 프로그래밍을 실행하면, 브라우저 내의 js엔진이 위부터 차례대로 아랫줄로 내려가면서 코드를 순차 수행한다.
+    let jumping = 1;
+    function test(){
+        
+    
+        jumping++;
+        console.log("줄넘기 카운트 : " + jumping);
+        
+        
+    }
+
+</script>
+
+
+<body>
+    <!-- onclick은 js가 아닌html에서 지원되는 이벤트 핸들러라고 불린다.
+     js 가 아니기 때문에 즉 프로그램이 아니기 때문에 대소문자를 가리지 않음.-->
+    <button id = "btn" onclick="test()">눌러봐</button>
+
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+
+    //프로그램과 생을 같이한다.
+    let a = 0;
+    
+    //전역 변수의 값을 1씩 증가시키기
+    function up(){
+        a++
+        console.log(a);
+    }
+
+    //전역 변수의 값을 1씩 감소시키기
+    function down(){
+        a--
+        console.log(a);
+    }
+
+    function reset(){
+        a = 1;
+        console.log("리셋되었습니다. 현재 :1")
+    }
+</script>
+<body>
+    <button onclick = "up()">증가</button>
+    <button onclick="down()">감소</button>
+    <button onclick = "reset()">리셋 시키기</button>
+</body>
+</html>

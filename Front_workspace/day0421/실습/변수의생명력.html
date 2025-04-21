@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    //프로그램이 시작되면서부터 끝날 때까지 생명을 같이 하는 변수를 전역 변수라고한다.
+    let x = 3;
+
+    function test(){
+        x++;
+        console.log("줄넘기 카운트" + x);
+    }
+</script>
+<body>
+    <button id = "btn" onclick="test()">눌러봐</button>  
+</body>
+</html>
