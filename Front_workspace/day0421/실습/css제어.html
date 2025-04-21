@@ -31,14 +31,14 @@
     //------------------------ 높이 ----------------------------
     let h = 100;
     //여전사의 높이 늘리기
-    function setHeightUp(){
+    function setHeightUp() {
         //문서 내 pic이라 불리는 요소의 스타일 중에서 height증가시키기
         h += 50;
         document.querySelector("#pic").style.height = h + "px";
     }
 
     //여전사의 높이 줄이기
-    function setHeightDown(){
+    function setHeightDown() {
         //문서 내 pic이라 불리는 요소의 스타일 중에서 height증가시키기
         h -= 50;
         document.querySelector("#pic").style.height = h + "px";
@@ -52,7 +52,7 @@
     //현재 여전사의 투명도를 높이기
     function setOpacityUp() {
         //문서내의 pic요소의 스타일중 투명도 값을 증가시켜본다.
-        O += 10;
+        O -= 10;
         document.querySelector("#pic").style.opacity = O + "%";
     }
 
@@ -60,7 +60,7 @@
     //현재 여전사의 투명도를 낮추기
     function setOpacityDown() {
         //문서내의 pic요소의 스타일중 투명도 값을 증가시켜본다.
-        O -= 10;
+        O += 10;
         document.querySelector("#pic").style.opacity = O + "%";
     }
 
@@ -87,16 +87,18 @@
     #wrapper {
         width: 900px;
         height: 800px;
-        background-color: black;
+        background-color: green;
         margin: auto;
+        border:1px solid black;
     }
 
     #Nav {
+        
         float: left;
         width: 200px;
         height: 800px;
         background-color: beige;
-
+                
         text-align: center;
     }
 
@@ -105,7 +107,11 @@
         width: 700px;
         height: 800px;
         background-color: bisque;
-        margin: auto;
+        
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     #Height {
@@ -133,6 +139,16 @@
     .container {
         height: 200px;
     }
+
+    .Menu{
+        background-color: white;
+        border-radius: 100%;
+    }
+
+
+    .btn:hover{
+        transform: scale(1.2, 1.2); transition-duration: 0.5s;
+    }
 </style>
 
 
@@ -141,33 +157,43 @@
         <div id="Nav">
             <!--너비-->
             <div class="container">
-                <div>너비 조절</div>
-                <img src="../../../image/plus_btn.png" alt="" onclick="setWidthUp()">
-                <img src="../../../image/minus_btn.png" alt="" onclick="setWidthDown()">
+                <div class="Menu">
+                    <p>너비 조절</p>
+                    <img class="btn" src="../../../image/plus_btn.png" alt="" onclick="setWidthUp()">
+                    <img class="btn" src="../../../image/minus_btn.png" alt="" onclick="setWidthDown()">
+                </div>
             </div>
             <!--높이-->
             <div class="container">
-                <div>높이 조절</div>
-                <img src="../../../image/plus_btn.png" alt="" onclick="setHeightUp()">
-                <img src="../../../image/minus_btn.png" alt="" onclick="setHeightDown()">
+                <div class="Menu">
+                    <p>높이 조절
+                    <p></p>
+                    <img class="btn" src="../../../image/plus_btn.png" alt="" onclick="setHeightUp()">
+                    <img class="btn" src="../../../image/minus_btn.png" alt="" onclick="setHeightDiwn()">
+                </div>
             </div>
             <!--투명도-->
             <div class="container">
-                <div>투명도 조절</div>
-                <img src="../../../image/plus_btn.png" alt="" onclick="setOpacityUp()">
-                <img src="../../../image/minus_btn.png" alt="" onclick="setOpacityDown()">
+                <div class="Menu">
+                    <p>투명도 조절</p>
+                    <img class="btn" src="../../../image/plus_btn.png" alt="" onclick="setOpacityUp()">
+                    <img class="btn" src="../../../image/minus_btn.png" alt="" onclick="setOpacityDown()">
+                </div>
             </div>
             <!--각도 조절-->
             <div class="container">
-                <div>각도</div>
-                <img src="../../../image/plus_btn.png" alt="" onclick="setRotateUp()">
-                <img src="../../../image/minus_btn.png" alt="" onclick="setRotateDown()">
+                <div class="Menu">
+                    <p>각도</p>
+                    <img class="btn" src="../../../image/plus_btn.png" alt="" onclick="setRotateUp()">
+                    <img class="btn" src="../../../image/minus_btn.png" alt="" onclick="setRotateDown()">
+                </div>
             </div>
         </div>
         <div id="section">
             <img id="pic" src="../../../image/warior.png" alt="">
-
         </div>
+        
+        
     </div>
 </body>
 
