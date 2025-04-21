@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script>
+
+
+    // ----------------너비 --------------------
+
+
+    let w = 300;
+    //현재 여전사의 css중 width의 크기를 높이기
+    function setWidthUp() {
+        //문서내의 pic이라 불리는 요소의 스타일중에서 width를 증가시키기
+        w += 50;
+        document.querySelector("#pic").style.width = w + "px";
+    }
+
+    //현재 여전사의 css중 width의 크기를 낮추기
+    function setWidthDown() {
+        //문서내의 pic이라 불리는 요소의 스타일중에서 width를 증가시키기
+        w -= 50;
+        document.querySelector("#pic").style.width = w + "px";
+    }
+
+    //------------------------ 높이 ----------------------------
+    let h = 100;
+    //여전사의 높이 늘리기
+    function setHeightUp(){
+        //문서 내 pic이라 불리는 요소의 스타일 중에서 height증가시키기
+        h += 50;
+        document.querySelector("#pic").style.height = h + "px";
+    }
+
+    //여전사의 높이 줄이기
+    function setHeightDown(){
+        //문서 내 pic이라 불리는 요소의 스타일 중에서 height증가시키기
+        h -= 50;
+        document.querySelector("#pic").style.height = h + "px";
+    }
+
+
+
+    //------------------------투명도-----------------------------
+
+    let O = 100;
+    //현재 여전사의 투명도를 높이기
+    function setOpacityUp() {
+        //문서내의 pic요소의 스타일중 투명도 값을 증가시켜본다.
+        O += 10;
+        document.querySelector("#pic").style.opacity = O + "%";
+    }
+
+
+    //현재 여전사의 투명도를 낮추기
+    function setOpacityDown() {
+        //문서내의 pic요소의 스타일중 투명도 값을 증가시켜본다.
+        O -= 10;
+        document.querySelector("#pic").style.opacity = O + "%";
+    }
+
+
+    //-------------------------- 각도 --------------------------
+    let R = 0;
+    //현재 여전사의 시계방향 각도 돌리기
+    function setRotateUp() {
+        //문서 내의 pic이라는 요소에 적용된 rotate값을 증가시켜본다.
+        R += 15;
+        document.querySelector("#pic").style.transform = "rotate(" + R + "deg)";
+    }
+
+    //현재 여전사의 반시계 방향 각도 돌리기
+    function setRotateDown() {
+        //문서 내의 pic이라는 요소에 적용된 rotate값을 증가시켜본다.
+        R -= 15;
+        document.querySelector("#pic").style.transform = "rotate(" + R + "deg)";
+    }
+
+</script>
+
+<style>
+    #wrapper {
+        width: 900px;
+        height: 800px;
+        background-color: black;
+        margin: auto;
+    }
+
+    #Nav {
+        float: left;
+        width: 200px;
+        height: 800px;
+        background-color: beige;
+
+        text-align: center;
+    }
+
+    #section {
+        float: left;
+        width: 700px;
+        height: 800px;
+        background-color: bisque;
+        margin: auto;
+    }
+
+    #Height {
+        width: 200px;
+        height: 100px;
+        text-align: center;
+        line-height: 100px;
+
+    }
+
+    #pic {
+        width: 300px;
+        height: 350px;
+        opacity: 100%;
+        transform: rotate(0deg);
+
+
+    }
+
+    img {
+        width: 45px;
+
+    }
+
+    .container {
+        height: 200px;
+    }
+</style>
+
+
+<body>
+    <div id="wrapper">
+        <div id="Nav">
+            <!--너비-->
+            <div class="container">
+                <div>너비 조절</div>
+                <img src="../../../image/plus_btn.png" alt="" onclick="setWidthUp()">
+                <img src="../../../image/minus_btn.png" alt="" onclick="setWidthDown()">
+            </div>
+            <!--높이-->
+            <div class="container">
+                <div>높이 조절</div>
+                <img src="../../../image/plus_btn.png" alt="" onclick="setHeightUp()">
+                <img src="../../../image/minus_btn.png" alt="" onclick="setHeightDown()">
+            </div>
+            <!--투명도-->
+            <div class="container">
+                <div>투명도 조절</div>
+                <img src="../../../image/plus_btn.png" alt="" onclick="setOpacityUp()">
+                <img src="../../../image/minus_btn.png" alt="" onclick="setOpacityDown()">
+            </div>
+            <!--각도 조절-->
+            <div class="container">
+                <div>각도</div>
+                <img src="../../../image/plus_btn.png" alt="" onclick="setRotateUp()">
+                <img src="../../../image/minus_btn.png" alt="" onclick="setRotateDown()">
+            </div>
+        </div>
+        <div id="section">
+            <img id="pic" src="../../../image/warior.png" alt="">
+
+        </div>
+    </div>
+</body>
+
+</html>
