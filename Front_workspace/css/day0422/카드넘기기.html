@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script>
+    let counting = 1;
+    //현재 보고 있는 카드의 다음 사진 나오도록 src를 교체하다.
+    function next(){
+        let num = document.getElementById("card");
+        counting++;
+        num.src = "../../images/card/h" + counting + ".jpg";
+    }
+</script>
+
+
+
+<style>
+    
+
+
+    /* a 태크를 버튼처럼 보이게 만들자 */
+    a{
+        /* inline 속성은 유지하되, 다른 태그 요소와 공존이 가능하다. 
+        너비, 높이, 마진..*/
+        display:inline-block;
+        width: 120px;
+        height: 70px;
+        border-radius: 10px;
+        line-height: 70px;
+        text-align: center;
+
+        text-decoration: none;
+        background-color: rebeccapurple;
+        color: white;
+    }
+
+    a:hover{
+        background: violet;
+    }
+
+    
+
+</style>
+
+<body>
+    <div id="wrapper">
+        <div>
+        <!-- 자바 스크린트 코드를 작성할 수 있는 영역 -->
+        <a href = "javascript:next()">다음 카드</a>
+        <div>
+            <img id = "card" src="../../images/card/h1.jpg" alt="">
+        </div>
+    </div>
+</body>
+</html>
