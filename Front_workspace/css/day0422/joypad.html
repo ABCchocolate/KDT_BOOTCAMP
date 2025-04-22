@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    let x = 200;
+    let y = 200;
+
+    //=============== 조이패드==========
+    //오른쪽
+    function moveRight(){
+        x += 10;
+        let hero = document.querySelector("#hero")
+        hero.style.left = x + "px";
+    }
+
+    //왼쪽
+    function moveLeft(){
+        x -= 10;
+        let hero = document.querySelector("#hero")
+        hero.style.left = x + "px";
+    }
+
+    //위
+    function moveUp(){
+        y -= 10;
+        let hero = document.querySelector("#hero")
+        hero.style.top = y + "px";
+    }
+    
+    //아래
+    function moveDown(){
+        y += 10;
+        let hero = document.querySelector("#hero")
+        hero.style.top = y + "px";
+    }
+
+
+
+</script>
+
+<style>
+    #wrapper {
+        width: 900px;
+        height: 600px;
+        margin:auto;
+    }
+
+    #aside {
+        width: 200px;
+        height: 100%;
+        background-color: rgb(218, 255, 255);
+        float: left;
+    }
+
+    #section {
+        width: 700px;
+        height: 100%;
+        background-color: rgb(175, 248, 224);
+        float: left;
+
+        /* 자식인 plane을 움직이기 위해서! */
+        position: relative;
+        
+        background-image: url(../../images/shooting_game/bg.jpg);
+    }
+    
+    table{
+        margin: auto;
+        position: relative;
+        top:50px;
+    }
+
+    button{
+        background-color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+
+        border: none;
+    }
+
+    .btn:hover{
+        background-color: gainsboro;
+    }
+    #hero{
+        width: 40px;
+
+        /* 자신의 부모 요소를 기준으로 움직이겠다 */
+        position: absolute;
+        left:200px;
+        top:100px;
+        
+    }
+</style>
+
+
+
+<body>
+    <div id="wrapper">
+        <div id="aside">
+            <table>
+                <tr >
+                    <td>
+                    </td>
+                    <td>
+                        <button class = "btn" onclick="moveUp()">↑</button>
+                        </td>
+                    <td>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <button class = "btn" onclick="moveLeft()">←</button>
+                    </td>
+                    <td>
+                        <button  class = "btn" onclick="moveDown()">↓</button>
+                    </td>
+                    <td>
+                        <button class = "btn" onclick="moveRight()">→</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="section">
+            <img id = "hero" src="../../images/shooting_game/plane.png" alt="">
+        </div>
+    </div>
+</body>
+
+</html>
