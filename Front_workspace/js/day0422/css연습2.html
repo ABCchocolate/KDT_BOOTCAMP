@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script>
+    let op = 1;
+
+    function setOpaDown(){
+        //문서내의 pic이라는 아이디를 갖는 요소에 적용된 
+        //css 중 opacity값을 0에 가깝도록 음수값을 누적시켜보자
+        
+
+        //전역 변수로 선언해야, 프로그램이 끝날 때까지 값이 유지 될 수 있다. 
+
+        let pic = document.querySelector("#pic")
+        op = op - 0.1;
+        pic.style.opacity = op;
+
+        console.log(op);
+    }
+
+</script>
+
+<style>
+    #wrapper {
+        width: 800px;
+        height: 650px;
+        margin: auto;
+    }
+
+    #aside {
+        float: left;
+        background-color: blueviolet;
+        width: 200px;
+        height: 650px;
+    }
+
+    #section {
+        float: left;
+        background-color: violet;
+        width: 600px;
+        height: 650px;
+
+        display:flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    img{
+        width: 50px;
+        height: 50px;
+    }
+    /* 이미지에 마우스가 올라간 "상태" 마저도 선택자가 될 수 있다.  */
+    .btn:hover{
+        border: 3px solid purple;
+        border-radius: 50%;
+    }
+
+    #pic{
+        opacity: 100%;
+    }
+</style>
+
+
+<body>
+    <div id="wrapper">
+        <div id="aside">
+            <div>
+                투명도 조절<br>
+                <img class = "btn" src="../../../image/plus_btn.png" alt="" onclick="setOpaDown()">
+                <img class = "btn" src="../../../image/minus_btn.png" alt=""onclick="setOpaDown()">
+            </div>
+        </div>
+        <div id="section">
+            <img id = "pic" src="../../../image/warior.png" alt="">
+        </div>
+    </div>
+</body>
+
+</html>
