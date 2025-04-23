@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script>
+    // switch~case문: 다중 조건 판단  < = > else if 와 목적이 동일하다.
+
+    let bd = prompt("혈액형을 입력해주세요(AB,A,B,O)");
+    let msg;
+    switch(bd){
+        //()안에 올 수 있는 데이터는 문자, 숫자, 논리값만이 올 수 있다.
+        // break는 else ~ if 문에서의 else역할 즉 조건에 해당하지 않는 이외의 조건이다. 
+        case "A" : msg = "세심한 분이죠."; break;
+        case "B" : msg = "섬세한 분이죠."; break;
+        case "AB" : msg = "꼼꼼한 분이죠."; break;
+        case "O" : msg ="착한 분이죠."; break;
+        //case 조건 외의 모든 경우의 수를 아래에서 걸러낸다.
+        default : msg = "다시 한번 입력해주세요."
+        }
+    document.write(msg);
+</script>
+
+
+
+
+
+
+
+<body>
+    
+</body>
+</html>     

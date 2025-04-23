@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #background {
+        width: 500px;
+        height: 500px;
+        background-color: beige;
+        margin: auto;
+    }
+</style>
+<script>
+    
+    const fruits = {};
+
+    // 공통 이미지 생성 함수
+    function createFruitImage(src) {
+        const img = document.createElement('img');
+        img.src = src;
+        img.style.width = "300px";
+        img.style.height = "300px";
+        img.style.margin = "auto";
+        img.style.lineHeight = "300px";
+        return img;
+    }
+    
+    let img1, img2, img3, img4, img5, stage;
+
+    function init() {
+        img1 = createFruitImage("../../images/fruits/apple.png");
+        img2 = createFruitImage("../../images/fruits/blackberry.png");
+        img3 = createFruitImage("../../images/fruits/grape.png");
+        img4 = createFruitImage("../../images/fruits/mango.png");
+        img5 = createFruitImage("../../images/fruits/pear.png")
+       
+        stage = document.getElementById('background');
+        let fruit = prompt("과일을 입력하세요 ('apple, blackberry, grape, mango, pear')").toLowerCase();
+        let result;
+
+        switch (fruit) {
+            case "apple": result = img1; break;
+            case "blackberry": result = img2; break;
+            case "grape": result = img3; break;
+            case "mango": result = img4; break;
+            case "pear": result = img5; break;
+        }
+
+        if (result) {
+            stage.appendChild(result);
+        } else {
+            alert("해당 과일이 존재하지 않습니다.");
+        }
+    }
+</script>
+
+
+<body onLoad=init();>
+    <div id="background">
+
+    </div>
+</body>
+
+</html>
