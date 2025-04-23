@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    let bd = prompt("본인의 혈액형을 입력하세요.");
+    let msg;
+    
+    if(bd == "A" || bd == "a"){
+        msg = "세심하다";
+    }
+    else if(bd == "B" || bd == "b"){
+        msg = "고집이 세다";
+    }
+    else if(bd == "O" || bd == "o"){
+        msg = "오지랖쟁이";
+    }
+    else if(bd == "AB" || bd == "ab"){
+        msg = "결정장애";
+    }
+    else {
+        mgs = "존재하지 않는 혈액형입니다."
+    }
+
+    document.write(msg);
+</script>
+<body>
+    
+</body>
+</html>

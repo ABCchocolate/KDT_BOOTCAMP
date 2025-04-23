@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    // 1) 판단 대상이 단일한 조건일 때는 if문 단독
+    // 2) 판단 대상이 2가지만으로 분류 될 때는, if~else,삼항연산자(제한적)
+    // 3) 판단 대상이 다중적일 때는 else~if문을 쓴다.
+
+    let n = prompt("점수를 입력해주세요.");
+
+    if(n >= 90){
+        document.write("A학점");
+    }
+    else if(n >= 80 && n < 90){
+        document.write("B학점");
+    }
+    else if(n >= 70 && n < 80){
+        document.write("C학점");
+    }
+    else if(n >= 60 && n < 70){
+        document.write("D학점");
+    }
+    else{
+        document.write("F학점");
+    }
+</script>
+
+<body>
+    
+</body>
+</html>
