@@ -1,0 +1,16 @@
+<script>
+    let x = 0;
+    function a(){
+        return;
+        x=1;
+    }
+
+    function b(){
+        x++;
+        a();
+        x++;
+    }
+    b();
+
+    console.log(x);
+</script>
