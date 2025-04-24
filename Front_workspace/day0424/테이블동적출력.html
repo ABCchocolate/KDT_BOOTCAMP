@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    document.write("<table border = '1px'>");
+    for (let i = 1; i < 21; i++) {
+        //층수
+        document.write("<tr>")
+            for(let k = 1; k < 20; k++){
+                // 호수
+                document.write("<td>");
+                let j = i * 100 + k;
+                document.write(j);
+                document.write("</td>");
+            }
+        document.write("</tr>")
+    }
+    document.write("</table>");
+</script>
+
+<body>
+    <!-- <table border="1" width="300" height="250" id="table">
+        <tr>
+            <td>
+                301
+            </td>
+            <td>
+                302
+            </td>
+            <td>
+                303
+            </td>
+        </tr>
+    </table> -->
+</body>
+
+</html>
