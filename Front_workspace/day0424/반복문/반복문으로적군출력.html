@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #stage {
+            width: 1000px;
+            height: 800px;
+            margin: auto;
+            background-image: url("../images/gallerxy/gallerxy/bg.png");
+            background-repeat: repeat-y;
+            position: relative; /* absolute 배치 위해 필요 */
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        let bgY = 0;
+
+        function bgEffect() {
+            let stage = document.getElementById("stage");
+            stage.style.position="relatvie";
+            bgY += 5;
+            stage.style.backgroundPosition = `0px ${bgY}px`;
+        }
+
+        function createEnemy() {
+            const stage = document.getElementById("stage");
+            
+            for (let i = 0; i < 5; i++) {
+                for(let j = 0; j < 10; j++){
+                let img = document.createElement("img");
+                img.src = "../images/gallerxy/gallerxy/enermy2.png"; 
+                img.style.position = "absolute";
+                img.style.left = `${(j * 45) + 200}px`; // 20px 간격으로 나열
+                img.style.top = `${(i * 45) + 300}px`;
+                stage.appendChild(img);
+                }
+                
+                
+            }
+        }
+
+        function init() {
+            createEnemy();
+            setInterval(bgEffect, 100);
+        }
+    </script>
+</head>
+<body onload="init()">
+    <div id="stage"></div>
+</body>
+</html>

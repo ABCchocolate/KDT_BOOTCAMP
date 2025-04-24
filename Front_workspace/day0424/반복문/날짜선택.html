@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script>
+
+    //연도 채우기=====================================
+    function createYear() {
+        //문서 내의 yy라는 요소에 동적으로 태그를 생성하여 자식 요소로 대량으로 붙이야.
+
+        let yy = document.getElementById("yy");
+        for (let i = 2010; i >= 1910; i--) {
+            let op = document.createElement("option");
+            op.text = i;
+            yy.add(op);
+        }
+    }
+    //월 채우기
+    function createMonth() {
+        //문서 내의 yy라는 요소에 동적으로 태그를 생성하여 자식 요소로 대량으로 붙이야.
+
+        let mm = document.getElementById("mm");
+        for (let i = 1; i <= 12; i++) {
+            let op = document.createElement("option");
+            op.text = i;
+            mm.add(op);
+        }
+    }
+    //일 채우기
+    function createday() {
+        //문서 내의 yy라는 요소에 동적으로 태그를 생성하여 자식 요소로 대량으로 붙이야.
+
+        let dd = document.getElementById("dd");
+        for (let i = 1; i <= 31; i++) {
+            let op = document.createElement("option");
+            op.text = i;
+            dd.add(op);
+        }
+    }
+
+    function init(){
+        createMonth();
+        createYear();
+        createday();
+    }
+</script>
+
+<body onload="init()">
+    <div>
+        <select name="" id="yy"></select>년
+        <select name="" id="mm"></select>월
+        <select name="" id="dd"></select>일
+    </div>
+</body>
+
+</html>
