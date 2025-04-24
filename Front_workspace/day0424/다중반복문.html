@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>이중 테이블</title>
+</head>
+
+<body>
+    <table border="1" width="300" height="250" id="table">
+        <!-- 여기에 자바스크립트로 행과 열이 추가됩니다 -->
+    </table>
+
+    <script>
+        const table = document.getElementById("table");
+
+        for (let k = 0; k < 3; k++) {
+            let row = "<tr>";
+            for (let j = 0; j < 5; j++) {
+                row += `<td>${k + 1}행 ${j + 1}열</td>`;
+            }
+            row += "</tr>";
+            table.innerHTML += row;
+        }
+    </script>
+</body>
+
+</html>
