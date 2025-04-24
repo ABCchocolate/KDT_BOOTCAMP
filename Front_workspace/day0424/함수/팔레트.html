@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    let flag = false;
+    //문서내의 content 아이디를 갖는 요소의 배경색을 바꿔본다.
+    function setColor(j){//매개 변수 C의 값은 호출자가 결정한다.
+        flag = !flag;
+        let content  = document.getElementById("content");
+        if(flag == true){
+        content.style.backgroundColor = j;
+        console.log(j);
+        }
+        else{
+            let stage = document.getElementById("content");
+             stage.style.backgroundColor = "rgb(224, 223, 223)"
+        }
+    }
+
+    function Erase(){
+        let stage = document.getElementById("content");
+        stage.style.backgroundColor = "rgb(224, 223, 223)"
+    }
+</script>
+<style>
+    #wrapper{
+        width: 700px;
+        height: 600px;
+        margin: auto;
+    }
+    #btn{
+        height: 50px;
+        width: 100px;
+            
+    }
+    #header{
+        height: 80px;
+        background-color: rgb(211, 150, 150);
+        position: relative;
+    }
+
+    #content{
+        height: 520px;
+        background-color:rgb(224, 223, 223);
+        
+        display: flex ;
+        justify-content: center;
+        align-items:end;
+        
+    }
+
+    #header div{
+        height: 80px;
+        width: 100px;
+        float:left;
+
+        text-align: center;
+        line-height: 80px;
+    }
+    #header div:hover{
+        box-sizing: border-box;
+        border: 3px solid black;
+    }
+
+    #header div:nth-child(1) {background-color: red;}
+    #header div:nth-child(2) {background-color: orange;}
+    #header div:nth-child(3) {background-color: yellow;}
+    #header div:nth-child(4) {background-color: green;}
+    #header div:nth-child(5) {background-color: blue;}
+    #header div:nth-child(6) {background-color: navy;}
+    #header div:nth-child(7) {background-color: purple;}
+
+</style>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <div onclick="setColor('red')">빨간색</div>
+            <div onclick="setColor('orange')">주황색</div>
+            <div onclick="setColor('yellow')">노란색</div>
+            <div onclick="setColor('green')">초록색</div>
+            <div onclick="setColor('blue')">파란색</div>
+            <div onclick="setColor('navy')">남색</div>
+            <div onclick="setColor('purple')">보라색</div>
+        </div>
+        <div id="content">
+            <button id = 'btn' onclick="Erase()">
+                지우기
+            </button>
+        </div>
+    </div>
+</body>
+</html>
