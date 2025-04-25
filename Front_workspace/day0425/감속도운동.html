@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>감속도운동</title>
+    <script>
+        let box;
+        let a = 0.1; //비율 계수(기울기), 숫자가 높을 수록 투박하게 움직인다.
+        let targetX = 800; //도달할 목표 지점
+        //물체 생성용
+        function createRect(){
+            box = document.createElement("div");
+            
+            //박스 위치 ============================
+            box.style.backgroundColor = "gold";
+            box.style.width = 50 + "px";
+            box.style.height = 50 + "px";
+            box.style.position = "absolute";
+            box.style.left = 0 + "px";
+            box.style.top = 100 +"px";
+            //박스 위치 ===========================
+
+            document.body.appendChild(box);
+        }
+
+
+        
+        function move(){
+            //남은 거리의 정해진 비율로 증가할 것이다 => 조금씩 다가갈것
+            let posi = parseInt(box.style.left);
+            box.style.left = (posi + (targetX - posi) * a) + "px";  
+            if(posi >= 0){
+                setTimeout("move()", 35);
+            }  
+        }
+        
+
+
+        //프로그램 가동과 동시에 물체 생성, 온로드 시점에
+        addEventListener('load', function(){
+            createRect();
+            move();
+        })
+    </script>
+
+</head>
+<body>
+    
+</body>
+</html>

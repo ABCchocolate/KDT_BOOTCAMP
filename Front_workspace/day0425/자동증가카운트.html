@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //문서가 로드 되면, 즉 html끝나는 태그까지 모두 읽어들이면..
+        //함수 내용이 시작된다.
+        let count = 0;
+
+        function setCount(){
+            count++
+            //증가된 데이터를 화면에 출력
+            let  division = document.querySelector("Input");
+            division.value = count;
+            setTimeout("setCount()",1000);
+        }
+
+        addEventListener("load", function(){
+            let button = document.querySelector("button");
+            button.addEventListener("click",function(){
+                this.disabled = "true"; //버튼 비활성화
+                setTimeout("this.abled", 5000);
+                setCount();
+            })
+            
+        })
+
+        function button(){
+            let button = document.querySelector("button");
+            button.abled;
+        }
+    </script>
+
+</head>
+<style>
+    input{
+        width: 300px;
+        height: 300px;
+        font-size:200px;
+        font-weight: bold;
+        color : rgb(255, 217, 0);
+
+        text-align: right;
+    }   
+</style>
+<body>
+    <button>카운트 시작!</button><br>
+    <input type="text" name="" id="" placeholder="">
+</body>
+</html>
