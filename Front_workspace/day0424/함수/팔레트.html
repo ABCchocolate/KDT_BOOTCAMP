@@ -9,16 +9,14 @@
     let flag = false;
     //문서내의 content 아이디를 갖는 요소의 배경색을 바꿔본다.
     function setColor(j){//매개 변수 C의 값은 호출자가 결정한다.
-        flag = !flag;
+        
         let content  = document.getElementById("content");
-        if(flag == true){
+        
         content.style.backgroundColor = j;
         console.log(j);
-        }
-        else{
-            let stage = document.getElementById("content");
-             stage.style.backgroundColor = "rgb(224, 223, 223)"
-        }
+        
+        stage.style.backgroundColor = "rgb(224, 223, 223)"
+
     }
 
     function Erase(){
@@ -64,6 +62,16 @@
     #header div:hover{
         box-sizing: border-box;
         border: 3px solid black;
+    }
+
+    #btn{
+        background-color: white;
+        border-radius: 5px;
+        border: 2mm ridge yellowgreen;
+    }
+
+    #btn:hover{
+        background-color: gray;
     }
 
     #header div:nth-child(1) {background-color: red;}
