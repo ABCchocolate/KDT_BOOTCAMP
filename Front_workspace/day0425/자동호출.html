@@ -9,9 +9,11 @@
         //setTimeout("함수", 시간간격) -> 지정한 함수를 지정된 시간이 흐른 후 호출
 
         function test(){
-            alert("나 불렀어?")
+            console.log("나 불렀어?")
+            setTimeout("test()",2000);
         }
-        setTimeout("test()",2000);
+
+        
     </script>
 
 

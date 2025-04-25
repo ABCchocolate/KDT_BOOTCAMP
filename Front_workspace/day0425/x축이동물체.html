@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        //전역 변수 모음=========================
+        let imgX = 0;
+        let direction = 1; // 1이면 오른쪽, -1이면 왼쪽
+        let box;
+        //전역 변수 모음=========================
+
+        //움직임에 관련된 함수 =============
+        function move() {
+            imgX += direction * 30;
+
+            if (imgX >= 700 || imgX <= 0) {
+                direction *= -1;
+            }
+
+        }
+        //자동은 일정 시간 이후에 호출할 수 있도록 재귀함수를 만들어야한다.
+        function autoMove() {
+            
+            imgX += direction * 30;
+
+            if (imgX >= 700 || imgX <= 0) {
+                direction *= -1;
+            }
+            box.style.left = imgX + "px";
+
+            
+        }
+
+        function stop(){
+            
+        }
+
+        window.addEventListener("load", function () {
+            let manualBtn = document.querySelector("#manual");
+            let autoBtn = document.querySelector('#auto');
+            box = document.getElementById("box");
+            box.style.left = "0px"; // 초기 위치 설정
+
+            manualBtn.addEventListener('click', function () {
+                move();
+            });
+
+            autoBtn.addEventListener('click',function(){
+                autoBtn.disabled = "true"
+                setInterval("autoMove()", 10);
+            })
+        });
+    </script>
+</head>
+
+<style>
+    #box {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        border-radius: 50%;
+        background-color: gold;
+        top: 150px;
+    }
+</style>
+
+<body>
+    <input type="button" value="수동" id="manual">
+    <input type="button" value="자동" id="auto">
+
+    <div id="box"></div>
+</body>
+
+</html>
