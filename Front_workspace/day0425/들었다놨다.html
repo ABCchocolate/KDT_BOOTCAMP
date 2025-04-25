@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script>
+    let content, aside, img; //다른 함수 scope에서도 접근할 수 있도록 전역게서 빼낸다. 
+    let flag = false;
+    let x,y;
+
+    function init() {
+        content = document.getElementById("content");
+        aside = document.getElementById("aside");
+        createDish(); // 접시 이미지 추가
+        createFood(); // 음식 이미지 추가
+
+        //문서 전체를 대상으로 마우스 이벤트 연결
+        document.body.addEventListener('mousemove', function () {
+            //마우스에 의한 x,y 좌표를 음식의 좌표와 일치시키면 따라다니는 효과 가능
+            x = event.clientX;
+            y = event.clientY;
+
+            if (flag == true) {
+                if(x <= 700 - 25  && y <= 550 - 25 && x >= 25 && y >=25){
+                    img.style.left = (x - 25) + "px";
+                    img.style.top = (y - 25) + "px";
+                }
+            }
+            
+            
+            
+        })
+        
+        
+    }
+    
+    
+    
+    function createFood() {
+        aside = document.getElementById('aside');
+        aside.style.overflow = "scroll";    
+        img = document.createElement("img");
+        img.src = "../images/food/stake.jpg";
+        content.appendChild(img);
+        img.style.width = 50 + "px";
+        img.style.height = 50 + "px";
+        img.style.position = "absolute"; //부모를 기준으로 한 위치
+        
+        img.style.left = 120 + "px";
+        img.style.top = 120 + "px";
+        
+        //음식이 따라다니고, 안따라다니고의 기준은 flag변수이므로,
+        //유저를 배려하여, 클릭시마다 논리값을 뒤집어 버리자
+        img.addEventListener('click', function(){
+            flag = !flag
+            
+            
+            
+            //테두리는 flag true일 때만 적용하자
+            if(flag == true){
+                this.style.border = "2px solid red";
+            }
+            else{
+                this.style.boxSizing = "border-box";
+                this.style.border = "none";
+                aside.innerHTML = aside.innerHTML + `x = ${x} , y = ${y} <br>`;
+                
+            }
+        })
+    }
+    
+
+    //접시만들기
+    function createDish() {
+        let dish = document.createElement("div");
+        let inner = document.createElement("div");
+        content.appendChild(dish);
+        dish.appendChild(inner);
+
+        dish.style.backgroundColor = "white"
+        dish.style.borderRadius = "50%";
+        dish.style.width = "100px";
+        dish.style.height = "100px";
+        dish.style.display = "flex";
+        dish.style.border = "1px solid black";
+        dish.style.margin = "auto";
+        dish.style.lineHeight = "550px";
+        dish.style.left = 420 + "px";
+        dish.style.top = 320 + "px";
+        dish.style.position = "absolute";
+
+
+
+        inner.style.backgroundColor = "white";
+        inner.style.borderRadius = "50%"
+        inner.style.width = "60%";
+        inner.style.height = "60%";
+        inner.style.border = "1px solid gray";
+        inner.style.margin = "auto";
+        inner.style.lineHeight = "550px";
+
+    }
+
+    addEventListener("load", init);
+</script>
+
+
+
+
+<style>
+    body {
+        margin: 0px;
+    }
+
+    #wrapper {
+        width: 850px;
+        height: 550px;
+
+    }
+
+    #content {
+        width: 700px;
+        height: 100%;
+        background-color: #ffa100;
+        float: left;
+        position: relative;
+    }
+
+    #aside {
+        width: 150px;
+        height: 100%;
+        background-color: #ffeac6;
+        float: right;
+    }
+</style>
+
+<body>
+    <!-- body는 1개 이므로 ID 주지말자!! -->
+    <div id="wrapper">
+        <div id="content">
+
+        </div>
+        <div id="aside">
+
+        </div>
+    </div>
+</body>
+
+</html>
