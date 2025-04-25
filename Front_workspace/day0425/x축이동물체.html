@@ -19,7 +19,9 @@
 
             if (imgX >= 700 || imgX <= 0) {
                 direction *= -1;
+                
             }
+            box.style.left = imgX + "px";
 
         }
         //자동은 일정 시간 이후에 호출할 수 있도록 재귀함수를 만들어야한다.
@@ -35,8 +37,8 @@
             
         }
 
-        function stop(){
-            
+        function acivated(){
+            autoBtn.disabled = false
         }
 
         window.addEventListener("load", function () {
@@ -51,7 +53,8 @@
 
             autoBtn.addEventListener('click',function(){
                 autoBtn.disabled = "true"
-                setInterval("autoMove()", 10);
+                setTimeout("activated()", 5000);
+                setInterval("autoMove()", 60);
             })
         });
     </script>
