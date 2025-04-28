@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let x, y, posi, img;
+        let targetX ;
+        let targetY ;
+        let a = 0.1; //소수점이 작을 수록 부드럽다.
+
+
+        function createPic() {
+            img = document.createElement("img");
+            let stage = document.getElementById("wrapper");
+
+            img.src = "../../image/mousepoint/pokemon.png"
+
+            img.style.width = 50 + "px";
+            img.style.position = "absolute"; //wrapper을 기준으로 한 위치
+            img.style.left = 200 + "px";
+            img.style.top = 150 + "px";
+
+            stage.appendChild(img);
+        }
+
+        
+    
+        //그냥 단번에 건너뛰기가 아니라, 목표지점에 부드럽게 이동할 수 있도록 하는 
+        //감속도 운동으로 움직이게 하자
+        function Move() {
+            
+            img.style.left = parseFloat(img.style.left)
+                + a * (targetX - parseFloat(img.style.left))
+                + "px";
+            
+
+            img.style.top = parseFloat(img.style.top)
+                + a * (targetY - parseFloat(img.style.top))
+                + "px";
+            
+        }
+
+
+        function gameLoop() {
+            Move();
+        }
+        window.addEventListener('load', function () {
+            
+            document.getElementById("wrapper")
+                .addEventListener('mousemove', function(){
+                targetX = event.clientX;
+                targetY = event.clientY;
+            })
+
+            createPic();
+            setInterval("gameLoop()", 10);
+        })
+    </script>
+    <style>
+        body {
+            margin: 0px;
+        }
+
+
+        #wrapper {
+            width: 100%;
+            height: 600px;
+
+            background-color: rgb(93, 160, 93);
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+
+    </div>
+</body>
+
+</html>
