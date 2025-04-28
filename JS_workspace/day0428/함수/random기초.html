@@ -1,0 +1,12 @@
+<script>
+    //js에서는 개발자가 유용하게 사용할 수 있는 기능들을 내장 객체란
+    //(built-in)이름으로 지원해주는데, 이 객체들 중 수학과 관련된 처리는 
+    //Math 객체가 담당한다.
+    //JSON 형식은 JSON 내장 객체가 담당한다.
+    let r = Math.random() * 8; //0.xxxx ~ 1
+
+    for (let k = 0; k < 50; k++) {
+        let r = Math.random() * 8;//0보다 크고, 절대로 1을 넘어설 수 없는 소수. 즉, 실수가 반환된다,
+        console.log(parseInt(r));
+    }
+</script>

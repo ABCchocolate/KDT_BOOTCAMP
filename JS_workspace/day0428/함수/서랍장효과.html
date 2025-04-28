@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let rect;
+        let a = 0.1;
+        let targetW;
+
+        //프로그램 가동과 동시에 하고 싶은 작업을 하는 함수 영역
+        function init(){
+            rect = document.getElementById("rect");
+            rect.style.width = 30 + "px"; 
+        }
+
+        function setLength(){
+            //감속도 공식을 사용하여 적용   
+            rect.style.width = parseFloat(rect.style.width) + a * (targetW - parseFloat(rect.style.width)) + "px";
+        }
+
+        function gameLoop(){
+            setLength();
+        }
+
+
+        window.addEventListener('load',function(){
+            init();
+            //이 시점은 rect를 얻어온 이후 시점이므로 제어가 가능하다. 
+            setInterval("gameLoop()",10);
+            rect.addEventListener("mouseover",function(){
+                targetW = 350;
+            })
+
+            resct.addEventListener("mouseout",function(){
+                targetW = 35;
+            })
+        })
+    </script>
+    <style>
+        body{
+            margin:0px;
+        }
+
+        #rect{
+            height: 105px;
+
+            background-color: #ffdae0;
+            position: relative;
+            left:-5px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id = "rect">Index</div>
+</body>
+</html>
