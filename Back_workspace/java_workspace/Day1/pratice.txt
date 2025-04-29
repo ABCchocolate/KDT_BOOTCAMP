@@ -1,0 +1,13 @@
+import java.util.*;
+
+class pratice{
+	public static void main(String[] args){
+		//구구단 2단
+		Scanner scan = new Scanner();
+		int k = scan.nextInt();
+		for(int i = 1; i <10; i++){
+			int result = i * k;
+			System.out.println(k + " * " + i  + " = " + result);
+			}
+	{
+}  
