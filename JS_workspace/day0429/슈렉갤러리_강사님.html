@@ -6,6 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        #footer div {
+            width: 30px;
+            height: 30px;
+            background-color: pink;
+            border-radius: 50%;
+
+            float: left;
+            box-sizing: border-box;
+            
+        }
+
         #mask {
             width: 500px;
             height: 340px;
@@ -13,7 +24,7 @@
             margin: auto;
             position: relative;
             border: 2px solid red;
-            overflow: hidden;
+            /* overflow: hidden; */
         }
 
         #footer {
@@ -34,11 +45,8 @@
 <script>
     let box;
     let imgArr = ['img0.jpg', 'img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg', 'img6.jpg'];
-    let Nav = []; 
-    let n = 0;
-    let targetX = 0; 
-    let currentX = 0; 
-    let speed = 0.1; 
+    let Nav = []; // 배열 선언
+    let n = 0; //사용자가 현재 보고 있는 이미지의 인덱스를 표현하는 전역 변수
 
     function createimg() {
         box = document.createElement("div");
@@ -59,54 +67,34 @@
         mask.appendChild(box);
     }
 
-    function createNav() {
-        let footer = document.getElementById("footer");
-        footer.style.display = "flex";
-        footer.style.justifyContent = "center";
-        footer.style.lineHeight = "52px";
 
-
+    //일반인 콘솔 제어가 불가능하므로, UI로 이미지를 제어할 수 있도록
+    //배려해주자!!
+    function createcontroller() {
         for (let i = 0; i < imgArr.length; i++) {
-            Nav[i] = document.createElement("div");
-            Nav[i].style.width = "20px";
-            Nav[i].style.height = "20px";
-            Nav[i].style.backgroundColor = "white";
-            Nav[i].style.border = "1px solid black";
-            Nav[i].style.borderRadius = "50%";
-            Nav[i].style.margin = "5px";
-            footer.appendChild(Nav[i]);
-
-
-            Nav[i].addEventListener('mouseover', function () {
-                moveImage(i);
-                updateNav(i);
-            });
+            let dot = document.createElement("div");
+            dot.addEventListener('mouseover',function(){
+                n = i;
+            })
+            let footer = document.getElementById("footer");
+            footer.appendChild(dot);
         }
+    
     }
 
-    function moveImage(index) {
-        console.log(box.style.left);
-        targetX = parseFloat(-500 * index); 
+
+    //사용자가 선택한 번째의 슈렉 이미지 박스의 값을 보여준다.
+    function move(){
+        //0번째 -0 px , 1번째 : -500px ~
+        box.style.left = (-500 * i) + "px";
     }
-
-    function updateNav(selectedIndex) {
-
-        for (let i = 0; i < Nav.length; i++) {
-            Nav[i].style.backgroundColor = "white";
-        }
-
-        Nav[selectedIndex].style.backgroundColor = "black";
-    }
-
     function gameLoop() {
-        // currentX를 targetX로 부드럽게 이동시키기
-        currentX += (parseFloat(targetX - currentX)) * speed;
-        box.style.left = currentX + "px";
+
     }
 
     window.addEventListener('load', function () {
         createimg();
-        createNav();
+        createcontroller();
         setInterval(gameLoop, 10);
     });
 </script>
