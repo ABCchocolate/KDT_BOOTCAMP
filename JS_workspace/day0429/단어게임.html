@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordGame</title>
+</head>
+<script>
+    let wordArr = [
+        "마우스",
+        "태풍",
+        "말레이시아",
+        "저녁",
+        "우주정거장",
+        "벌레",
+        "폭포",
+        "휴지",
+        "구름",
+        "건물"
+    ]
+
+    let content;
+    let input;
+    let feedback;
+    let scroe;
+    let i = 0;
+    //n의 값에 따라, 어떤 단어가 나오게 될지를 결정한다.
+    let num = 0; //점수를 누적시킬 전역 변수 
+
+    //게임 단어 출력 함수
+    function printWord() {
+        content.innerText = wordArr[i];
+        content.style.fontSize = "120px";
+        content.style.fontWeight = "bold";
+        content.style.textAlign = "center";
+        content.style.lineHeight = "300px";
+    }
+
+
+    //점수 계산 및 출력
+    function printScore() {
+    
+        score.innerText = "Total Score : " + num;
+    }
+
+
+    function init() {
+        content = document.getElementById("content");
+        input = document.querySelector("#input_area input");
+        feedback = document.getElementById("feedback");
+        score = document.getElementById("score");
+
+        feedback.style.fontSize = "90px";
+        feedback.style.fontWeight = "bold";
+        feedback.style.textAlign = "center";
+        feedback.style.lineHeight = "100px";
+
+        input.style.fontSize = "40px";
+        input.style.fontWeight = "bold";
+        input.style.textAlign = "center";
+        input.style.lineHeight = "100px";
+
+        score.style.fontSize = "40px";
+        score.style.fontWeight = "bold";
+        score.style.textAlign = "center";
+        score.style.lineHeight = "50px";
+
+        //텍스트 박스에 key이벤트 연결
+        input.addEventListener("keyup", function () {
+
+            if (event.keyCode == 13) {
+                if (i < wordArr.length - 1) {
+                    if (content.innerText == input.value) {
+                        next();
+                        feedback.innerText = "O";
+                        input.value = "";
+                        num += 10;
+                        printScore();
+                    }
+                    else {
+                        feedback.innerText = "x";
+                    }
+                }
+                else{
+                    content.innerText = "종료";
+                    alert("총점수는 " + num + " 입니다.");
+                }
+
+            }
+
+        })
+        printWord(); //게임에 사용할 단어 출력
+        printScore();
+    }
+
+
+    //일치할때에만 단어가 나온다.
+    function next() {
+        i++;
+        printWord();
+    }
+
+    addEventListener('load', function () {
+        init();
+
+    })
+
+
+</script>
+
+<style>
+    #wrapper {
+        width: 400px;
+        height: 550px;
+        background-color: antiquewhite;
+        margin: auto;
+    }
+
+    #content {
+        width: 100%;
+        height: 300px;
+        margin: auto;
+
+        background-color: rgb(132, 0, 255);
+
+    }
+
+    #input_area {
+        width: 100%;
+        height: 100px;
+        background-color: rgb(157, 56, 252);
+        text-align: center;
+    }
+
+    #input_area input:focus{
+        border:none;
+    }
+    #input_area input {
+        width: 97%;
+        height: 97%;
+        border: none;
+        border-radius: 10px;
+        font-size: 80px
+    }
+
+    #feedback {
+        width: 100%;
+        height: 100px;
+        margin: auto;
+        background-color: rgb(196, 135, 253);
+
+    }
+
+    #score {
+        width: 100%;
+        height: 50px;
+        margin: auto;
+        background-color: rgb(132, 0, 255);
+
+    }
+</style>
+
+<body>
+    <div id="wrapper">
+        <div id="content"></div>
+        <div id="input_area">
+            <input type="text">
+        </div>
+        <div id="feedback"></div>
+        <div id="score"></div>
+    </div>
+</body>
+
+</html>
