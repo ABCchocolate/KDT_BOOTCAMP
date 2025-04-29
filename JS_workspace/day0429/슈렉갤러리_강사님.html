@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #footer div {
+            width: 30px;
+            height: 30px;
+            background-color: pink;
+            border-radius: 50%;
+
+            float: left;
+            box-sizing: border-box;
+            
+        }
+
+        #mask {
+            width: 500px;
+            height: 340px;
+            background-color: beige;
+            margin: auto;
+            position: relative;
+            border: 2px solid red;
+            /* overflow: hidden; */
+        }
+
+        #footer {
+            width: 500px;
+            height: 50px;
+            margin: auto;
+            border-left: 2px solid red;
+            border-right: 2px solid red;
+            border-bottom: 2px solid red;
+
+        }
+
+        img {
+            position: absolute;
+        }
+    </style>
+</head>
+<script>
+    let box;
+    let imgArr = ['img0.jpg', 'img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg', 'img6.jpg'];
+    let Nav = []; // 배열 선언
+    let n = 0; //사용자가 현재 보고 있는 이미지의 인덱스를 표현하는 전역 변수
+
+    function createimg() {
+        box = document.createElement("div");
+        box.style.backgroundColor = "green";
+        box.style.width = 500 * imgArr.length + "px";
+        box.style.height = "340px";
+        box.style.position = "absolute";
+        box.style.left = "0px";
+
+        for (let i = 0; i < imgArr.length; i++) {
+            let shurek = document.createElement("img");
+            shurek.src = "../../image/shurek/" + imgArr[i];
+            shurek.style.left = (500 * i) + "px";
+            box.appendChild(shurek);
+        }
+
+        let mask = document.getElementById("mask");
+        mask.appendChild(box);
+    }
+
+
+    //일반인 콘솔 제어가 불가능하므로, UI로 이미지를 제어할 수 있도록
+    //배려해주자!!
+    function createcontroller() {
+        for (let i = 0; i < imgArr.length; i++) {
+            let dot = document.createElement("div");
+            dot.addEventListener('mouseover',function(){
+                n = i;
+            })
+            let footer = document.getElementById("footer");
+            footer.appendChild(dot);
+        }
+    
+    }
+
+
+    //사용자가 선택한 번째의 슈렉 이미지 박스의 값을 보여준다.
+    function move(){
+        //0번째 -0 px , 1번째 : -500px ~
+        box.style.left = (-500 * i) + "px";
+    }
+    function gameLoop() {
+
+    }
+
+    window.addEventListener('load', function () {
+        createimg();
+        createcontroller();
+        setInterval(gameLoop, 10);
+    });
+</script>
+
+
+<body>
+    <div id="wrapper">
+        <div id="mask"></div>
+        <div id="footer"></div>
+    </div>
+
+</body>
+
+</html>
