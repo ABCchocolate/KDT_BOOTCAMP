@@ -1,0 +1,35 @@
+import java.io.*;
+
+class Test2 
+{
+	//변수와 자료형 > _ <
+	//자바의 자료형: 숫자, 문자, 조건부 
+	public static void main(String[] args){
+		//자바도 기존 언어의 전통을 이어 받았기 때문에,
+		// 기본 자료형은 위의 3가지이다.
+		//자바의 문자는 문자와 문자열로 구분할 수 있어야한다.
+		
+		//자바의 문자 자료형은 char
+		//자바의 문자열은 String이다.
+;
+		
+		char A = '우'; //한글자를 문자형이라고 한다. character의 준말
+		String name = "박유신"; // 두 글자 이상의 문자집합을 문자열이라고 한다.
+		
+		
+		//자바의 논리값은 다른 언어와 동일하게 true/false\
+		//다만 자바의 경우 true = 1, false = 0 을 대체하여 사용할 수 없는 점을 기억하고 있어야함.
+		boolean b= true;
+		
+		//java의 숫자형은 크게 숫자와 소수점을 지원하는 실수로 구분한다.
+		//정수는 용량에 따라 byte<short<int<long
+		//실수는 float<double 순이다.
+		int x = 76;
+		double y = 5.6;
+		
+		System.out.println(name);
+		System.out.println(b);
+		System.out.println(x);
+		System.out.println(y);
+	}
+}

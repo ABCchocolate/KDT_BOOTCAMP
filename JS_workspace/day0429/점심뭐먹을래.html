@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/common.js"> </script>
+    <script>
+        let arr = ['부대찌개','김치찌개','마라탕','샤브샤브','알탕','순대국밥','쌀국수','샐러드','서브웨이','연어초밥']
+
+        function selecting(){
+            let k = arr.length;
+            let div = document.querySelector("div");
+            div.innerText = arr[getRandom(k-1)];
+            div.style.fontSize = "40px"
+        }
+        addEventListener('load', function () {
+            let btn = document.querySelector("button");
+            btn.addEventListener('click', function () {
+                selecting()
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <button>점메추</button>
+    <div></div>
+</body>
+
+</html>

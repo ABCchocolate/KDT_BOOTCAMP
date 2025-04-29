@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src = "../lib/common.js"></script>
+    <script>
+        let imgArr = new Array(3);
+        imgArr[0] = "scissor.png"
+        imgArr[1] = "rock.png"
+        imgArr[2] = "paper.png"
+        function gawi(){
+            let img = document.querySelector("img");
+            img.src = "../../image/rockpaperscissor/" + imgArr[getRandom(imgArr.length - 1)];
+            
+        }
+
+        addEventListener('load', function(){
+            document.querySelector("button").addEventListener('click',function(){
+                gawi();
+            })
+            init();    
+        })
+    </script>
+</head>
+<body>
+    <button>가위바위보 실행</button>
+    <p></p>
+    <img alt="">
+</body>
+</html>
