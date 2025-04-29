@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+
+        #mask {
+            width: 500px;
+            height: 340px;
+            background-color: beige;
+            margin: auto;
+            position: relative;
+            border: 2px solid red;
+            /* overflow: hidden; */
+        }
+        
+        #footer{
+            width: 500px;
+            height: 50px;
+            margin:auto;
+
+        }
+
+        img {
+            position: absolute;
+        }
+    </style>
+</head>
+<script>
+    let box;
+    let imgArr = ['img0.jpg', 'img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg', 'img6.jpg'];
+    let Nav = []; // 배열 선언
+
+    function createimg() {
+        box = document.createElement("div");
+        box.style.backgroundColor = "green";
+        box.style.width = 500 * imgArr.length + "px";
+        box.style.height = "340px";
+        box.style.position = "absolute";
+        box.style.left = "0px"; 
+
+        for (let i = 0; i < imgArr.length; i++) {
+            let shurek = document.createElement("img");
+            shurek.src = "../../image/shurek/" + imgArr[i];
+            shurek.style.left = (500 * i) + "px";
+            box.appendChild(shurek);
+        }
+
+        let mask = document.getElementById("mask");
+        mask.appendChild(box);
+    }
+
+    function createNav() {
+        let footer = document.getElementById("footer");
+        footer.style.display = "flex";
+        footer.style.justifyContent = "center";
+        footer.style.lineHeight = "52px";
+        footer.style.border = "1px solid black";
+
+        for (let i = 0; i < imgArr.length; i++) {
+            Nav[i] = document.createElement("div");
+            Nav[i].style.width = "20px";
+            Nav[i].style.height = "20px";
+            Nav[i].style.backgroundColor = "white";
+            Nav[i].style.border = "1px solid black";
+            Nav[i].style.borderRadius = "50%";
+            Nav[i].style.margin = "5px";
+            footer.appendChild(Nav[i]);
+
+            
+            Nav[i].addEventListener('click', function() {
+                moveImage(i); 
+                updateNav(i); 
+            });
+        }
+    }
+
+    function moveImage(index) {
+       
+        box.style.left = (-500 * index) + "px";
+    }
+
+    function updateNav(selectedIndex) {
+        
+        for (let i = 0; i < Nav.length; i++) {
+            Nav[i].style.backgroundColor = "white";
+        }
+        
+        Nav[selectedIndex].style.backgroundColor = "black";
+    }
+
+    function gameLoop() {
+        
+    }
+
+    window.addEventListener('load', function () {
+        createimg();
+        createNav();
+        setInterval(gameLoop, 10);
+    });
+</script>
+
+
+<body>
+    <div id="wrapper">
+        <div id="mask"></div>
+        <div id = "footer"></div>
+    </div>
+
+</body>
+
+</html>
