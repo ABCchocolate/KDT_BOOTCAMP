@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    let img;
+    let stage;
+    const tree = 1; //const는 변하지 않는 수를 의미한다.
+    const brick = 2; //벽돌을 2로 간주
+    const box = 3; //나무상자는 3으로 간주한다.
+    //stage에 올려질 물체의 좌표를 결정할 표(이차원배열 )선언
+    let map = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0],
+        [0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+    ];
+
+
+    //게임에 등장할 객체들을 화면에 생성 및 부착하기 위한 함수
+    function createObject() {
+        const TILE_SIZE = 50; // 하나의 셀 크기 (이미지 크기와 일치시켜야 함)
+        //조건 판단 대상이 여러개 이고,대상이 단순한 문자, 숫자, 논리값인 경우
+        // 코드를 짧게 사용하려면 switch문이 더 적절할 수 있다.
+        for (let y = 0; y < map.length; y++) {
+            for (let x = 0; x < map[y].length; x++) {
+                let cell = map[y][x];
+                if (cell === tree || cell === brick || cell === box) {
+                    let img = document.createElement("img");
+
+                    if (cell == tree) {
+                        img.src = "../../../image/gameMap/Objects/Tree.png";
+                    } else if (cell == brick) {
+                        img.src = "../../../image/gameMap/Objects/StoneBlock.png";
+                    } else if (cell == box) {
+                        img.src = "../../../image/gameMap/Objects/Stone.png";
+                    }
+
+                    img.style.width = TILE_SIZE + "px";
+                    img.style.height = TILE_SIZE + "px";
+                    img.style.position = "absolute";
+                    img.style.left = (x * TILE_SIZE) + "px";
+                    img.style.top = (y * TILE_SIZE) + "px";
+
+                    stage.appendChild(img);
+                }
+                // switch (cell) {
+                //     case tree: img.src = "../../../image/gameMap/Objects/Tree.png"; break;
+                //     case brick: img.src = "../../../image/gameMap/Objects/StoneBlock.png"; break;
+                //     case box: img.src = "../../../image/gameMap/Objects/Stone.png"; break;
+                // }
+                // img.style.width = TILE_SIZE + "px";
+                // img.style.height = TILE_SIZE + "px";
+                // img.style.position = "absolute";
+                // img.style.left = (x * TILE_SIZE) + "px";
+                // img.style.top = (y * TILE_SIZE) + "px";
+                // stage.appendChild(img);
+            }
+        }
+    }
+
+    function init() {
+        stage = document.getElementById("stage");
+        createObject()
+    }
+
+    addEventListener('load', function () {
+        init();
+    })
+</script>
+<style>
+    #stage {
+        width: 1200px;
+        height: 800px;
+        margin: auto;
+        background-image: url(../../../image/gameMap/BG.png);
+        background-size: 1200px 800px;
+        position: relative;
+    }
+</style>
+
+<body>
+    <div id="stage">
+
+    </div>
+</body>
+
+</html>

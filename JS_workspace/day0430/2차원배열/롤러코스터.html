@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<script>
+    let img, content, aside;
+    let posArray = []; //길이를 알 수 없기 때문에, 빈(empty) 배열을 선언해야한다.
+    let index = 0;
+    let flag = false;
+    let button;
+    //img.style.transform = "scaleX(-1)" 수평 전화  
+
+    function createHero() {
+        img = document.createElement("img");
+        img.src = "../../../image/rollarCoater/bicyle.png";
+        img.style.width = 50 + "px";
+        img.style.position = "absolute";
+        img.style.left = 100 + "px";
+        img.style.top = 100 + "px";
+
+        content.appendChild(img)
+    }
+
+    function createLog(x,y){
+        aside = document.getElementById("aside");
+        aside.style.overflow = "scroll";
+        aside.innerText += `x= ${x} ,y= ${y} \n`;
+    }
+
+    function createButton(){
+        button = document.createElement("button");
+        button.innerText = "작동";
+        content.appendChild(button);
+    }
+
+    //점만들기
+    //span태그를 만들어 점으로 표현하고 content부착
+    function createDot(x, y) { //이 함수를 호출하기 위해서는  값을 두개 연결해야한다.
+        let span = document.createElement("span");
+        span.style.backgroundColor = "red";
+        span.style.borderRadius = "50%";
+        span.style.display = "inline-block"; //인라인의 공존 능력과 block의 질량 조건을 가지고 있음.
+        span.style.width = "30px";
+        span.style.height = "30px";
+        span.style.position = "absolute";
+        span.style.left = x + "px";
+        span.style.top = y + "px";
+        content.appendChild(span);
+
+    }
+
+    //이차원 배열은 곧 메모리 상의 데이터 베이스와 같다.
+    function insertDot(x, y) {
+        //x축과 y축을 담는 조그마한 일차원 배열 생성
+        let pos = [x, y];
+        posArray.push(pos);
+    }
+    function move() {
+        if(flag == true){
+            if(index >= posArray.length){
+                index = 0;
+            }
+            
+                img.style.left = posArray[index][0] + "px";
+                img.style.top = posArray[index][1] + "px";
+                index++;
+            
+        }
+    }
+    function init() {
+        content = document.getElementById("content");
+        aside = document.getElementById("aside");
+        createHero();//주인공 등장!!
+        createButton();
+        content.addEventListener('mousedown', function () {
+            let x = event.clientX;
+            let y = event.clientY;
+            createDot(x, y);
+            insertDot(x, y); //데이터 베이스 정보를 쌓자
+            createLog(x, y); //로그 쌓기
+        })
+
+        button.addEventListener('click', function(){
+            flag = !flag;
+        })
+    }
+
+    addEventListener('load', function () {
+        init();
+        setInterval("move()",100);
+    })
+</script>
+
+<style>
+    body {
+        margin: 0px;
+    }
+
+    #content {
+        width: 90%;
+        height: 800px;
+        background-image: url("../../../image/rollarCoater/rollarCoaster.jpg");
+        background-size: cover;
+        /* 또는 contain */
+        background-position: center;
+        background-repeat: no-repeat;
+        float: left;
+        position: relative;
+    }
+
+    #aside {
+        width: 10%;
+        height: 800px;
+        background-color: beige;
+
+        /* 또는 contain */
+        float: right;
+
+    }
+</style>
+
+<body>
+    <div id="wrapper">
+
+        <div id="content"></div>
+        <div id="aside"></div>
+    </div>
+
+</body>
+
+</html>
