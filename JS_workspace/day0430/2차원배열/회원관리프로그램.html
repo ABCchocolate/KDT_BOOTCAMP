@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <!-- 회원관리 카테고리, [이름,번호, 급여, 커미션] 중에어떤걸로 검색할 건지와 실제 검색할 단어를 찾아낼 수 있는 검색창이 필요하다. 또한 옆에는 검색 실행 버튼이 필요하다.  -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,20 +11,142 @@
     let content;
     let memberArray = [];
     let current_index;
+    let searching_data; //검색한 데이터의 입력 값
+    let selecting_data; //검색할 데이터의 종류
 
+    function isInputValueEmpty(inputElement) {
+        return inputElement.value.trim() === "";
+    }
     function regist() {
-        let member = [];
-        member.push(form1.empno.value);
-        member.push(form1.ename.value);
-        member.push(form1.sal.value);
-        member.push(form1.comm.value);
+        if (isInputValueEmpty(form1.empno)) {
+            alert("사원번호를 입력해주세요.");
+            form1.empno.focus();
+            return;
+        }
+        if (isInputValueEmpty(form1.ename)) {
+            alert("사원명을 입력해주세요.");
+            form1.ename.focus();
+            return;
+        }
+        if (isInputValueEmpty(form1.sal)) {
+            alert("급여를 입력해주세요.");
+            form1.sal.focus();
+            return;
+        }
+        if (isInputValueEmpty(form1.comm)) {
+            alert("추가금을 입력해주세요.");
+            form1.comm.focus();
+            return;
+        }
 
+        // 입력값이 모두 유효한 경우
+        let member = [
+            form1.empno.value,
+            form1.ename.value,
+            form1.sal.value,
+            form1.comm.value
+        ];
         memberArray.push(member);
         form1.reset();
     }
 
     function init() {
         content = document.getElementById("content");
+    }
+
+    function searchData() {
+        let tag = "<table border='1px' width='100%' style='text-align: center;'>";
+        tag += `<tr>
+                <td>
+                    <input type = 'checkbox' class ='cb' id = 'checkAll'> </td>
+                <td>No.</td>
+                <td>EMPNO</td>
+                <td>ENAME</td>
+                <td>SAL</td>
+                <td>COMM</td>
+                </tr>`;
+
+        let filtered = [];
+        let matchType = document.querySelector("input[name='matchType']:checked").value;
+
+        for (let i = 0; i < memberArray.length; i++) {
+            let targetValue = "";
+
+            if (selecting_data == "empno") targetValue = memberArray[i][0];
+            else if (selecting_data == "name") targetValue = memberArray[i][1];
+            else if (selecting_data == "sal") targetValue = memberArray[i][2];
+            else if (selecting_data == "comm") targetValue = memberArray[i][3];
+
+            if (
+                (matchType === "partial" && targetValue.includes(searching_data)) ||
+                (matchType === "exact" && targetValue === searching_data)
+            ) {
+                filtered.push(memberArray[i]);
+            }
+        }
+
+        for (let i = 0; i < filtered.length; i++) {
+            tag += `<tr><td><input type = 'checkbox' class ='cb' id = 'checkAll' value= ${i + 1}></td>`;
+            tag += `<td>${i + 1} </td>`;
+            for (let j = 0; j < filtered[i].length; j++) {
+                tag += `<td>${filtered[i][j]}</td>`;
+            }
+            tag += "</tr>";
+        }
+
+        tag += `<tr><td></td><td colspan='5' align='right'>사원수 ${memberArray.length} 명</td></tr>`;
+        tag += "</table>";
+        content.innerHTML = tag;
+        // 각 체크박스에 클릭 이벤트 추가
+        document.querySelectorAll("#content input[type='checkbox']").forEach(cb => {
+            cb.addEventListener('change', printSelectedView);
+        });
+
+    }
+
+    function printSelectedView() {
+        const checkboxes = document.querySelectorAll("#content input[type='checkbox']:checked");
+        let tag = "<h3>선택된 사원 보기</h3>";
+        tag += "<table border='1px' width='100%' style='text-align: center;'>";
+        tag += `<tr>
+            <td>No.</td>
+            <td>EMPNO</td>
+            <td>ENAME</td>
+            <td>SAL</td>
+            <td>COMM</td>
+        </tr>`;
+
+        let count = 0;
+        checkboxes.forEach((cb, index) => {
+            // 첫 번째 헤더 체크박스는 제외
+            if (cb.closest("tr").rowIndex === 0) return;
+
+            const row = cb.closest("tr");
+            const cells = row.querySelectorAll("td");
+
+            tag += "<tr>";
+            // cells[1]부터 사번, 이름, 급여, 커미션 정보
+            for (let i = 1; i < cells.length; i++) {
+                tag += `<td>${cells[i].innerText}</td>`;
+            }
+            tag += "</tr>";
+            count++;
+        });
+
+        if (count === 0) {
+            tag += "<tr><td colspan='5'>선택된 항목이 없습니다.</td></tr>";
+        }
+
+        tag += "</table>";
+
+        // content 아래에 선택된 뷰를 위한 div 추가 또는 갱신
+        let viewDiv = document.getElementById("selectedView");
+        if (!viewDiv) {
+            viewDiv = document.createElement("div");
+            viewDiv.id = "selectedView";
+            content.appendChild(viewDiv);
+        }
+        viewDiv.innerHTML = tag;
     }
 
     function getDetail(index) {
@@ -56,10 +179,19 @@
 
     function printTable() {
         let tag = "<table border='1px' width='100%' style='text-align: center;'>";
-        tag += "<tr><td>No.</td><td>EMPNO</td><td>ENAME</td><td>SAL</td><td>COMM</td></tr>";
+        tag += `<tr>
+                <td>
+                    <input type = 'checkbox' class ='cb' id = 'checkAll'> </td>
+                <td>No.</td>
+                <td>EMPNO</td>
+                <td>ENAME</td>
+                <td>SAL</td>
+                <td>COMM</td>
+                </tr>`;
 
         for (let i = 0; i < memberArray.length; i++) {
-            tag += `<tr onMouseOver="this.style.background='skyblue'" onMouseOut="this.style.background=''" onClick="getDetail(${i})">`;
+            tag += `<tr onMouseOver="this.style.background='skyblue'" onMouseOut="this.style.background=''" onClick="getDetail(${i})",onMouseclick = "this.style.background='skyblue'">`;
+            tag += `  <td> <input type = 'checkbox' class ='cb'>  </td>`
             tag += `<td>${i + 1}</td>`;
             for (let j = 0; j < memberArray[i].length; j++) {
                 tag += `<td>${memberArray[i][j]}</td>`;
@@ -67,12 +199,18 @@
             tag += "</tr>";
         }
 
-        tag += `<tr><td colspan='5' align='right'>사원수 ${memberArray.length} 명</td></tr>`;
+        tag += `<tr><td></td><td colspan='5' align='right'>사원수 ${memberArray.length} 명</td></tr>`;
         tag += "</table>";
         content.innerHTML = tag;
+
+        // 각 체크박스에 클릭 이벤트 추가
+        document.querySelectorAll("#content input[type='checkbox']").forEach(cb => {
+            cb.addEventListener('change', printSelectedView);
+        });
+
     }
 
-    window.addEventListener('load', function () {
+    addEventListener('load', function () {
         init();
         printTable();
 
@@ -110,66 +248,151 @@
                 }
             }
         });
+
+        let bt_SearchBtn = document.querySelector("#searchBtn");
+        bt_SearchBtn.addEventListener('click', function () {
+            searching_data = search_text.value;
+            selecting_data = search.value;
+
+            searchData();
+        })
     });
 </script>
 </script>
 <style>
+    /* git 관련 저장해놓기 */
+    /* 전체 wrapper */
     #wrapper {
         width: 1000px;
         height: 600px;
         margin: auto;
-        border: 1px solid black;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
     }
 
-    #aside_1 {
-        width: 200px;
-        height: 100%;
-        background-color: rgb(190, 255, 255);
-        float: left;
-        text-align: center;
-
-    }
-
-    #section {
-        width: 600px;
-        height: 100%;
-        background-color: rgb(208, 241, 241);
-        float: left;
-        overflow: scroll;
-
-    }
-
-
-    #header {
-        width: 100%;
-        height: 50px;
-        background-color: aquamarine;
-    }
-
-    #content {
-        width: 100%;
-
-    }
-
+    /* 좌측 등록 영역 */
+    #aside_1,
     #aside_2 {
         width: 200px;
-        height: 100%;
-        background-color: rgb(172, 228, 209);
-        float: left;
-        text-align: center;
-        padding-top: 3px;
+        background-color: #f0f8ff;
+        padding: 15px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
     }
 
-    form input {
+    #aside_1 input,
+    #aside_2 input {
+        width: 100%;
         height: 35px;
-        margin-top: 2px;
-
-        border: 1px solid #cccc;
+        padding: 0 10px;
+        border: 1px solid #ccc;
         border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 14px;
+        padding-top: 3px;
+        margin-top: 3px
+    }
+
+    #aside_1 input[type="button"],
+    #aside_2 input[type="button"] {
+        background-color: #00b894;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    #aside_1 input[type="button"]:hover,
+    #aside_2 input[type="button"]:hover {
+        background-color: #019875;
+    }
+
+    /* 중앙 컨텐츠 영역 */
+    #section {
+        flex-grow: 1;
+        background-color: #e9f7f9;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    /* 검색 헤더 */
+    #header {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+        background-color: #a0e9e0;
+        font-size: 14px;
+    }
+
+    #header select,
+    #header input[type="text"],
+    #header button {
+        height: 35px;
+        padding: 0 10px;
+        border: 1px solid #888;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    #header button {
+        background-color: #00b894;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    #header button:hover {
+        background-color: #019875;
+    }
+
+    #header label {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-left: 5px;
+    }
+
+    #header input[type="radio"] {
+        transform: scale(1.2);
+        accent-color: #00b894;
+    }
+
+    /* 테이블 영역 */
+    #content {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        padding: 10px;
+        box-sizing: border-box;
     }
 
     table {
+        width: 100%;
         border-collapse: collapse;
+        text-align: center;
+        font-size: 14px;
+        background-color: white;
+        border: 1px solid #ccc;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+
+    tr:hover {
+        background-color: #d1f2eb;
     }
 </style>
 
@@ -191,7 +414,20 @@
         </div>
         <div id="section">
             <!-- 헤더 높이 50 -->
-            <div id="header"></div>
+            <div id="header">
+                <select name="search" id="search">
+                    <option value="empno">사번</option>
+                    <option value="name">이름</option>
+                    <option value="sal">급여</option>
+                    <option value="comm">커미션</option>
+                </select>
+                <input type="text" name="search_text" id="search_text">
+                <button id="searchBtn">검색</button>
+                <!-- 검색 조건 라디오 버튼 -->
+                <label><input type="radio" name="matchType" value="partial" checked> 부분일치</label>
+                <label><input type="radio" name="matchType" value="exact"> 완전일치</label>
+
+            </div>
             <div id="content">
 
             </div>
