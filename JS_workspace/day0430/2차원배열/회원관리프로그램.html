@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    let content;
+    let memberArray = [];
+    let current_index;
+
+    function regist() {
+        let member = [];
+        member.push(form1.empno.value);
+        member.push(form1.ename.value);
+        member.push(form1.sal.value);
+        member.push(form1.comm.value);
+
+        memberArray.push(member);
+        form1.reset();
+    }
+
+    function init() {
+        content = document.getElementById("content");
+    }
+
+    function getDetail(index) {
+        current_index = index;
+        form2.empno.value = memberArray[index][0];
+        form2.ename.value = memberArray[index][1];
+        form2.sal.value = memberArray[index][2];
+        form2.comm.value = memberArray[index][3];
+    }
+
+    function del(index) {
+        memberArray.splice(index, 1);
+        printTable();
+        form2.reset();
+    }
+
+    function modifyButton(current_index) {
+        //현재 이차원 배열인 memberArray의 수정하고 싶은 사원을 접근해보자
+        //접근하려면, 층 즉 currentIndex가 필요함
+        memberArray[current_index][0] = form2.empno.value;
+        memberArray[current_index][1] = form2.ename.value;
+        memberArray[current_index][2] = form2.sal.value;
+        memberArray[current_index][3] = form2.comm.value;
+
+        //테이블 재출력
+        printTable();
+        //input에 입력되었던 text를 모두 비워냄
+        form2.reset();
+    }
+
+    function printTable() {
+        let tag = "<table border='1px' width='100%' style='text-align: center;'>";
+        tag += "<tr><td>No.</td><td>EMPNO</td><td>ENAME</td><td>SAL</td><td>COMM</td></tr>";
+
+        for (let i = 0; i < memberArray.length; i++) {
+            tag += `<tr onMouseOver="this.style.background='skyblue'" onMouseOut="this.style.background=''" onClick="getDetail(${i})">`;
+            tag += `<td>${i + 1}</td>`;
+            for (let j = 0; j < memberArray[i].length; j++) {
+                tag += `<td>${memberArray[i][j]}</td>`;
+            }
+            tag += "</tr>";
+        }
+
+        tag += `<tr><td colspan='5' align='right'>사원수 ${memberArray.length} 명</td></tr>`;
+        tag += "</table>";
+        content.innerHTML = tag;
+    }
+
+    window.addEventListener('load', function () {
+        init();
+        printTable();
+
+        form1.empno.focus();
+
+        let bt_regist = document.querySelector("#aside_1 input[type='button']");
+        bt_regist.addEventListener('click', function () {
+            regist();
+            printTable();
+        });
+
+        let bt_ModiBtn = document.querySelector("#modify");
+        bt_ModiBtn.addEventListener('click', function () {
+            if (confirm("정말 수정하시겠어요?")) {
+                if (current_index == undefined) {
+                    alert("테이블을 선택해주세요.");
+                }
+                else {
+                    modifyButton(current_index);
+                }
+            }
+        });
+
+        let bt_StopBtn = document.querySelector("#delete");
+        bt_StopBtn.addEventListener('click', function () {
+
+
+            //확인을 누르면 true, 취소하면 false
+            if (confirm("진심으로 삭제하시겠어요?")) {
+                if (current_index == undefined) {
+                    alert("테이블을 선택해주세요.")
+                }
+                else {
+                    del(current_index);
+                }
+            }
+        });
+    });
+</script>
+</script>
+<style>
+    #wrapper {
+        width: 1000px;
+        height: 600px;
+        margin: auto;
+        border: 1px solid black;
+    }
+
+    #aside_1 {
+        width: 200px;
+        height: 100%;
+        background-color: rgb(190, 255, 255);
+        float: left;
+        text-align: center;
+
+    }
+
+    #section {
+        width: 600px;
+        height: 100%;
+        background-color: rgb(208, 241, 241);
+        float: left;
+        overflow: scroll;
+
+    }
+
+
+    #header {
+        width: 100%;
+        height: 50px;
+        background-color: aquamarine;
+    }
+
+    #content {
+        width: 100%;
+
+    }
+
+    #aside_2 {
+        width: 200px;
+        height: 100%;
+        background-color: rgb(172, 228, 209);
+        float: left;
+        text-align: center;
+        padding-top: 3px;
+    }
+
+    form input {
+        height: 35px;
+        margin-top: 2px;
+
+        border: 1px solid #cccc;
+        border-radius: 5px;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+</style>
+
+<body>
+    <div id="wrapper">
+        <div id="aside_1">
+            <!-- 이름을 달고 있으면 어버이 관계를 나타내기가 더 쉽다. -->
+            <form name="form1">
+                <!-- form태그는 말 그대로 양식이라는 뜻을 가지고 있다.
+                    즉, 제출 양식을 작성하기 위한 태그라서 눈에 보이진않는다.
+                    다만 이것의 주 용도는 전송 범위를 설정하는 것이다.  -->
+                <input type="text" name="empno" placeholder="사원번호를 입력해주세요">
+                <input type="text" name="ename" placeholder="사원명을 입력해주세요">
+                <input type="text" name="sal" placeholder="급여를 입력해주세요">
+                <input type="text" name="comm" placeholder="추가금을 입력해주세요">
+                <input type="button" value="사원 등록">
+            </form>
+
+        </div>
+        <div id="section">
+            <!-- 헤더 높이 50 -->
+            <div id="header"></div>
+            <div id="content">
+
+            </div>
+
+        </div>
+        <div id="aside_2">
+            <form name="form2">
+                <!-- form태그는 말 그대로 양식이라는 뜻을 가지고 있다.
+                    즉, 제출 양식을 작성하기 위한 태그라서 눈에 보이진않는다.
+                    다만 이것의 주 용도는 전송 범위를 설정하는 것이다.  -->
+                <input type="text" name="empno" placeholder="사원번호를 입력해주세요">
+                <input type="text" name="ename" placeholder="사원명을 입력해주세요">
+                <input type="text" name="sal" placeholder="급여를 입력해주세요">
+                <input type="text" name="comm" placeholder="추가금을 입력해주세요">
+                <input type="button" value="사원 수정" id="modify">
+                <input type="button" value="사원 삭제" id="delete">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
