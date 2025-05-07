@@ -37,7 +37,7 @@
             wrapper.style.background = "lightgray";
             wrapper.style.position = "relative";
             wrapper.style.overflow = "hidden";
-            // wrapper.style.transform = "scaleX(-1)"
+            wrapper.style.transform = "scaleY(-1)"
 
             document.body.appendChild(wrapper);
 
@@ -45,8 +45,8 @@
 
             for (let i = 0; i < count; i++) {
                 let randomColor = color[Math.floor(Math.random() * color.length)];  // 각 막대에 대해 랜덤 색상 선택
-                let randomY = Math.floor(Math.random() * 300);
-                new Rect(wrapper, i * width, randomY, width, height, randomColor);
+                // let randomY = Math.floor(Math.random() * 300);
+                new Rect(wrapper, i * width, 0, width, randomColor); // ✅ height 제거
             }
 
         }
