@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/Rect.js"></script>
+    <script>
+
+        let width = 50; //막대 하나 당 너비
+        let height = 300; //막대 하나 당 높이
+        let count = 10; //생성하고 싶은 막대 수 
+        //자바 스크립트 언어는 함수를 일급시민(first-class) 취급한다.~?
+        //컴퓨터 공학에서는 일급 시민이란, 일반 어떤 대상을 일반 데이터처럼 취급할 수 있는 특징을 말한다.
+        //즉, 자바 스크립트는 함수를 변수에 담거나, 함수를 매개변수에 전달하거나
+        //함수를 리턴도 가능하다.
+
+
+        function test(){
+            //함수 선언문
+        }
+
+        let text = () =>{
+            console.log("나 호출했니?",this);
+            //화살표 함수의 this는 상위 scope(영역)를 의미한다.             
+        }
+        
+        //원하는 수 만큼의 막대를 만들어서 부모에 부착하되 부모의 크기는
+        //결정된 것이 아니라 자식의 크기와 수에 비례하여 결정하자(동적으로 부여하자)
+        let init = function () { //함수 표현식
+
+            let wrapper = document.createElement("div");
+            wrapper.style.width = width * count + "px";
+            wrapper.style.height = height + "px";
+            wrapper.style.margin = "auto";
+            wrapper.style.background = "lightgray";
+            wrapper.style.position = "relative";
+            wrapper.style.overflow = "hidden";
+            // wrapper.style.transform = "scaleX(-1)"
+
+            document.body.appendChild(wrapper);
+
+            let color = ["red", "yellow", "orange", "green", "blue", "navy", "purple"];
+
+            for (let i = 0; i < count; i++) {
+                let randomColor = color[Math.floor(Math.random() * color.length)];  // 각 막대에 대해 랜덤 색상 선택
+                let randomY = Math.floor(Math.random() * 300);
+                new Rect(wrapper, i * width, randomY, width, height, randomColor);
+            }
+
+        }
+
+        addEventListener("load", function () {
+            init();
+        });
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

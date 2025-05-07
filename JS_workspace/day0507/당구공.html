@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/Ball.js">
+    </script>
+    <script>
+        let ballArray = []; //다량의 공을 담게 될 배열
+        function gameLoop() {
+            //배열에 들어있는모든 공을 대상으로, move()함수 호출 예정
+            for (let i = 0; i < ballArray.length; i++) {
+                ballArray[i].move(); //꺼내 공의 move()호출
+            }
+        }
+
+
+        addEventListener('load', function () {
+            //사용자가 이벤트를 일으키며, 해당 이벤트 정보 객체인 이벤트 객체가 생성되어,
+            // addEventListner메서드의 두번째 매개변수로 전달이 됨..
+            //개발자가 매개변수를 받을지 말지는 자유이다.
+
+            //Ball(클래스)으로부터 원하는 객체(인스턴스)를 생성하자.
+            function fire() {
+                let color = ["red", "yellow", "orange", "green", "blue", "navy", "purple"];
+                let randomColor = color[Math.floor(Math.random() * color.length)];
+
+                // 공의 크기
+                let ballWidth = 50;
+                let ballHeight = 50;
+
+                let maxX = 600 - ballWidth;
+                let maxY = 600 - ballHeight;
+
+
+                let randomX = Math.floor(Math.random() * maxX);
+                let randomY = Math.floor(Math.random() * maxY);
+
+                let randomVelX = Math.floor(Math.random() * 51);
+                let randomVelY = Math.floor(Math.random() * 51);
+
+                let ball = new Ball(
+                    document.getElementById("wrapper"),
+                    randomX, randomY, ballWidth, ballHeight, randomVelX, randomVelY, randomColor
+                );
+                ballArray.push(ball);
+            }
+
+            addEventListener("keydown", function (e) {
+                if (e.keyCode === 32) { // 스페이스바
+                    fire();
+                }
+            });
+
+            setInterval(gameLoop, 50);
+        });
+    </script>
+    <style>
+        #wrapper {
+            height: 600px;
+            width: 600px;
+            border: 1px solid black;
+            margin: auto;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper"></div>
+</body>
+
+</html>
