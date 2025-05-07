@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OOP Arrow Example</title>
+   <script>
+        let c = []; // 화살을 담는 배열
+
+        class Arrow {
+            constructor(x, y, color) {
+                this.x = x;
+                this.velX = 5;
+                this.span = document.createElement("span");
+                this.span.innerText = "→";
+                this.span.style.position = "absolute";
+                this.span.style.left = this.x + "px";
+                this.span.style.top = y + "px";
+                this.span.style.fontSize = "20px";
+                this.span.style.color = color;
+                document.body.appendChild(this.span);
+            }
+
+            move() {
+                this.x += this.velX;
+                this.span.style.left = this.x + "px";
+            }
+        }
+
+        function gameLoop() {
+            for (let i = 0; i < c.length; i++) {
+                c[i].move();
+            }
+        }
+
+        addEventListener("load", function () {
+            c.push(new Arrow(0, 50, "red"));
+            c.push(new Arrow(0, 100, "green"));
+            c.push(new Arrow(0, 150, "blue"));
+
+            setInterval(gameLoop, 30);
+        });
+    </script>
+</head>
+<body></body>
+</html>

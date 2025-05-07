@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/Bullet.js"></script>
+
+    <script>
+        let bulletArray = [];
+        //아래의 생성자 메서드는 new 연산자 뒤에서 호출됨
+        // ex) new Bullet()방식으로..
+        function fire() {
+            let bullet = new Bullet(parseInt(Math.random() * (801)));
+            bulletArray.push(bullet);
+        }
+
+
+        //배열이 없을 경우에는 for문이 실행되지 않기 때문에
+        //undefined 에 의한 에러 발생 방지.
+        function gameLoop() {
+            for (let i = 0; i < bulletArray.length; i++) {
+                bulletArray[i].move();  // 각 Bullet 인스턴스에 move() 호출
+            }
+        }
+
+
+        addEventListener('load', function () {
+            let btn = document.querySelector("button");
+            btn.addEventListener("click", function () {
+                fire();
+            });
+            setInterval(gameLoop, 10);
+        })
+    </script>
+</head>
+
+<body>
+    <button>발사!</button>
+</body>
+
+</html>
