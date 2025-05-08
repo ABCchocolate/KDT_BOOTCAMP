@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="ShootingGame.css">
+    <script src="./js/hero.js"></script>
+    <script src="./js/Bullet.js"></script>
+    <script>
+        /*
+         자바스크림트 함수의 정의 유형은 3가지를 지원한다.
+         1) 선언적 방법에 의한 함수 지원 function test(){}
+         2) 표현식에 의한 함수 선언 let test = function (){}
+         3) 화살표 함수 let test = () => {화살표 함수는 this를 보유할 수 없다. }
+         따라서 화살표 함수 영역에서 사용되는 this는 나를 가르키는 것이 아니라, 상위 스코프를 가르킨다.
+        */
+        let a = 0;
+        let hero;
+        let BulletArr = [];
+
+
+        function bgEffect() {
+            //stage 의 배경의 left 값 감소
+            img = document.getElementById("stage");
+            a -= 10;
+            img.style.backgroundPosition = `${a}px 0px`;
+        }
+
+        function createHero() {
+            // velX와 velY는 처음에는 0으로 초기화
+            hero = new Hero(document.getElementById("stage"), 100, 200, 300, 300, 0, 0);
+        }
+
+        function fire() {
+            BulletArr.push(new Bullet(document.getElementById("stage"), (hero.x +(hero.width/2)), hero.y + (hero.height*0.4), 25, 25, 10, 0));
+        }
+
+        function gameLoop() {
+            bgEffect();
+            hero.move();
+            for (let i = 0; i < BulletArr.length; i++) {
+                let bullet = BulletArr[i];  // 대소문자 수정
+                bullet.move();
+            }
+        }
+
+
+        addEventListener('load', function () {
+            //화살표함수가 자체적인 this를 가질 수 없기 때문에, 바깥쪽 scope인 전역 영역을 가르키게 된다.
+            //js안에서 전역 정보는 window 객체가 보유하며 window 객체가 js언어의 최상위 객체이다.
+            createHero();
+
+            //키보드 이벤트 연결
+            addEventListener('keydown', function (e) {
+                switch (e.keyCode) {
+                    //아스키 코드에 대한 판단
+                    case 37: hero.velX -= 5; break; //left
+                    case 38: hero.velY -= 5; break; //up
+                    case 39: hero.velX += 5; break; //right
+                    case 40: hero.velY += 5; break; //down
+                    case 32: fire(); break; //space bar
+                    case 27: break; //pause (esc)
+                }
+            })
+            addEventListener('keyup', function (e) {
+                switch (e.keyCode) {
+                    //아스키 코드에 대한 판단
+                    case 37: hero.velX = 0; break; //left
+                    case 38: hero.velY = 0; break; //up
+                    case 39: hero.velX = 0; break; //right
+                    case 40: hero.velY = 0; break; //down
+                }
+            })
+
+            setInterval(gameLoop, 50);
+        })
+    </script>
+</head>
+
+<body>
+    <div id="stage"></div>
+
+</body>
+
+</html>
