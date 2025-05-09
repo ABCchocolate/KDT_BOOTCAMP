@@ -1,0 +1,28 @@
+<script>
+
+
+    //js의 함수 정의 방법 3가지
+    /*
+    function test(){
+
+    }
+    */
+    
+    //함수 표현식에 의한 정보 
+    let test = function () {
+        let d = new Date();
+        let weekArr = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일","토요일"]
+        let i = d.getDay();
+        console.log(d.getFullYear(),d.getMonth()+ 1, d.getHours(),d.getMinutes(),d.getSeconds(),weekArr[i]  );
+    }
+
+    //호출과 정의의 차이,
+    //스스로 하냐 맡기냐의 차이 .. 호출을 진행() 시 test함수르 무조건 먼저 진행하게 됨
+
+
+    //setInterval의 첫번째 매개변수로 함수를 넘겨줄 때
+    //호출이 아닌 함수명 또는 함수 정의가 와야한다.
+    //만일 "함수()" 넘겨버리먀 setInterval 에게 호출을 맡기는 것이아니라.
+    //바로 호추리 되낟. 
+    setInterval(test, 1000);
+</script>
