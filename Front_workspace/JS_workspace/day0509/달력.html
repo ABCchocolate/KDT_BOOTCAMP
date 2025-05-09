@@ -17,30 +17,53 @@
     let border = 1; //각 셀의 두께
     let currentMonth; //유저가 현재 보게될 연도, 로드싱도 할당, 다음 이전 버튼누를 때에도 할당해야한다.
     let currentYear; //유저가 현재 보게될 월...
+    let n = 0; //실제 사용자들이 보게 될 날짜 숫자.
+    let cellArr = [] //셸 생성 후 제어하려면 이름이 필요함. 
 
     function createCell() {
         //위 크기 정보로 wrapper의 크기를 동적으로 설정할 수 있다.
         let wrapper = document.getElementById("wrapper");
         wrapper.style.width = (cellW + (border * 2)) * 7 + "px";
         wrapper.style.height = (cellH + (border * 2)) * 6 + "px";
-    
+
         //요일 영역 출력하기
         for (let i = 0; i < 7; i++) {
             let cell = new Cell(document.getElementById("days"), cellW + 2, 40, "gold", 1, "balck", convertDay(i, "eng"));
         }
-        
-        let a = getStartDay(currentYear,currentMonth);
+
 
         for (let i = 0; i < 6; i++) { //6층
-            for (let j = 1; j < 8; j++) {//7호수
-                count++;
-                if(count >= a){
-                    let cell = new Cell(document.getElementById("section"), 100, 100, "white", 1, "black", count);
-                }   
+            for (let j = 0; j < 7; j++) {//7호수
+                let cell = new Cell(document.getElementById("section"), 100, 100, "white", 1, "black", "일");
+                cellArr.push(cell);
+            }
+        }
+    }
+    function clearDate(){
+        for(let i = 0; i < 6; i++){
+            for(let j= 0; j <7; j++){
+                cellArr[index++].div.innerText = " ";   
             }
         }
     }
 
+    //이미 생성된 셸에 날짜를 출력한다. 주의) 다음, 이전 버튼을 누르면 기존의 날짜는 지워지고 새로운 날짜를 적어내야한다. 
+    function printDate() {  
+        let count = 0; //셀의 인데스, 박스의 순번 (날짜 아님)
+        let n = 0; //유저가 보게 될 날짜 번호(1일,2일,3일)
+        
+
+        for (let a = 0; a < 6; a++) {
+            for (let i = 0; i < 7; i++) {
+                let cell = cellArr[count]; //셸 하나를 끄집어 내기
+                if (count >= getStartDay(currentYear, currentMonth) && count < getLastDate(currentYear,currentMonth+1)) {
+                    n++
+                    cell.div.innerText = n;
+                }
+                count++;
+            }
+        }
+    }
 
     function getCurrentDate() {
         let d = new Date();
@@ -65,12 +88,13 @@
     // 정의를 해야하지, 호출을 해서는 아니된다.
     // 두번째 매개변수에 등록되는 삼수는 개발자가 호출하는 것이 아니라
     // 브라우저가 load 이벤트 발생 시 거꾸로 호출해주는 역할을 하므로
-    // callback 함수라고 부른다.
+    // callback  부른다.
     addEventListener('load', function () {
-        createCell();
 
         //현재 날짜를 제목에 출력부터 해주자
         getCurrentDate();
+        createCell();
+        printDate();
         printTitle(currentYear, currentMonth);
 
 
@@ -81,13 +105,17 @@
         let bt_prev = document.querySelector("#header :nth-child(1)");
         let bt_next = document.querySelector("#header :nth-child(3)");
 
-        bt_prev.addEventListener('click',function(){
+        bt_prev.addEventListener('click', function () {
             currentMonth -= 1; //이전 월로 설정
-            printTitle(currentYear,currentMonth);
+            printTitle(currentYear, currentMonth);
+            clearDate();
+            printDate();
         });
-        bt_next.addEventListener('click',function(){
-            currentMonth     += 1; //다음 월로 설정
-            printTitle(currentYear,currentMonth);
+        bt_next.addEventListener('click', function () {
+            currentMonth += 1; //다음 월로 설정
+            printTitle(currentYear, currentMonth);
+            clearDate();
+            printDate();
         })
     })
 </script>
