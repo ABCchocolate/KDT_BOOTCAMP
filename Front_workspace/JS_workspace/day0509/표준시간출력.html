@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/common.js"></script>
+    <script>
+
+
+        //0처리
+        //표현식에 의한 함수 정의(함수를 데이터처럼 변수로 받을 수 있다.)
+        let showTime= function(){
+            let d = new Date();
+            let h = d.getHours();
+            let hour = document.querySelector("#hour");
+            hour.innerText = h;
+
+            let m = d.getMinutes();
+            let minute = document.querySelector("#min");
+            minute.innerText = m;
+
+            let s = d.getSeconds();
+            let second = document.querySelector("#sec");
+            second.innerText = zeroString(s);
+        }
+
+        addEventListener('load',()=>{
+            setInterval(showTime,1000)
+        })
+    </script>
+    <style>
+        #hour,#min,#sec{
+            font-size: 80px;
+            color: red;
+            background-color:azure;
+            width: 120px;
+            height:120px;
+            border:2px solid gray;
+            border-radius: 3px;
+            display:inline-block;
+            float:left;
+            text-align: center;
+            line-height: "120px";
+        }
+    </style>
+</head>
+<body>
+    <div id = "hour"></div>
+    <div id = "min"></div>
+    <div id = "sec"></div>    
+</body>
+</html>
+

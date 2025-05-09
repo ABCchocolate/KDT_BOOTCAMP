@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/common.js"></script>
+    <script src="../day0509/js/Cell.js"></script>
+</head>
+<script>
+    //Callback 함수
+    //{}이 없으면 호출이라고 할 수 있다삐요.
+    let count = 0;
+    let cellW = 100; //각 셀의 너비
+    let cellH = 100; //각 셀의 높이
+    let border = 1; //각 셀의 두께
+    let currentMonth; //유저가 현재 보게될 연도, 로드싱도 할당, 다음 이전 버튼누를 때에도 할당해야한다.
+    let currentYear; //유저가 현재 보게될 월...
+
+    function createCell() {
+        //위 크기 정보로 wrapper의 크기를 동적으로 설정할 수 있다.
+        let wrapper = document.getElementById("wrapper");
+        wrapper.style.width = (cellW + (border * 2)) * 7 + "px";
+        wrapper.style.height = (cellH + (border * 2)) * 6 + "px";
+    
+        //요일 영역 출력하기
+        for (let i = 0; i < 7; i++) {
+            let cell = new Cell(document.getElementById("days"), cellW + 2, 40, "gold", 1, "balck", convertDay(i, "eng"));
+        }
+        
+        let a = getStartDay(currentYear,currentMonth);
+
+        for (let i = 0; i < 6; i++) { //6층
+            for (let j = 1; j < 8; j++) {//7호수
+                count++;
+                if(count >= a){
+                    let cell = new Cell(document.getElementById("section"), 100, 100, "white", 1, "black", count);
+                }   
+            }
+        }
+    }
+
+
+    function getCurrentDate() {
+        let d = new Date();
+        currentYear = d.getFullYear();
+        currentMonth = d.getMonth();
+
+    }
+
+    function printTitle(yy, mm) {
+        let d = new Date(yy, mm); // yy: 연도, mm: 월 (0~11)
+
+        let currentYear = d.getFullYear();
+        let currentMonth = d.getMonth() + 1;
+
+
+        let h2 = document.querySelector("#header h2");
+        h2.innerText = `${currentYear}년 ${currentMonth}월`;
+    }
+
+
+    // 아래의 이벤트 리스너에 두번째 매개변수로 들어가야하는 함수는
+    // 정의를 해야하지, 호출을 해서는 아니된다.
+    // 두번째 매개변수에 등록되는 삼수는 개발자가 호출하는 것이 아니라
+    // 브라우저가 load 이벤트 발생 시 거꾸로 호출해주는 역할을 하므로
+    // callback 함수라고 부른다.
+    addEventListener('load', function () {
+        createCell();
+
+        //현재 날짜를 제목에 출력부터 해주자
+        getCurrentDate();
+        printTitle(currentYear, currentMonth);
+
+
+        //현재 보고 있는 월의 시작요일을 조사해보자.
+        // console.log(getStartDay(currentYear,currentMonth));
+
+        //달력의 제목을 이전 다음버튼으로 
+        let bt_prev = document.querySelector("#header :nth-child(1)");
+        let bt_next = document.querySelector("#header :nth-child(3)");
+
+        bt_prev.addEventListener('click',function(){
+            currentMonth -= 1; //이전 월로 설정
+            printTitle(currentYear,currentMonth);
+        });
+        bt_next.addEventListener('click',function(){
+            currentMonth     += 1; //다음 월로 설정
+            printTitle(currentYear,currentMonth);
+        })
+    })
+</script>
+<style>
+    #wrapper {
+        background-color: yellow;
+        margin: auto;
+    }
+
+    #header {
+        height: 50px;
+        width: 100%;
+        background-color: rgb(236, 236, 81);
+        text-align: center;
+        line-height: 50px;
+    }
+
+    #days {
+        background-color: rgb(252, 255, 207);
+        text-align: center;
+        line-height: 40px;
+    }
+
+    #header h2 {
+        margin: 0;
+        display: inline-block;
+    }
+
+    #header a {
+        margin: 0px 50px;
+        /* header안의 글자를 서로서로 떨어뜨림.  */
+        /* 2개만 명시하면 첫 번째 요소는 top bottom을 말하는것이고 */
+        /* 2번째 요소는 left,right를 의미한다.                 */
+        text-decoration: none;
+    }
+
+    #section {
+        background-color: rgb(255, 255, 158);
+    }
+</style>
+
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <a>이전</a>
+            <h2>2025</h2>
+            <a>다음</a>
+        </div>
+        <div id="days"></div>
+        <div id="section"></div>
+    </div>
+</body>
+
+</html>
