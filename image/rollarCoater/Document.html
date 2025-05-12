@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://127.0.0.1:5500/Front_workspace/day0512/list.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        let store_list = [];
+
+        store1 = {
+            store_name : '김밥천국',
+            tel : '02-555-7777',
+            pos : '36.1111, 127.5555'
+        }
+        store2 = {
+            store_name : '종로돈까스',
+            tel : '02-467-7247',
+            pos : '18.3511, 129.5125'
+        }
+        store3 = {
+            store_name : '전국횟집',
+            tel : '02-555-7777',
+            pos : '72.1828, 123.3721'
+        }
+        store_list.push(store1);
+        store_list.push(store2);
+        store_list.push(store3);
+
+
+        //등록 시 누적된 맛집들의 리스트를 테이블로 동적 출력할 예정
+        function printTable() {
+            let tag = "<table width = '100%' border = '1px'>";
+            //column 작성
+            tag += "<tr>";
+            tag += "<td>No</td>"
+            tag += "<td>상호명</td>"
+            tag += "<td>연락처</td>"
+            tag += "<td>위도 경도</td>"
+            tag += "<td>대표 사진</td>"
+            tag += "</tr>";
+
+
+            for (let i = 0; i < 5; i++) {
+                tag += "<tr>";
+                tag += `<td>${i+1}</td>`
+                tag += `<td${store_list[i].store_name}</td>`
+                tag += `<td>${store_list[i].tel}</td>`
+                tag += `<td>${store_list[i].pos}</td>`
+                tag += `<td>대표 사진</td>`
+                tag += "</tr>";
+            }
+
+            tag += "</table>"
+            document.body.innerHTML = tag;
+        }
+
+        addEventListener('load', function () {
+            printTable();
+        })
+    </script>
+</head>
+
+<body>
+
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+</body></html>
