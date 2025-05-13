@@ -121,6 +121,7 @@
                 google.maps.event.addListener(marker, 'click', function () {
                     map.setZoom(20);
                     map.setCenter(marker.getPosition());
+                    window.setTimeout(function() {map.setZoom(pos);},3000);
                     infowindow.open(map, marker);
                 });
             }
@@ -263,7 +264,7 @@
     </div>
 </body>
 <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBF7Ccosz-f07ntGe6QwW7haLx_xhdvlcE&callback=initMap"></script>
+    src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"></script>
 
 
 <!-- 새로 고침이 일어나서는 안됨
