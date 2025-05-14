@@ -1,0 +1,54 @@
+#JSON(JAVASCRIT OBJCECT NOTION)
+프로그래밍 언어가 아니라, 데이터를 표현함에 있어, 단지 자바 스크립트의 객체 표현법을
+전세계 개발자들이 알고 있기 때문에, 별도의 표준을 지정할 필요가 없기 때문에, 
+js 객체 표기법을 본떠서 데이터를 표현해놓은 문자열을 말한다.
+
+
+#가게의 정보
+{
+    "store_name" : "김밥 천국",
+    "tel" : "02-123-1234",
+    "pos" : "37.50983, 127.0557",
+    "iconImg" : "../images/map/christhmas_star.png"
+}
+
+
+#철수의 정보
+{
+    "name" : "철수",
+    "age" : 30,
+    "IsCar" : false
+}
+
+
+
+#영희의 정보
+{
+  "name": "영희",
+  "age": 28,
+  "animal1": {
+    "type": "dog",
+    "name": "뽀미",
+    "gender": "female"
+  },
+  "animal2": {
+    "type": "cat",
+    "name": "냥",
+    "gender": "male"
+  }
+}
+
+#또다른 영희의 정보
+{
+    "name" : "영희",
+    "age" : 28,
+    "pets":[{"type": "dog",
+        "name": "뽀미",
+        "gender": "female"},
+        
+        {
+        "type": "cat",
+        "name": "냥",
+        "gender": "male"}]
+}
+

@@ -1,0 +1,53 @@
+{
+    "storeList" :[
+        {"store_name" : "김밥 천국",
+        "tel" : "02-123-1234",
+        "pos" : "37.50983, 127.0557",
+        "iconImg" : "../images/map/christhmas_star.png"},
+        
+        {"store_name" : "신전떡볶이",
+        "tel" : "02-159-4578",
+        "pos" : "37.50983, 127.0700",
+        "iconImg" : "../images/map/heart.png"},
+        
+        {"store_name" : "종로돈까스",
+        "tel" : "02-524-5875",
+        "pos" : "37.62083, 127.0557",
+        "iconImg" : "../images/map/location_map.png"},
+        
+        {"store_name" : "덴키카츠",
+        "tel" : "02-143-8475",
+        "pos" : "37.50858, 127.0580",
+        "iconImg" : "../images/map/location_marker.png"},
+        
+        {"store_name" : "꼬막전문점 뻘밭에핀꽃",
+        "tel" : "02-558-5828",
+        "pos" : "37.50858, 127.0580",
+        "iconImg" : "../images/map/location_map.png"},
+        
+        {"store_name" : "바오타오",
+        "tel" : "02-564-0088",
+        "pos" : "37.50895, 127.0576",
+        "iconImg" : "../images/map/heart.png"},
+        
+        {"store_name" : "돈꼬레",
+        "tel" : "02-561-2882",
+        "pos" : "37.50897, 127.0569",
+        "iconImg" : "../images/map/heart.png"},
+        
+        {"store_name" : "보름쇠",
+        "tel" : "02-569-9967",
+        "pos" : "37.50932, 127.0566",
+        "iconImg" : "../images/map/christhmas_star.png"},
+        
+        {"store_name" : "세이로 겐마",
+        "tel" : "025391529",
+        "pos" : "37.50986, 127.0562",
+        "iconImg" : "../images/map/star.png"},
+        
+        {"store_name" : "다이닝 갈비",
+        "tel" : "050713050095",
+        "pos" : "37.51060, 127.0559",
+        "iconImg" : "../images/map/location_marker.png"}
+    ]}
+    
