@@ -145,6 +145,8 @@
 
         function createEnemy() {
             const stage = document.getElementById("stage");
+            let r = getRandom(1, 5); // 1~5사이의 랜덤한 숫자
+            let n = getRandom(540); // 화면 높이를 기반으로 한 랜덤값   
             const startY = 50;        // 시작 y좌표
             const gap = 80;           // 적군 간의 y 간격
             const fixedX = 1300;      // 오른쪽에서 나타나도록 고정 x좌표
@@ -153,8 +155,8 @@
             for (let i = 0; i < 5; i++) {
                 let y = startY + i * gap;
                 enemyArr.push(
-                    new Enemy(stage, `../../images/shooting_game_plane/e${(i % 5) + 1}.png`, fixedX, y, 50, 50, -2, 0)
-                );
+                    new Enemy(stage, `../../images/shooting_game_plane/e${(i % 5) + 1}.png`, fixedX, n, 50, 50, -2, 0)
+            );
             }
         }
 
