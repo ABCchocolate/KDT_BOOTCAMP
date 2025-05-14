@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        //부모 데이터를 가져오는 과정
+
+        // let store_list = [];
+
+        // let store1 = {
+        //     store_name: '김밥천국',
+        //     tel: '02-555-7777',
+        //     pos: '36.1111, 127.5555'
+        // };
+        // let store2 = {
+        //     store_name: '종로돈까스',
+        //     tel: '02-467-7247',
+        //     pos: '18.3511, 129.5125'
+        // };
+        // let store3 = {
+        //     store_name: '전국횟집',
+        //     tel: '02-555-7777',
+        //     pos: '72.1828, 123.3721'
+        // };
+
+        // store_list.push(store1);
+        // store_list.push(store2);
+        // store_list.push(store3);
+        let obj;
+
+        //사용자가 선택한 정보를 알고있는 이벤트 객체를 전달받아서, 파일을 읽어들이자
+        function loadData(e) {
+            let file = e.target.files[0];
+            let reader = new FileReader(); 
+
+            reader.onload = function (e) {
+
+                obj = JSON.parse(event.target.result);
+                printTable(obj); // 파일 로딩 후 테이블 출력
+            }
+
+            reader.readAsText(file);
+        }
+
+
+        //등록 시 누적된 맛집들의 리스트를 테이블로 동적 출력할 예정
+        function printTable(obj) {
+            let tag = "<table width='100%' border='1px'>";
+            //column 작성
+            tag += "<tr>";
+            tag += "<td>No</td>"
+            tag += "<td>상호명</td>"
+            tag += "<td>연락처</td>"
+            tag += "<td>위도 경도</td>"
+            tag += "<td>대표 사진</td>"
+            tag += "</tr>";
+
+        
+            let n = obj.storeList.length;
+
+            for (let i = 0; i <n; i++) {
+                let store = obj.storeList[i];
+                tag += "<tr>";
+                tag += `<td>${i + 1}</td>`;
+                tag += `<td>${store.store_name}</td>`;
+                tag += `<td>${store.tel}</td>`;
+                tag += `<td>${store.pos}</td>`;
+                tag += `<td>대표 사진</td>`;
+                tag += "</tr>";
+            }
+
+            tag += "</table>";
+            document.getElementById("content").innerHTML = tag;
+        }
+
+        //지도를 보유한 부모창에 현재 보유하고 있는 마커를 출력해야함
+        function showIcons(){
+            window.opener.registAll(obj);
+            window.close();
+        }
+
+        addEventListener('load', function () {
+            document.querySelector("#header input[type = 'file']").addEventListener("change", function (e) {
+                loadData(e);
+            })
+
+            
+            document.querySelector("#footer button").addEventListener('click', function(){
+                showIcons()
+            })
+            // printTable();
+        })
+    </script>
+</head>
+<style>
+    body {
+        margin: 0;
+    }
+
+    #header {
+        height: 40px;
+        width: 100%;
+        background-color: yellow;
+        line-height: 40px;
+
+    }
+
+    #header input[type="file"] {
+        width: 70%;
+        height: 100%;
+    }
+
+    #content {
+        width: 100%;
+        height: 500px;
+        background-color: aquamarine
+    }
+
+    #footer{
+        height: 50px;
+        background-color: antiquewhite;
+        line-height: 50px;
+    }
+</style>
+
+<body>
+    <div id="header">
+        <input type="file">
+    </div>
+    <div id="content"></div>
+    <div id = "footer">
+        <button>지도에 적용</button>
+    </div>
+</body>
+
+</html>
