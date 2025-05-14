@@ -57,9 +57,35 @@ function convertDay(n, lang) {
 해당 월의 마지막 날 구하기
 API 사용 예) convertDate(원하는 연도, 원하는 월)
 =========================================*/
-function getLastDate(yy,mm){
-    let d= new Date(yy,mm,0);
+function getLastDate(yy, mm) {
+    let d = new Date(yy, mm, 0);
     return d.getDate();
 }
 
+/*======================================
+충돌 체크 함수 (in game)
+API 사용 예시) 
+=======================================*/
+function collisionCheck(me, target) {
+    //나에 대한 수치 계산
+    //현재 나의 x축
+    const me_x = parseInt(me.style.left);
+    const me_y = parseInt(me.style.top);
 
+    const me_width = parseInt(me.style.width);
+    const me_height = parseInt(me.style.height);
+
+
+    //현재 나의 x축
+    const target_x = parseInt(target.style.left);
+    const target_y = parseInt(target.style.top);
+
+    const target_width = parseInt(target.style.width);
+    const target_height = parseInt(target.style.height);
+    return !(
+        me_x + me_width < target_x || //me의 오른쪽이 타겟의 왼쪽보다 왼쪽에 있다면
+        me_x > target_x + target_width || //me의 왼쪽이 타겟의 우측보다 더 오른쪽에 있다면  
+        me_y + me_height < target_y || //me의 아래가 타겟보다 위쪽에 있다면,
+        me_y > target_y + target_height //me의 위쪽이 상대방 보다 아래에 있다면
+    )
+}
