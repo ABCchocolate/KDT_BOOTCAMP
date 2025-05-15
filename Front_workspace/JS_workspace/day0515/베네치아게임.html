@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Game</title>
+    <style>
+        #wrapper {
+            width: 1250px;
+            height: 700px;
+            background-color: aquamarine;
+            margin: auto;
+        }
+
+        #aside {
+            width: 150px;
+            height: 100%;
+            background-color: beige;
+            float: left;
+        }
+
+        #aside * {
+            width: 90%;
+        }
+
+        #content {
+            width: 1100px;
+            height: 100%;
+            background-color: rgb(67, 123, 123);
+            float: left;
+            background-image: url(../../images/wordgame/bg.jpg);
+            background-size: 1100px 700px;
+            position: relative;
+        }
+
+        #content span {
+            background-color: yellow;
+        }
+
+        #box {
+            width: 150px;
+            height: 150px;
+            margin-top: 20px;
+            background-color: aqua;
+            position: relative;
+        }
+    </style>
+    <script src="./js/Word.js"></script>
+    <script src="../lib/common.js"></script>
+    <script src="./js/hp.js"></script>
+    <script>
+        let wordArray;
+        let st;
+        let wordList = [];
+        let speed = 600;
+        let level = 0;
+        let lifeArr = []; //HP인스턴스를 보관할 배열
+
+        function loadData(e) {
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            reader.onload = function (data) {
+                let jsonString = data.target.result;
+                let obj = JSON.parse(jsonString);
+                wordArray = obj.wordList;
+                createWord();
+                document.querySelector("button").disabled = false;
+            };
+            reader.readAsText(file);
+        }
+
+        function createWord() {
+            let content = document.getElementById("content");
+            wordList = [];
+            content.innerHTML = ""; // 이전 스테이지 단어 제거
+
+            for (let i = 0; i < wordArray[level].length; i++) {
+                let word = new Word(content, 70 + (i * 95), getRandomByRange(-10, -150), wordArray[level][i], "red");
+                wordList.push(word);
+            }
+        }
+
+        //documnet.getElementById("box").removeChild();
+        //hpArr.splic(0,1);
+
+        //9개의 HP인스턴스 생성
+        function createHP() {
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    lifeArr.push(new HP(document.getElementById("box"), j * 48, i * 48, 48, 48, "red", "yellow"));
+                }
+            }
+        }
+
+        function init() {
+            document.querySelector("input[type='file']").addEventListener("change", loadData);
+
+            document.querySelector("#aside button").addEventListener('click', function () {
+                if (st == undefined) {
+                    st = setInterval(gameLoop, speed);
+                    this.innerText = "Pause";
+                } else {
+                    clearInterval(st);
+                    st = undefined;
+                    this.innerText = "Start";
+                }
+            });
+
+            document.querySelector("#aside input[type='text']").addEventListener("keyup", function (e) {
+                if (e.keyCode == 13) {
+                    checkText(this);
+                    this.value = "";
+                    checkLevel(); // 단어 삭제 후 스테이지 이동 검사
+                }
+            });
+
+            createHP();
+        }
+
+        function nextStep() {
+            let content = document.getElementById("content");
+            for (let i = wordList.length - 1; i >= 0; i--) {
+                wordList[i].tick();
+                wordList[i].render();
+                if (wordList[i].y > 700) {
+                    content.removeChild(wordList[i].span);  // 화면에서 단어 제거
+                    wordList.splice(i, 1);                  // 배열에서 제거
+
+                    // HP 제거 로직
+                    if (lifeArr.length > 0) {
+                        let hp = lifeArr.shift();           // 가장 앞의 HP 인스턴스 가져오기
+                        document.getElementById("box").removeChild(hp.div); // 화면에서 제거
+                    }
+
+                    // 게임오버 체크
+                    if (lifeArr.length === 0) {
+                        alert("Game Over");
+                        clearInterval(st);
+                        st = undefined;
+                        return;
+                    }
+                }
+            }
+        }
+
+
+        function checkText(input) {
+            for (let i = wordList.length - 1; i >= 0; i--) {
+                if (wordList[i].text === input.value.trim()) {
+                    wordList[i].span.remove(); // 화면에서 제거
+                    wordList.splice(i, 1);     // 배열에서도 제거
+                }
+            }
+        }
+
+        function checkLevel() {
+            if (wordList.length === 0) {
+                alert((level + 1) + " 스테이지 통과!");
+                level++;
+                if (level >= wordArray.length) {
+                    alert("모든 레벨을 클리어하셨습니다!");
+                    clearInterval(st);
+                    st = undefined;
+                    return;
+                }
+                speed = Math.max(200, speed - 100); // 최소 속도 보장
+                createWord();
+            }
+        }
+
+        function gameLoop() {
+            nextStep();
+        }
+
+        addEventListener("load", init);
+    </script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="aside">
+            <input type="file">
+            <button disabled>Start!!</button>
+            <input type="text" placeholder="단어입력">
+            <div id="box"></div>
+        </div>
+        <div id="content"></div>
+    </div>
+</body>
+
+</html>
