@@ -24,6 +24,16 @@ function zeroString(n) {
     return str;
 }
 
+/*---------------------------------------------------
+범위를 지정한 랜덤 
+getRandomByRange(5,8)   5부터 8사이의 랜덤값 반환
+*---------------------------------------------------*/
+function getRandomByRange(min, max){
+  return min + (parseInt(Math.random()*(max-min+1)));
+}
+
+
+
 
 /*=======================
     해당월의 시작 요일 구하기
