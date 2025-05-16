@@ -1,0 +1,1323 @@
+SQL> SET LINE 300
+SQL> SET COLUMN 300
+SP2-0158: unknown SET option "COLUMN"
+SQL> SELECT *
+  2  FROM EMP E INNER JOIN DEP D
+  3  ON E.DEPTNO =D.DEPTNO;
+FROM EMP E INNER JOIN DEP D
+                      *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT *
+  2  FROM EMP E INNER JOIN DEPT D
+  3* ON E.DEPTNO =D.DEPTNO
+SQL> 
+SQL> 
+SQL> /
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO     DEPTNO DNAME                        LOC                                                                                                                                                         
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ---------- ---------- ---------------------------- --------------------------                                                                                                                                  
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30         30 SALES                        CHICAGO                                                                                                                                                     
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30         30 SALES                        CHICAGO                                                                                                                                                     
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30         30 SALES                        CHICAGO                                                                                                                                                     
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30         30 SALES                        CHICAGO                                                                                                                                                     
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30         30 SALES                        CHICAGO                                                                                                                                                     
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20         20 RESEARCH                     DALLAS                                                                                                                                                      
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO     DEPTNO DNAME                        LOC                                                                                                                                                         
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ---------- ---------- ---------------------------- --------------------------                                                                                                                                  
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30         30 SALES                        CHICAGO                                                                                                                                                     
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+
+14 rows selected.
+
+SQL> SELECT COUNT(*) AS »ç¿ø ¼ö, D.DEPTNO
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5  ;
+SELECT COUNT(*) AS »ç¿ø ¼ö, D.DEPTNO
+                          *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*) AS '»ç¿ø ¼ö', D.DEPTNO
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4* GROUP BY D.DEPTNO
+  5  /
+SELECT COUNT(*) AS '»ç¿ø ¼ö', D.DEPTNO
+                   *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*) AS "»ç¿ø ¼ö", D.DEPTNO
+  2  FROM EMP E
+  3  INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO
+  4* GROUP BY D.DEPTNO
+SQL> SELECT COUNT(*) AS "»ç¿ø ¼ö", D.DEPTNO
+  2  FROM EMP E
+  3  INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5  /
+
+   »ç¿ø ¼ö     DEPTNO                                                                                                                                                                                                                                                                                       
+---------- ----------                                                                                                                                                                                                                                                                                       
+         6         30                                                                                                                                                                                                                                                                                       
+         5         20                                                                                                                                                                                                                                                                                       
+         3         10                                                                                                                                                                                                                                                                                       
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMPNO) AS '»ç¿ø ¼ö'
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4* GROUP BY D.DEPTNO
+SQL> 
+SQL> /
+SELECT D.DEPTNO, COUNT(EMPNO) AS '»ç¿ø ¼ö'
+                                 *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMPNO)S
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4* GROUP BY D.DEPTNO
+SQL> /
+
+    DEPTNO          S                                                                                                                                                                                                                                                                                       
+---------- ----------                                                                                                                                                                                                                                                                                       
+        30          6                                                                                                                                                                                                                                                                                       
+        20          5                                                                                                                                                                                                                                                                                       
+        10          3                                                                                                                                                                                                                                                                                       
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMPNO)S
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4* GROUP BY D.DEPTNO
+SQL> 
+SQL> /
+
+    DEPTNO          S                                                                                                                                                                                                                                                                                       
+---------- ----------                                                                                                                                                                                                                                                                                       
+        30          6                                                                                                                                                                                                                                                                                       
+        20          5                                                                                                                                                                                                                                                                                       
+        10          3                                                                                                                                                                                                                                                                                       
+
+SQL> select * from dept;
+
+    DEPTNO DNAME                        LOC                                                                                                                                                                                                                                                                 
+---------- ---------------------------- --------------------------                                                                                                                                                                                                                                          
+        10 ACCOUNTING                   NEW YORK                                                                                                                                                                                                                                                            
+        20 RESEARCH                     DALLAS                                                                                                                                                                                                                                                              
+        30 SALES                        CHICAGO                                                                                                                                                                                                                                                             
+        40 OPERATIONS                   BOSTON                                                                                                                                                                                                                                                              
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  SELECT
+  2* FROM EMP E RIGHT OUTER DEPT D
+SQL> /
+FROM EMP E RIGHT OUTER DEPT D
+*
+ERROR at line 2:
+ORA-00936: missing expression 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT *
+  2* FROM EMP E RIGHT OUTER DEPT D
+SQL> /
+FROM EMP E RIGHT OUTER DEPT D
+                       *
+ERROR at line 2:
+ORA-00905: missing keyword 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT *
+  2  FROM EMP E RIGHT OUTER DEPT D
+  3* ON E.DEPTNO = D.DEPTNO
+SQL> /
+FROM EMP E RIGHT OUTER DEPT D
+                       *
+ERROR at line 2:
+ORA-00905: missing keyword 
+
+
+SQL> SELECT *
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO     DEPTNO DNAME                        LOC                                                                                                                                                         
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ---------- ---------- ---------------------------- --------------------------                                                                                                                                  
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30         30 SALES                        CHICAGO                                                                                                                                                     
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30         30 SALES                        CHICAGO                                                                                                                                                     
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30         30 SALES                        CHICAGO                                                                                                                                                     
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30         30 SALES                        CHICAGO                                                                                                                                                     
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30         30 SALES                        CHICAGO                                                                                                                                                     
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20         20 RESEARCH                     DALLAS                                                                                                                                                      
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO     DEPTNO DNAME                        LOC                                                                                                                                                         
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ---------- ---------- ---------------------------- --------------------------                                                                                                                                  
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30         30 SALES                        CHICAGO                                                                                                                                                     
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+                                                                                                                40 OPERATIONS                   BOSTON                                                                                                                                                      
+
+15 rows selected.
+
+SQL> SELECT D.DEPTNO, COUNT(DEPTNO)
+  2  FROM EMP E RIGHT OUTHER DEPT D
+  3  ON E.DEPTNO = D.DEPTNO;
+FROM EMP E RIGHT OUTHER DEPT D
+                 *
+ERROR at line 2:
+ORA-00905: missing keyword 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(DEPTNO)
+  2  FROM EMP E RIGHT OUTER DEPT D
+  3* ON E.DEPTNO = D.DEPTNO
+SQL> 
+SQL> /
+FROM EMP E RIGHT OUTER DEPT D
+                       *
+ERROR at line 2:
+ORA-00905: missing keyword 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(E.DEPTNO) AS "ì‚¬ì› ìˆ˜"
+  2  FROM EMP E
+  3  RIGHT OUTER JOIN DEPT D ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5* ORDER BY D.DEPTNO;
+SQL> /
+ERROR:
+ORA-01740: missing double quote in identifier 
+
+
+SQL> SELECT D.DEPTNO,COUNT(EMPNO)
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO;
+
+    DEPTNO COUNT(EMPNO)                                                                                                                                                                                                                                                                                     
+---------- ------------                                                                                                                                                                                                                                                                                     
+        30            6                                                                                                                                                                                                                                                                                     
+        20            5                                                                                                                                                                                                                                                                                     
+        40            0                                                                                                                                                                                                                                                                                     
+        10            3                                                                                                                                                                                                                                                                                     
+
+SQL> SELECT D.DEPTNO, COUNT(EMPNO)
+  2  FROM EMP E RIGH OUTER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5  ORDER BY D.DEPTNO DESC;
+FROM EMP E RIGH OUTER JOIN DEPT D
+           *
+ERROR at line 2:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMPNO)
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5* ORDER BY D.DEPTNO DESC
+SQL> /
+
+    DEPTNO COUNT(EMPNO)                                                                                                                                                                                                                                                                                     
+---------- ------------                                                                                                                                                                                                                                                                                     
+        40            0                                                                                                                                                                                                                                                                                     
+        30            6                                                                                                                                                                                                                                                                                     
+        20            5                                                                                                                                                                                                                                                                                     
+        10            3                                                                                                                                                                                                                                                                                     
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMPNO)
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5* ORDER BY D.DEPTNO ASC
+SQL> /
+
+    DEPTNO COUNT(EMPNO)                                                                                                                                                                                                                                                                                     
+---------- ------------                                                                                                                                                                                                                                                                                     
+        10            3                                                                                                                                                                                                                                                                                     
+        20            5                                                                                                                                                                                                                                                                                     
+        30            6                                                                                                                                                                                                                                                                                     
+        40            0                                                                                                                                                                                                                                                                                     
+
+SQL> SELECT D.DEPTNO, COUNT(EMPNO)
+  2  FROM DEPT D LEFT OUTER JOIN EMP E
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5  ORDER BY D.DEPNO ASC
+  6  ;
+ORDER BY D.DEPNO ASC
+         *
+ERROR at line 5:
+ORA-00904: "D"."DEPNO": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMPNO)
+  2  FROM DEPT D LEFT OUTER JOIN EMP E
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5* ORDER BY D.DEPTNO ASC
+  6  /
+
+    DEPTNO COUNT(EMPNO)                                                                                                                                                                                                                                                                                     
+---------- ------------                                                                                                                                                                                                                                                                                     
+        10            3                                                                                                                                                                                                                                                                                     
+        20            5                                                                                                                                                                                                                                                                                     
+        30            6                                                                                                                                                                                                                                                                                     
+        40            0                                                                                                                                                                                                                                                                                     
+
+SQL> SELECT *
+  2  FROM EMP, DEPT;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO     DEPTNO DNAME                        LOC                                                                                                                                                         
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ---------- ---------- ---------------------------- --------------------------                                                                                                                                  
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO     DEPTNO DNAME                        LOC                                                                                                                                                         
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ---------- ---------- ---------------------------- --------------------------                                                                                                                                  
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10         10 ACCOUNTING                   NEW YORK                                                                                                                                                    
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20         20 RESEARCH                     DALLAS                                                                                                                                                      
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO     DEPTNO DNAME                        LOC                                                                                                                                                         
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ---------- ---------- ---------------------------- --------------------------                                                                                                                                  
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10         20 RESEARCH                     DALLAS                                                                                                                                                      
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20         30 SALES                        CHICAGO                                                                                                                                                     
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30         30 SALES                        CHICAGO                                                                                                                                                     
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30         30 SALES                        CHICAGO                                                                                                                                                     
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20         30 SALES                        CHICAGO                                                                                                                                                     
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30         30 SALES                        CHICAGO                                                                                                                                                     
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO     DEPTNO DNAME                        LOC                                                                                                                                                         
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ---------- ---------- ---------------------------- --------------------------                                                                                                                                  
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30         30 SALES                        CHICAGO                                                                                                                                                     
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10         30 SALES                        CHICAGO                                                                                                                                                     
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20         30 SALES                        CHICAGO                                                                                                                                                     
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10         30 SALES                        CHICAGO                                                                                                                                                     
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30         30 SALES                        CHICAGO                                                                                                                                                     
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20         30 SALES                        CHICAGO                                                                                                                                                     
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30         30 SALES                        CHICAGO                                                                                                                                                     
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20         30 SALES                        CHICAGO                                                                                                                                                     
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10         30 SALES                        CHICAGO                                                                                                                                                     
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20         40 OPERATIONS                   BOSTON                                                                                                                                                      
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30         40 OPERATIONS                   BOSTON                                                                                                                                                      
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO     DEPTNO DNAME                        LOC                                                                                                                                                         
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ---------- ---------- ---------------------------- --------------------------                                                                                                                                  
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30         40 OPERATIONS                   BOSTON                                                                                                                                                      
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20         40 OPERATIONS                   BOSTON                                                                                                                                                      
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30         40 OPERATIONS                   BOSTON                                                                                                                                                      
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30         40 OPERATIONS                   BOSTON                                                                                                                                                      
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10         40 OPERATIONS                   BOSTON                                                                                                                                                      
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20         40 OPERATIONS                   BOSTON                                                                                                                                                      
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10         40 OPERATIONS                   BOSTON                                                                                                                                                      
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30         40 OPERATIONS                   BOSTON                                                                                                                                                      
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20         40 OPERATIONS                   BOSTON                                                                                                                                                      
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30         40 OPERATIONS                   BOSTON                                                                                                                                                      
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20         40 OPERATIONS                   BOSTON                                                                                                                                                      
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO     DEPTNO DNAME                        LOC                                                                                                                                                         
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ---------- ---------- ---------------------------- --------------------------                                                                                                                                  
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10         40 OPERATIONS                   BOSTON                                                                                                                                                      
+
+56 rows selected.
+
+SQL> --UNIONÀº Ç¥ ÇÕÄ¡±â¶ó°í º¼ ¼ö ÀÖ´Ù.
+SQL> --JOINÀº ºÎ¸ð, ÀÚ½Ä °£ µ¥ÀÌÅÍ Á¶ÇÕÀÌÁö¸¸, UNIONÀº
+SQL> -- ÀüÇô °ü·Ã¼ºÀÌ ¾ø´Â µ¥ÀÌÅÍµéÀ» Á¶ÇÕÇÏ´Â Äõ¸®ÀÌ´Ù.
+SQL> SELECT ENAME, SAL FROM EMP
+  2  UNION
+  3  SELECT DNAME, DEPTNO FROM DEPT;
+
+ENAME                               SAL                                                                                                                                                                                                                                                                     
+---------------------------- ----------                                                                                                                                                                                                                                                                     
+ACCOUNTING                           10                                                                                                                                                                                                                                                                     
+ADAMS                              1100                                                                                                                                                                                                                                                                     
+ALLEN                              1600                                                                                                                                                                                                                                                                     
+BLAKE                              2850                                                                                                                                                                                                                                                                     
+CLARK                              2450                                                                                                                                                                                                                                                                     
+FORD                               3000                                                                                                                                                                                                                                                                     
+JAMES                               950                                                                                                                                                                                                                                                                     
+JONES                              2975                                                                                                                                                                                                                                                                     
+KING                               5000                                                                                                                                                                                                                                                                     
+MARTIN                             1250                                                                                                                                                                                                                                                                     
+MILLER                             1300                                                                                                                                                                                                                                                                     
+
+ENAME                               SAL                                                                                                                                                                                                                                                                     
+---------------------------- ----------                                                                                                                                                                                                                                                                     
+OPERATIONS                           40                                                                                                                                                                                                                                                                     
+RESEARCH                             20                                                                                                                                                                                                                                                                     
+SALES                                30                                                                                                                                                                                                                                                                     
+SCOTT                              3000                                                                                                                                                                                                                                                                     
+SMITH                               800                                                                                                                                                                                                                                                                     
+TURNER                             1500                                                                                                                                                                                                                                                                     
+WARD                               1250                                                                                                                                                                                                                                                                     
+
+18 rows selected.
+
+SQL> SELECT COUNT(*) FROM EMO
+  2  WHERE DEPTNO = (SELECT DEPTNO FROM EMP WHERE ENMAE = 'SMITH');
+SELECT COUNT(*) FROM EMO
+                     *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*) FROM EMP
+  2* WHERE DEPTNO = (SELECT DEPTNO FROM EMP WHERE ENMAE = 'SMITH')
+SQL> /
+WHERE DEPTNO = (SELECT DEPTNO FROM EMP WHERE ENMAE = 'SMITH')
+                                             *
+ERROR at line 2:
+ORA-00904: "ENMAE": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*) FROM EMP
+  2* WHERE DEPTNO = (SELECT DEPTNO FROM EMP WHERE ENAME = 'SMITH')
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*) FROM EMP
+  2* WHERE DEPTNO = (SELECT DEPTNO FROM EMP WHERE ENAME = 'SMITH')
+SQL> /
+
+  COUNT(*)                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+         5                                                                                                                                                                                                                                                                                                  
+
+SQL> SELECT ENAME, D.DEPTNO, DNAME,LOC
+  2  FROM EMP E INNER JOIN DERP D
+  3  ON E.DEPT = D.DEPT;
+FROM EMP E INNER JOIN DERP D
+                      *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME, D.DEPTNO, DNAME,LOC
+  2  FROM EMP E INNER JOIN DERT D
+  3* ON E.DEPT = D.DEPT
+SQL> /
+FROM EMP E INNER JOIN DERT D
+                      *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME, D.DEPTNO, DNAME,LOC
+  2  FROM EMP E INNER JOIN DEPT D
+  3* ON E.DEPT = D.DEPT
+SQL> /
+ON E.DEPT = D.DEPT
+            *
+ERROR at line 3:
+ORA-00904: "D"."DEPT": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMP) AS ì‚¬ì› ìˆ˜
+
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5* ORDER BY DESC;
+SQL> /
+SELECT D.DEPTNO, COUNT(EMP) AS ì‚¬ì› ìˆ˜
+
+                                      *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMP) AS TOTAL_
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5* ORDER BY DESC;
+  6  /
+ORDER BY DESC;
+         *
+ERROR at line 5:
+ORA-00936: missing expression 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMP) AS TOTAL_
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5* ORDER BY D.DEPTNO DESC;
+SQL> /
+ORDER BY D.DEPTNO DESC;
+                      *
+ERROR at line 5:
+ORA-00911: invalid character 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMP) AS TOTAL_
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5* ORDER BY D.DEPTNO DESC
+SQL> /
+SELECT D.DEPTNO, COUNT(EMP) AS TOTAL_
+                       *
+ERROR at line 1:
+ORA-00904: "EMP": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMPNO) AS TOTAL_
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5* ORDER BY D.DEPTNO DESC
+SQL> /
+
+    DEPTNO     TOTAL_                                                                                                                                                                                                                                                                                       
+---------- ----------                                                                                                                                                                                                                                                                                       
+        30          6                                                                                                                                                                                                                                                                                       
+        20          5                                                                                                                                                                                                                                                                                       
+        10          3                                                                                                                                                                                                                                                                                       
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMPNO) AS TOTAL_
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5  ORDER BY D.DEPTNO DESC
+  6* HAVING COUNT(EMPNO) > 5
+SQL> /
+HAVING COUNT(EMPNO) > 5
+*
+ERROR at line 6:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMPNO) AS TOTAL_
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5  ORDER BY D.DEPTNO DESC
+  6* HAVING COUNT(EMPNO) > 5
+SQL> /
+HAVING COUNT(EMPNO) > 5
+*
+ERROR at line 6:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMPNO) AS TOTAL_
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5  ORDER BY D.DEPTNO DESC
+  6* HAVING COUNT(EMPNO) > 5;
+SQL> 
+SQL> /
+HAVING COUNT(EMPNO) > 5;
+*
+ERROR at line 6:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT D.DEPTNO, COUNT(EMPNO)
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5  HAVING COUNT(EMPNO) > (SELECT COUNT(*) FROM EMP
+  6  WHREE DEPTNO = (SELECT DEPTNO FROM EMP WHERE NAME = 'SMITH');
+HAVING COUNT(EMPNO) > (SELECT COUNT(*) FROM EMP
+                       *
+ERROR at line 5:
+ORA-00921: unexpected end of SQL command 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(EMPNO)
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5  HAVING COUNT(EMPNO) > (SELECT COUNT(*) FROM EMP
+  6* WHREE DEPTNO = (SELECT DEPTNO FROM EMP WHERE NAME = 'SMITH'))
+SQL> /
+WHREE DEPTNO = (SELECT DEPTNO FROM EMP WHERE NAME = 'SMITH'))
+      *
+ERROR at line 6:
+ORA-00907: missing right parenthesis 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(E.EMPNO)
+  2  FROM EMP E
+  3  INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5  HAVING COUNT(E.EMPNO) > (
+  6      SELECT COUNT(*)
+  7      FROM EMP
+  8      WHERE DEPTNO = (
+  9          SELECT DEPTNO
+ 10          FROM EMP
+ 11          WHERE ENAME = 'SMITH'
+ 12      )
+ 13* );
+SQL> SELECT D.DEPTNO, COUNT(E.EMPNO)
+  2  FROM EMP E
+  3  INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5  HAVING COUNT(E.EMPNO) > (
+  6      SELECT COUNT(*)
+  7      FROM EMP
+  8      WHERE DEPTNO = (
+  9          SELECT DEPTNO
+ 10          FROM EMP
+ 11          WHERE ENAME = 'SMITH'
+ 12          FETCH FIRST 1 ROWS ONLY
+ 13      )
+ 14  );
+        FETCH FIRST 1 ROWS ONLY
+        *
+ERROR at line 12:
+ORA-00907: missing right parenthesis 
+
+
+SQL> /
+        FETCH FIRST 1 ROWS ONLY
+        *
+ERROR at line 12:
+ORA-00907: missing right parenthesis 
+
+
+SQL> /
+        FETCH FIRST 1 ROWS ONLY
+        *
+ERROR at line 12:
+ORA-00907: missing right parenthesis 
+
+
+SQL> /
+        FETCH FIRST 1 ROWS ONLY
+        *
+ERROR at line 12:
+ORA-00907: missing right parenthesis 
+
+
+SQL> 
+SQL> /
+        FETCH FIRST 1 ROWS ONLY
+        *
+ERROR at line 12:
+ORA-00907: missing right parenthesis 
+
+
+SQL> /
+        FETCH FIRST 1 ROWS ONLY
+        *
+ERROR at line 12:
+ORA-00907: missing right parenthesis 
+
+
+SQL> ///////////////////
+        FETCH FIRST 1 ROWS ONLY
+        *
+ERROR at line 12:
+ORA-00907: missing right parenthesis 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, COUNT(E.EMPNO)
+  2  FROM EMP E
+  3  INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5  HAVING COUNT(E.EMPNO) > (
+  6      SELECT COUNT(*)
+  7      FROM EMP
+  8      WHERE DEPTNO = (
+  9          SELECT DEPTNO
+ 10          FROM EMP
+ 11          WHERE ENAME = 'SMITH'
+ 12      )
+ 13* )
+SQL> /
+
+    DEPTNO COUNT(E.EMPNO)                                                                                                                                                                                                                                                                                   
+---------- --------------                                                                                                                                                                                                                                                                                   
+        30              6                                                                                                                                                                                                                                                                                   
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, DNAME, LOC
+  2  FROM DEPT
+  3  WHERE DEPTNO = (SELECT D.DEPTNO, COUNT(E.EMPNO)
+  4  FROM EMP E
+  5  INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO
+  6  GROUP BY D.DEPTNO
+  7  HAVING COUNT(E.EMPNO) > (
+  8      SELECT COUNT(*)
+  9      FROM EMP
+ 10      WHERE DEPTNO = (
+ 11          SELECT DEPTNO
+ 12          FROM EMP
+ 13          WHERE ENAME = 'SMITH'
+ 14      )
+ 15* ))
+SQL> /
+SELECT D.DEPTNO, DNAME, LOC
+       *
+ERROR at line 1:
+ORA-00904: "D"."DEPTNO": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DEPTNO, DNAME, LOC
+  2  FROM DEPT
+  3  WHERE DEPTNO = (SELECT D.DEPTNO, COUNT(E.EMPNO)
+  4  FROM EMP E
+  5  INNER JOIN DEPT D ON E.DEPTNO = D.DEPTNO
+  6  GROUP BY D.DEPTNO
+  7  HAVING COUNT(E.EMPNO) > (
+  8      SELECT COUNT(*)
+  9      FROM EMP
+ 10      WHERE DEPTNO = (
+ 11          SELECT DEPTNO
+ 12          FROM EMP
+ 13          WHERE ENAME = 'SMITH'
+ 14      )
+ 15* ))
+SQL> /
+WHERE DEPTNO = (SELECT D.DEPTNO, COUNT(E.EMPNO)
+                *
+ERROR at line 3:
+ORA-00913: too many values 
+
+
+SQL> SELECT D.DEPTNO, D.DNAME, D.LOC
+  2  FROM DEPT D
+  3  WHERE D.DEPTNO IN (
+  4      SELECT E.DEPTNO
+  5      FROM EMP E
+  6      GROUP BY E.DEPTNO
+  7      HAVING COUNT(*) > (
+  8          SELECT COUNT(*)
+  9          FROM EMP
+ 10          WHERE DEPTNO = (
+ 11              SELECT DEPTNO
+ 12              FROM EMP
+ 13              WHERE ENAME = 'SMITH'
+ 14              FETCH FIRST 1 ROWS ONLY
+ 15          )
+ 16      )
+ 17  );
+            FETCH FIRST 1 ROWS ONLY
+            *
+ERROR at line 14:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT D.DEPTNO, D.DNAME, D.LOC
+  2  FROM DEPT D
+  3  WHERE D.DEPTNO IN (
+  4      SELECT E.DEPTNO
+  5      FROM EMP E
+  6      GROUP BY E.DEPTNO
+  7      HAVING COUNT(*) > (
+  8          SELECT COUNT(*)
+  9          FROM EMP
+ 10          WHERE DEPTNO = (
+ 11              SELECT DEPTNO
+ 12              FROM EMP
+ 13              WHERE ENAME = 'SMITH'
+ 14              FETCH FIRST 1 ROWS ONLY
+ 15          )
+ 16      )
+ 17  );
+            FETCH FIRST 1 ROWS ONLY
+            *
+ERROR at line 14:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT D.DEPTNO, D.DNAME, D.LOC
+  2  FROM DEPT D
+  3  WHERE D.DEPTNO IN (
+  4      SELECT E.DEPTNO
+  5      FROM EMP E
+  6      GROUP BY E.DEPTNO
+  7      HAVING COUNT(*) > (
+  8          SELECT COUNT(*)
+  9          FROM EMP
+ 10          WHERE DEPTNO = (
+ 11              SELECT DEPTNO
+ 12              FROM EMP
+ 13              WHERE ENAME = 'SMITH'
+ 14              FETCH FIRST 1 ROWS ONLY
+ 15          )
+ 16      )
+ 17  );
+            FETCH FIRST 1 ROWS ONLY
+            *
+ERROR at line 14:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT D.DEPTNO, D.DNAME, D.LOC
+  2  FROM DEPT D
+  3  WHERE D.DEPTNO IN (
+  4      SELECT E.DEPTNO
+  5      FROM EMP E
+  6      GROUP BY E.DEPTNO
+  7      HAVING COUNT(*) > (
+  8          SELECT COUNT(*)
+  9          FROM EMP
+ 10          WHERE DEPTNO = (
+ 11              SELECT DEPTNO
+ 12              FROM EMP
+ 13              WHERE ENAME = 'SMITH'
+ 14              FETCH FIRST 1 ROWS ONLY
+ 15          )
+ 16      )
+ 17  );
+            FETCH FIRST 1 ROWS ONLY
+            *
+ERROR at line 14:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT D.DEPTNO, D.DNAME, D.LOC
+  2  FROM DEPT D
+  3  WHERE D.DEPTNO IN (
+  4      SELECT E.DEPTNO
+  5      FROM EMP E
+  6      GROUP BY E.DEPTNO
+  7      HAVING COUNT(*) > (
+  8          SELECT COUNT(*)
+  9          FROM EMP
+ 10          WHERE DEPTNO = (
+ 11              SELECT DEPTNO
+ 12              FROM EMP
+ 13              WHERE ENAME = 'SMITH'
+ 14              FETCH FIRST 1 ROWS ONLY
+ 15          )
+ 16      )
+ 17  );
+            FETCH FIRST 1 ROWS ONLY
+            *
+ERROR at line 14:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT COUNT(EMPNO)
+  2  FROM EMP E LEFT OUTER JOIN DEPT D
+  3  ;
+
+*
+ERROR at line 3:
+ORA-00905: missing keyword 
+
+
+SQL> SELECT COUNT(EMPNO)
+  2  FROM EMP E LEFT OUTER JOIN DEPT D
+  3  ;
+
+*
+ERROR at line 3:
+ORA-00905: missing keyword 
+
+
+SQL> SELECT COUNT(EMPNO)
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON D.DEPTNO  = E.DEPTNO
+  4  GROUP BY DEPTNO
+  5  ;
+GROUP BY DEPTNO
+         *
+ERROR at line 4:
+ORA-00918: column ambiguously defined 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*)
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON D.DEPTNO  = E.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5* ORDER BY D.DEPTNO DESC
+SQL> /
+
+  COUNT(*)                                                                                                                                                                                                                                                                                                  
+----------                                                                                                                                                                                                                                                                                                  
+         1                                                                                                                                                                                                                                                                                                  
+         6                                                                                                                                                                                                                                                                                                  
+         5                                                                                                                                                                                                                                                                                                  
+         3                                                                                                                                                                                                                                                                                                  
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT COUNT(*), D.DEPTNO
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON D.DEPTNO  = E.DEPTNO
+  4  GROUP BY D.DEPTNO
+  5* ORDER BY D.DEPTNO DESC
+SQL> /
+
+  COUNT(*)     DEPTNO                                                                                                                                                                                                                                                                                       
+---------- ----------                                                                                                                                                                                                                                                                                       
+         1         40                                                                                                                                                                                                                                                                                       
+         6         30                                                                                                                                                                                                                                                                                       
+         5         20                                                                                                                                                                                                                                                                                       
+         3         10                                                                                                                                                                                                                                                                                       
+
+SQL> SELECT * FROM EMP;
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                                                                                                                     
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                                                                                                                     
+      7369 SMITH                CLERK                    7902 80/12/17        800                    20                                                                                                                                                                                                     
+      7499 ALLEN                SALESMAN                 7698 81/02/20       1600        300         30                                                                                                                                                                                                     
+      7521 WARD                 SALESMAN                 7698 81/02/22       1250        500         30                                                                                                                                                                                                     
+      7566 JONES                MANAGER                  7839 81/04/02       2975                    20                                                                                                                                                                                                     
+      7654 MARTIN               SALESMAN                 7698 81/09/28       1250       1400         30                                                                                                                                                                                                     
+      7698 BLAKE                MANAGER                  7839 81/05/01       2850                    30                                                                                                                                                                                                     
+      7782 CLARK                MANAGER                  7839 81/06/09       2450                    10                                                                                                                                                                                                     
+      7788 SCOTT                ANALYST                  7566 87/04/19       3000                    20                                                                                                                                                                                                     
+      7839 KING                 PRESIDENT                     81/11/17       5000                    10                                                                                                                                                                                                     
+      7844 TURNER               SALESMAN                 7698 81/09/08       1500          0         30                                                                                                                                                                                                     
+      7876 ADAMS                CLERK                    7788 87/05/23       1100                    20                                                                                                                                                                                                     
+
+     EMPNO ENAME                JOB                       MGR HIREDATE        SAL       COMM     DEPTNO                                                                                                                                                                                                     
+---------- -------------------- ------------------ ---------- -------- ---------- ---------- ----------                                                                                                                                                                                                     
+      7900 JAMES                CLERK                    7698 81/12/03        950                    30                                                                                                                                                                                                     
+      7902 FORD                 ANALYST                  7566 81/12/03       3000                    20                                                                                                                                                                                                     
+      7934 MILLER               CLERK                    7782 82/01/23       1300                    10                                                                                                                                                                                                     
+
+14 rows selected.
+
+SQL> SELECT * FROM DEPT;
+
+    DEPTNO DNAME                        LOC                                                                                                                                                                                                                                                                 
+---------- ---------------------------- --------------------------                                                                                                                                                                                                                                          
+        10 ACCOUNTING                   NEW YORK                                                                                                                                                                                                                                                            
+        20 RESEARCH                     DALLAS                                                                                                                                                                                                                                                              
+        30 SALES                        CHICAGO                                                                                                                                                                                                                                                             
+        40 OPERATIONS                   BOSTON                                                                                                                                                                                                                                                              
+
+SQL> SELECT E.EMPNO,E.ENAME,E.DEPTNO,D.DNAME,D.LOC
+  2  FROM EMP E RIGHT INNER JOIN DEPT D
+  3  WHERE D.DETPNO = E.DEPTNO
+  4  GROUP BY EMPNO
+  5  ORDER BY EMPNO DESC;
+FROM EMP E RIGHT INNER JOIN DEPT D
+                 *
+ERROR at line 2:
+ORA-00905: missing keyword 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E.EMPNO,E.ENAME,E.DEPTNO,D.DNAME,D.LOC
+  2  FROM EMP E RIGHT JOIN DEPT D
+  3  WHERE D.DETPNO = E.DEPTNO
+  4  GROUP BY EMPNO
+  5* ORDER BY EMPNO DESC
+SQL> /
+WHERE D.DETPNO = E.DEPTNO
+*
+ERROR at line 3:
+ORA-00905: missing keyword 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E.EMPNO,E.ENAME,E.DEPTNO,D.DNAME,D.LOC
+  2  FROM EMP E RIGHT JOIN DEPT D
+  3  WHERE D.DEPTNO = E.DEPTNO
+  4  GROUP BY EMPNO
+  5* ORDER BY EMPNO DESC
+SQL> /
+WHERE D.DEPTNO = E.DEPTNO
+*
+ERROR at line 3:
+ORA-00905: missing keyword 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E.EMPNO,E.ENAME,E.DEPTNO,D.DNAME,D.LOC
+  2  FROM EMP E RIGHT JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4  GROUP BY EMPNO
+  5* ORDER BY EMPNO DESC
+SQL> /
+SELECT E.EMPNO,E.ENAME,E.DEPTNO,D.DNAME,D.LOC
+               *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E.EMPNO,E.ENAME,E.DEPTNO,D.DNAME,D.LOC
+  2  FROM EMP E RIGHT JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4  GROUP BY E.EMPNO
+  5* ORDER BY E.EMPNO DESC
+SQL> 
+SQL> /
+SELECT E.EMPNO,E.ENAME,E.DEPTNO,D.DNAME,D.LOC
+               *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> ED.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E.EMPNO, E.ENAME, E.DEPTNO, D.DNAME, D.LOC
+  2  FROM EMP E INNER JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4  GROUP BY E.EMPNO
+  5* ORDER BY E.EMPNO DESC
+SQL> /
+SELECT E.EMPNO, E.ENAME, E.DEPTNO, D.DNAME, D.LOC
+                *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, D.DNAME, D.LOC, COUNT(E.EMPNO) AS EMP_COUNT
+  2  FROM EMP E RIGHT JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4  GROUP BY D.DEPTNO, D.DNAME, D.LOC
+  5* ORDER BY D.DEPTNO;
+SQL> /
+ORDER BY D.DEPTNO;
+                 *
+ERROR at line 5:
+ORA-00911: invalid character 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT D.DEPTNO, D.DNAME, D.LOC, COUNT(E.EMPNO) AS EMP_COUNT
+  2  FROM EMP E RIGHT JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4  GROUP BY D.DEPTNO, D.DNAME, D.LOC
+  5* ORDER BY D.DEPTNO
+SQL> /
+
+    DEPTNO DNAME                        LOC                         EMP_COUNT                                                                                                                                                                                                                               
+---------- ---------------------------- -------------------------- ----------                                                                                                                                                                                                                               
+        10 ACCOUNTING                   NEW YORK                            3                                                                                                                                                                                                                               
+        20 RESEARCH                     DALLAS                              5                                                                                                                                                                                                                               
+        30 SALES                        CHICAGO                             6                                                                                                                                                                                                                               
+        40 OPERATIONS                   BOSTON                              0                                                                                                                                                                                                                               
+
+SQL> SELECT E.ENAME, D.DEPT, D.LOC
+  2  FROM EMP E RIGHT JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4  HAVING D.DEPTNO = (SELECT DEPTNO FROM EMP WHERE AVG(SAL >= 2000);
+HAVING D.DEPTNO = (SELECT DEPTNO FROM EMP WHERE AVG(SAL >= 2000)
+                   *
+ERROR at line 4:
+ORA-00921: unexpected end of SQL command 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E.ENAME, D.DEPT, D.LOC
+  2  FROM EMP E RIGHT JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4* HAVING D.DEPTNO IN (SELECT DEPTNO FROM EMP WHERE AVG(SAL >= 2000)
+SQL> /
+HAVING D.DEPTNO IN (SELECT DEPTNO FROM EMP WHERE AVG(SAL >= 2000)
+                                                         *
+ERROR at line 4:
+ORA-00907: missing right parenthesis 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E.ENAME, D.DEPT, D.LOC
+  2  FROM EMP E RIGHT JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4* HAVING D.DEPTNO IN (SELECT DEPTNO FROM EMP WHERE AVG(SAL) >= 2000)
+SQL> /
+SELECT E.ENAME, D.DEPT, D.LOC
+                *
+ERROR at line 1:
+ORA-00904: "D"."DEPT": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E.ENAME, D.DEPT, D.LOC
+  2  FROM EMP E RIGHT JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4  HAVING D.DEPTNO IN 
+  5* (SELECT DEPTNO FROM DEPT WHERE AVG(SAL) >= 2000)
+SQL> /
+SELECT E.ENAME, D.DEPT, D.LOC
+                *
+ERROR at line 1:
+ORA-00904: "D"."DEPT": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E.ENAME, D.DEPT, D.LOC
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4  HAVING D.DEPTNO IN 
+  5* (SELECT DEPTNO FROM DEPT WHERE AVG(SAL) >= 2000)
+SQL> /
+SELECT E.ENAME, D.DEPT, D.LOC
+                *
+ERROR at line 1:
+ORA-00904: "D"."DEPT": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E.ENAME, D.DNAME, D.LOC
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4  HAVING D.DEPTNO IN 
+  5* (SELECT DEPTNO FROM DEPT WHERE AVG(SAL) >= 2000)
+SQL> /
+HAVING D.DEPTNO IN 
+       *
+ERROR at line 4:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E.ENAME, D.DNAME, D.LOC
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4  HAVING DEPTNO IN 
+  5* (SELECT DEPTNO FROM DEPT WHERE AVG(SAL) >= 2000)
+SQL> /
+HAVING DEPTNO IN 
+       *
+ERROR at line 4:
+ORA-00918: column ambiguously defined 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E.ENAME, D.DNAME, D.LOC
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4  HAVING E.DEPTNO IN 
+  5* (SELECT DEPTNO FROM DEPT WHERE AVG(SAL) >= 2000)
+SQL> /
+HAVING E.DEPTNO IN 
+       *
+ERROR at line 4:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E.ENAME, D.DNAME, D.LOC
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4  GROUP BY DEPTNO
+  5  HAVING E.DEPTNO IN 
+  6* (SELECT DEPTNO FROM DEPT WHERE AVG(SAL) >= 2000)
+SQL> /
+GROUP BY DEPTNO
+         *
+ERROR at line 4:
+ORA-00918: column ambiguously defined 
+
+
+SQL> TQ
+SP2-0042: unknown command "TQ" - rest of line ignored.
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E.ENAME, D.DNAME, D.LOC
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4  GROUP BY E.DEPTNO
+  5  HAVING E.DEPTNO IN 
+  6* (SELECT DEPTNO FROM DEPT WHERE AVG(SAL) >= 2000)
+SQL> /
+SELECT E.ENAME, D.DNAME, D.LOC
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E.ENAME, D.DNAME, D.LOC
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4  GROUP BY D.DNAME
+  5  HAVING E.DEPTNO IN 
+  6* (SELECT DEPTNO FROM DEPT WHERE AVG(SAL) >= 2000)
+SQL> /
+SELECT E.ENAME, D.DNAME, D.LOC
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT E.ENAME, D.DNAME, D.LOC
+  2  FROM EMP E RIGHT OUTER JOIN DEPT D
+  3  ON D.DEPTNO = E.DEPTNO
+  4  GROUP BY D.DNAME
+  5  HAVING E.DEPTNO IN 
+  6* (SELECT DEPTNO FROM DEPT WHERE AVG(SAL) >= 2000)
+SQL> SPOOL OFF
