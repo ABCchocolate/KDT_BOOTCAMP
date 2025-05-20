@@ -41,11 +41,9 @@
         }
 
         /*-------------------------------------------------
-        해당 년 월에 해당하는 숫자 출력하기
+        달력과 다이어리 비교하여 랜더링 처리
         -------------------------------------------------*/
-        function printNum() {
-            let startDay = getStartDate(currentYear, currentMonth);
-            let lastDate = getLastDate(currentYear, currentMonth)
+        function checkData(startDay, lastDate) {
             let date = 1;
 
             for (let i = 0; i < 6; i++) {
@@ -61,12 +59,38 @@
                     } else {
                         // 정상 날짜 출력
                         cell.setDate(currentYear, currentMonth, date);
+
+                        // 다이어리와 일치하는 항목이 있는지 확인
+                        for (let k = 0; k < diaryArray.length; k++) {
+                            let diary = diaryArray[k];
+
+                            if (
+                                diary.year === currentYear &&
+                                diary.month === currentMonth &&
+                                diary.date === date
+                            ) {
+                                // 제목 및 아이콘 출력
+                                cell.titleDiv.innerText = diary.title;
+                                cell.renderIcon(diary.icon, 30);
+                                break;
+                            }
+                        }
+
                         date++;
                     }
                 }
             }
         }
 
+        /*-------------------------------------------------
+        해당 년 월에 해당하는 숫자 출력하기
+        -------------------------------------------------*/
+        function printNum() {
+            let startDay = getStartDate(currentYear, currentMonth);
+            let lastDate = getLastDate(currentYear, currentMonth);
+
+            checkData(startDay, lastDate);
+        }
 
 
         /*------------------------------------------------------
@@ -116,10 +140,35 @@
                     //1) div에 출력된 모든 텍스트 지우기
                     cellArray[i][j].numDiv.innerText = "";
                     cellArray[i][j].titleDiv.innerText = "";
+                    //2) 등록된 아이콘이 있으면 제거(remove)
+                    if (cellArray[i][j].iconDiv.children.length > 0) {
+                        //아이콘 발견
+                        cellArray[i][j].iconDiv.removeChild(cellArray[i][j].icon);
+                    }
                 }
             }
         }
 
+        function showViewDialog(cell, diary) {
+            let dialog = document.getElementById("dialog");
+            dialog.style.display = "block";
+            dialog.style.position = "absolute";
+            dialog.style.left = cell.x + "px";
+            dialog.style.top = cell.y + "px";
+
+            currentCell = cell;
+
+            // 다이어리 데이터 채우기
+            document.getElementById("t_title").value = diary.title;
+            document.getElementById("t_detail").value = diary.detail;
+
+            // 읽기 전용 설정
+            document.getElementById("t_title").readOnly = true;
+            document.getElementById("t_detail").readOnly = true;
+
+            // 등록 버튼 숨기기 (또는 비활성화)
+            document.getElementById("bt_regist").style.display = "none";
+        }
 
         /*------------------------------------------------------
          이전 달력 출력
@@ -189,13 +238,28 @@
             }
             //입력한 정보를 현재 cell에 반영해야한다.
             currentCell.titleDiv.innerText = diary.title
-            currentCell.renderIcon(diary.icon,30);
+            currentCell.renderIcon(diary.icon, 30);
 
 
             diaryArray.push(diary);
 
         }
 
+        function closeDialog() {
+            let dialog = document.getElementById("dialog");
+            dialog.style.display = "none";
+
+            // 입력창 초기화
+            document.getElementById("t_title").value = "";
+            document.getElementById("t_detail").value = "";
+
+            // 읽기 전용 해제
+            document.getElementById("t_title").readOnly = false;
+            document.getElementById("t_detail").readOnly = false;
+
+            // 등록 버튼 다시 보이기
+            document.getElementById("bt_regist").style.display = "inline";
+        }
 
         //화살표 함수의 사용 목적은 코드를 간결하게 만들기 위해서 사용한다.
         //참고로 화살표 함수는 this를 가질 수 없다. 
@@ -226,13 +290,48 @@
                 regist();
                 closeDialog();
             })
+
+            //이미지를 클릭하면, 파일 탐색기를 강제로 클릭시키자.
+            document.querySelector("#info img").addEventListener('click', () => {
+                //강제 클릭
+                //대사 컴포넌트의 클릭을 일으킨다.
+                document.getElementById("fileChooser").click(); //프로그래밍적 클릭
+
+                //유저가 파일 선택기에서 파일을 선택한 순간에 데이터를 모두 읽어들이자.
+                document.getElementById("fileChooser").addEventListener('change', (e) => {
+                    console.log(e);
+
+                    //e.target.files 라는 유사배열의 0번째 파일
+                    let file = e.target.files[0];
+                    //파일 읽어들이는 객체 사용하기
+                    let reader = new FileReader();
+                    reader.onload = function (data) {
+                        //읽어들인 데이터는 단지 js 객체 표기를 차용한 것뿐이므로, 단순한 문자열에 불과하다..
+                        //따라서 객체처럼 .을 찍고 접근 불가로 만든다.
+                        //해결책) 실제 객체화 시켜야한다.(JSON내장 객체 이용
+                        let obj = JSON.parse(data.target.result); //해석 후 객체로 반환 시킨다.
+                        diaryArray = obj.diaryList;
+
+                        printTitle();
+                        //기존의 div에 기록된 데이터를 지워야한다.
+                        clearCell();
+                        printNum();
+                    }
+                    reader.readAsText(file);
+
+                })
+            })
         })
     </script>
 </head>
 
 <body>
     <div id="wrapper">
-        <div id="info"></div>
+        <div id="info">
+            <input type="file" style="display:none;" id="fileChooser">
+            <img src="./images/upload.png" alt="파일 첨부" style="width:50px;">
+        </div>
+
         <div id="header">
             <a href="javascript:prev()">이전</a>
             <h2>1999년 9월</h2>

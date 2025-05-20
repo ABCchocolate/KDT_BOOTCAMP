@@ -36,6 +36,16 @@ class Cell {
         //border,margin,padding에 의한 박스의 크기가 바깥쪽으로 늘어나지 않게 해준다.
         this.div.style.boxSizing = "border-box";
 
+        // 마우스 오버 시 색상 변화
+        this.div.addEventListener("mouseenter", () => {
+            this.div.style.background = "#f0f0f0";
+        });
+
+        // 마우스가 벗어나면 원래 배경색으로
+        this.div.addEventListener("mouseleave", () => {
+            this.div.style.background = this.bg;
+        });
+
 
         //날짜 출력 div만들기
         this.numDiv.style.width = 100 + "%";
@@ -43,6 +53,8 @@ class Cell {
         this.numDiv.style.textAlign = "right";
         this.numDiv.style.paddingRight = "0px 5px 0px 0px"; //top-right-bottom-left
         this.numDiv.style.boxSizing = "border-box";
+
+
         // this.numDiv.style.background = "gray" //나중에 주석으로 막을 예정.. 확인용
 
 
@@ -70,10 +82,19 @@ class Cell {
         //화살표함수는 this를 가질 수 없다. 바깥쪽 상위 스코프인 객체를 가르키기 위해서는
         //화살표 함수를 사용해야한다.
         this.div.addEventListener('click', () => {
-            //창을 띄울 예정
-            //전역함수 접근 방법
-            openDialog(this);
-        })
+            const match = diaryArray.find(diary =>
+                diary.year === this.year &&
+                diary.month === this.month &&
+                diary.date === this.date
+            );
+
+            if (match) {
+                showViewDialog(this, match); // 보기 모드
+            } else {
+                openDialog(this); // 등록 모드
+            }
+        });
+
 
     }
 
@@ -87,15 +108,17 @@ class Cell {
         this.numDiv.innerText = date;
     }
 
-    renderIcon(src,width) {//어떤 이미지를 원하는지 호출자가 정하게 한다.
+    renderIcon(src, width) {//어떤 이미지를 원하는지 호출자가 정하게 한다.
         this.icon = document.createElement("img");
         this.icon.src = src;
 
         //이미지의 크기 조절
-        this.icon.style.width = width + "px"; 
+        this.icon.style.width = width + "px";
 
         this.icon.style.objectFit = "contain";
         this.iconDiv.appendChild(this.icon);
     }
+
+    
 
 }
