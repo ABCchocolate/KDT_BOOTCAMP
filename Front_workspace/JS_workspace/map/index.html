@@ -1,0 +1,33 @@
+/* ========================
+   index.html
+   ======================== */
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyPlace - 장소 추천 맵</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>MyPlace</h1>
+    <div class="filters">
+      <button onclick="filterCategory('전체')">전체</button>
+      <button onclick="filterCategory('카페')">카페</button>
+      <button onclick="filterCategory('음식점')">음식점</button>
+      <button onclick="filterCategory('공원')">공원</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="map" id="map"></section>
+    <section class="info-panel" id="infoPanel">
+      <p>장소를 선택해주세요.</p>
+    </section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
