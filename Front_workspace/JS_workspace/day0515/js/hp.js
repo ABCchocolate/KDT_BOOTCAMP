@@ -19,7 +19,6 @@ class HP{
 
         this.div.style.background = this.bg;
         this.div.style.border = "1px solid s" + this.borderColor;
-
         this.container.appendChild(this.div);
     }
 }
