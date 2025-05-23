@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나만의 농장 게임</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>나만의 농장</h1>
+    <div class="toolbar">
+        <!-- 당근 씨앗 버튼 추가 -->
+        <button id="seed-carrot">당근 씨앗 (10원)</button>
+        <!-- 감자 씨앗 버튼 추가 -->
+        <button id="seed-potato">감자 씨앗 (15원)</button>
+         <!--딸기 씨앗 버튼 추가  -->
+        <button id = "seed-strawberry">딸기 씨앗 (20원)</button>
+        <button id="tool-harvest">수확하기</button>
+    </div>
+    <div id="farm-grid" class="farm-grid">
+        <!-- JavaScript로 밭 칸 생성 -->
+    </div>
+    <div class="info">
+        <p>💰내 돈: <span id="money">100</span>원</p>
+        <p>선택된 도구: <span id="current-tool">없음</span></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
