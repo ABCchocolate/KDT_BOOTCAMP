@@ -1,0 +1,77 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.farm-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 50px); /* 5xN 밭 */
+    grid-template-rows: repeat(3, 50px);    /* 예시: 5x3 밭 */
+    gap: 5px;
+    border: 2px solid #8B4513; /* 갈색 테두리 */
+    padding: 10px;
+    background-color: #A0522D; /* 흙색 배경 */
+    margin-bottom: 20px;
+}
+
+.plot {
+    width: 50px;
+    height: 50px;
+    background-color: #DEB887; /* 밝은 흙색 */
+    border: 1px solid #8B4513;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.plot.planted::before {
+    content: "🌱"; /* 씨앗 심은 초기 모습 */
+    font-size: 20px;
+}
+
+.plot.growing::before {
+    content: "🌿"; /* 자라는 중 */
+    font-size: 25px;
+}
+
+.plot.ready-to-harvest::before {
+    content: "🥕"; /* 수확 가능한 당근  */
+    font-size: 30px;
+}
+
+.toolbar button {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.info {
+    text-align: center;
+}
+
+/* 씨앗 선택 슬라이더 스타일 */
+.seed-slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 가운데 정렬 */
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #eee;
+}
+
+.seed-info {
+    margin: 0 10px; /* 이전/다음 버튼과의 간격 */
+    font-weight: bold;
+    min-width: 120px; /* 내용이 바뀌어도 레이아웃이 크게 흔들리지 않도록 최소 너비 설정 */
+    text-align: center;
+}
+
+/* 기존 버튼 스타일 재활용 또는 수정 */
+.inventory-container {
+    margin-top: 20px;
+    padding: 15px;
