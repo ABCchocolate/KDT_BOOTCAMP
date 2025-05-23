@@ -1,0 +1,221 @@
+/* 나만의 팔레트 만들기 */
+:root {
+    --font-primary: sans-serif;
+
+    --color-brown-dark: #8B4513;   /* 짙은 갈색 (테두리 등) */
+    --color-brown-medium: #A0522D; /* 중간 흙색 (밭 배경) */
+    --color-brown-light: #DEB887;  /* 밝은 흙색 (빈 밭 칸) */
+    --color-cream: #f5deb3;        /* 크림색 (인벤토리 배경) */
+    --color-cream-darker: #fff8e1; /* 더 연한 크림색 (상점 패널 배경) */
+
+    --color-text-light: white;
+
+    --color-button-sell: #e74c3c;       /* 판매 버튼 (붉은 계열) */
+    --color-button-sell-hover: #c0392b;
+    --color-button-buy: #27ae60;        /* 구매 버튼 (녹색 계열) */
+    --color-button-buy-hover: #229954;
+    --color-button-shop-toggle: #f39c12; /* 상점 토글 (주황 계열) */
+    --color-shop-border: #e67e22;       /* 상점 테두리 */
+    --color-shop-title: #c0392b;        /* 상점 제목 */
+}
+
+body {
+    font-family: var(--font-primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.farm-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 50px); /* 5xN 밭 */
+    grid-template-rows: repeat(3, 50px);    
+    gap: 5px;
+    border: 2px solid var(--color-brown-dark); /* 갈색 테두리 */
+    padding: 10px;
+    background-color: var(--color-brown-medium); /* 흙색 배경 */
+    margin-bottom: 20px;
+}
+
+/* style.css 에 추가하거나 수정 */
+.inventory-grid {
+    display: grid;
+    /* 인벤토리 그리드 자체가 충분한 너비를 갖도록 설정 */
+    width: 90%; /* 부모 요소 너비의 90%를 사용하도록 시도 */
+    max-width: 460px; /* 최대 너비는 약 5칸 정도 (80px * 5칸 + 간격 등 고려) */
+    margin-left: auto; /* 가운데 정렬 (body의 align-items: center와 함께 작동) */
+    margin-right: auto; /* 가운데 정렬 */
+    box-sizing: border-box; /* padding과 border를 width 계산에 포함 */
+
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* 각 칸의 최소 너비를 80px로 줄임 */
+    gap: 8px; /* 칸 사이 간격을 8px로 줄임 */
+    padding: 8px; /* 내부 여백을 8px로 줄임 */
+    border: 2px solid var(--color-brown-dark); /* 테두리 색상 통일 */
+    background-color: var(--color-cream);
+    margin-top: 20px; /* 기존 상단 마진 유지 */
+    min-height: 90px; /* 최소 높이를 90px로 약간 줄임 */
+}
+
+.inventory-cell {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 8px; /* 셀 내부 여백을 8px로 줄임 */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.inventory-cell span { /* 아이템 내부 텍스트 스타일 (선택 사항) */
+    display: block;
+    margin-bottom: 4px; /* 텍스트 간 간격 약간 줄임 */
+    font-size: 0.9em; /* 셀 내부 글자 크기를 약간 줄임 */
+}
+
+/* 인벤토리 셀 내부 판매 버튼 스타일 */
+.inventory-cell button {
+    margin-top: 5px; /* 아이템 내용과 버튼 사이 간격 */
+    padding: 3px 8px; /* 버튼 내부 여백 */
+    font-size: 0.9em; /* 버튼 글자 크기 */
+    cursor: pointer; /* 마우스 올리면 손가락 모양으로 */
+    background-color: var(--color-button-sell);
+    color: var(--color-text-light);
+    border: none;
+    border-radius: 3px;
+}
+.inventory-cell button:hover {
+    background-color: var(--color-button-sell-hover);
+}
+
+/* 상점 스타일 */
+.shop-toggle-button {
+    position: fixed; /* 화면에 고정 */
+    top: 150px;      /* 화면 상단에서 적절한 위치 */
+    right: 0px;      /* 초기에는 화면 오른쪽에 붙어있음 */
+    background-color: var(--color-button-shop-toggle);
+    color: var(--color-text-light);
+    border: none;
+    padding: 10px 12px; /* 버튼 내부 여백 */
+    font-size: 1.8em;   /* 이모티콘 크기 */
+    cursor: pointer;
+    border-top-left-radius: 10px;   /* 왼쪽 모서리 둥글게 */
+    border-bottom-left-radius: 10px;
+    z-index: 1001; /* 다른 요소들보다 위에 있도록 (패널 포함) */
+    transition: right 0.4s ease-in-out; /* 오른쪽 위치 변경 시 부드럽게 이동 */
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.shop-panel {
+    position: fixed; /* 화면에 고정 */
+    top: 130px;      /* 토글 버튼과 시각적으로 어울리는 위치 */
+    right: 0;        /* 초기 위치 (transform으로 숨김) */
+    width: 320px;    /* 상점 패널 너비 */
+    height: calc(100vh - 160px); /* 화면 높이 기반으로 계산 (상단 130px, 하단 여유 30px) */
+    max-height: 450px; /* 최대 높이 제한 */
+    background-color: var(--color-cream-darker);
+    border: 2px solid var(--color-shop-border);
+    border-right: none; /* 화면 오른쪽에 붙으므로 오른쪽 테두리는 제거 */
+    box-shadow: -5px 0px 15px rgba(0,0,0,0.15); /* 그림자 효과 */
+    padding: 20px;
+    box-sizing: border-box;
+    transform: translateX(100%); /* 초기에는 화면 오른쪽 바깥으로 완전히 숨김 */
+    transition: transform 0.4s ease-in-out; /* 부드러운 슬라이드 효과 */
+    z-index: 1000; /* 토글 버튼 바로 아래에 있도록 */
+    border-top-left-radius: 15px;   /* 패널의 왼쪽 모서리 둥글게 */
+    border-bottom-left-radius: 15px;
+    overflow-y: auto; /* 내용이 많아지면 스크롤바 표시 */
+}
+
+.shop-panel.open {
+    transform: translateX(0%); /* 'open' 클래스가 추가되면 화면 안으로 슬라이드 */
+}
+
+/* 상점이 열렸을 때 토글 버튼 위치 조정 */
+.shop-toggle-button.shop-open {
+    right: 320px; /* 상점 패널의 너비만큼 왼쪽으로 이동 */
+}
+
+/* 상점 패널 내부 아이템 스타일 */
+.shop-panel h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--color-shop-title);
+}
+
+.shop-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: var(--color-cream); /* 인벤토리 배경과 유사하게 또는 약간 다르게 */
+    border: 1px solid var(--color-button-shop-toggle);
+    border-radius: 5px;
+}
+
+.shop-item-name {
+    flex-grow: 1; /* 이름이 남은 공간을 채우도록 */
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.buy-button { /* 구매 버튼 스타일은 기존 .inventory-cell button과 유사하게 하거나 다르게 지정 가능 */
+    padding: 5px 10px;
+    background-color: var(--color-button-buy);
+    color: var(--color-text-light);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.buy-button:hover {
+    background-color: var(--color-button-buy-hover);
+}
+
+.plot {
+    width: 50px;
+    height: 50px;
+    background-color: var(--color-brown-light); /* 밝은 흙색 */
+    border: 1px solid var(--color-brown-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    /* 작물 표시는 JavaScript에서 innerHTML로 직접 하므로 ::before 스타일은 제거합니다. */
+    /* 필요한 경우, .plot.empty 등의 클래스에 기본 스타일을 줄 수 있습니다. */
+    font-size: 24px; /* 이모티콘 크기를 위한 기본 폰트 크기 (조절 가능) */
+}
+
+/* .inventory_plot 스타일은 현재 사용되지 않으므로 제거합니다.
+.inventory_plot {
+    width: 50px;
+    height: 50px;
+    background-color: var(--color-brown-light);
+    border: 1px solid var(--color-brown-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+*/
+
+.toolbar button {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.info {
+    text-align: center;
+}
+
+/* .seed-info 스타일은 현재 사용되는지 확인 후 정리 필요 */
+.seed-info {
+    margin: 0 10px; /* 이전/다음 버튼과의 간격 */
+    font-weight: bold;
+    min-width: 120px; /* 내용이 바뀌어도 레이아웃이 크게 흔들리지 않도록 최소 너비 설정 */
+    text-align: center;
+}

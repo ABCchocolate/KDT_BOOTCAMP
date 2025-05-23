@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나만의 농장 게임</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>나만의 농장</h1>
+    <div class="toolbar">
+        <!-- 당근 씨앗 버튼 추가 -->
+        <button id="seed-carrot">당근 씨앗</button>
+        <!-- 감자 씨앗 버튼 추가 -->
+        <button id="seed-potato">감자 씨앗</button>
+         <!--딸기 씨앗 버튼 추가  -->
+        <button id = "seed-strawberry">딸기 씨앗</button>
+        <button id="tool-harvest">수확하기</button>
+    </div>
+    <div id="farm-grid" class="farm-grid">
+        <!-- JavaScript로 밭 칸 생성 -->
+    </div>
+    <div class="info">
+        <p>💰내 돈: <span id="money">100</span>원</p>
+        <p>선택된 도구: <span id="current-tool">없음</span></p>
+    </div>
+    <h2>Inventory</h2> >
+    <div id="inventory-grid" class="inventory-grid">
+        <!-- 수확한 작물을 인벤토리에.. -->
+    </div>
+
+    <!-- 상점 UI 추가 -->
+    <div id="shop-container">
+        <button id="shop-toggle-button" class="shop-toggle-button">🛒</button>
+        <div id="shop-panel" class="shop-panel">
+            <h2>상점</h2>
+            <p>여기에 상점 아이템들이 표시될 거예요!</p>
+            <!-- 나중에 실제 상점 아이템들을 여기에 추가합니다. -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
