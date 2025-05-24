@@ -1,0 +1,46 @@
+{
+    "carrot": {
+        "name": "당근",
+        "seedCost": 10,
+        "harvestValue": 25,
+        "stages": [
+            "🌱",
+            "🌿",
+            "🥕"
+        ],
+        "growthTimers": [
+            3000,
+            5000
+        ]
+    },
+    "potato": {
+        "name": "감자",
+        "seedCost": 15,
+        "harvestValue": 40,
+        "stages": [
+            "🥔<small>🌱</small>",
+            "🥔<small>🌿</small>",
+            "🥔<big>🌿</big>"
+        ],
+        "growthTimers": [
+            4000,
+            6000
+        ]
+    },
+    "strawberry": {
+        "name": "딸기",
+        "seedCost": 20,
+        "harvestValue": 50,
+        "stages": [
+            "🍓<small>🌱</small>",
+            "🍓<small>🌿</small>",
+            "🍓<big>🌸</big>",
+            "🍓"
+        ],
+        "growthTimers": [
+            2000,
+            3000,
+            4000
+        ]
+    }
+}

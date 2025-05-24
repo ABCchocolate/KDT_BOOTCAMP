@@ -10,11 +10,11 @@
     <h1>나만의 농장</h1>
     <div class="toolbar">
         <!-- 당근 씨앗 버튼 추가 -->
-        <button id="seed-carrot">당근 씨앗 (10원)</button>
+        <button id="seed-carrot">당근 씨앗</button>
         <!-- 감자 씨앗 버튼 추가 -->
-        <button id="seed-potato">감자 씨앗 (15원)</button>
+        <button id="seed-potato">감자 씨앗</button>
          <!--딸기 씨앗 버튼 추가  -->
-        <button id = "seed-strawberry">딸기 씨앗 (20원)</button>
+        <button id = "seed-strawberry">딸기 씨앗</button>
         <button id="tool-harvest">수확하기</button>
     </div>
     <div id="farm-grid" class="farm-grid">
@@ -24,7 +24,24 @@
         <p>💰내 돈: <span id="money">100</span>원</p>
         <p>선택된 도구: <span id="current-tool">없음</span></p>
     </div>
+    <h2>Inventory</h2> >
+    <div id="inventory-grid" class="inventory-grid">
+        <!-- 수확한 작물을 인벤토리에.. -->
+    </div>
 
-    <script src="script.js"></script>
+    <!-- 상점 UI 추가 -->
+    <div id="shop-container">
+        <button id="shop-toggle-button" class="shop-toggle-button">🛒</button>
+        <div id="shop-panel" class="shop-panel">
+            <h2>상점</h2>
+            <p>상점 아이템들 표시하기</p>
+            <!-- 나중에 실제 상점 아이템들을 여기에 추가합니다. -->
+        </div>
+    </div>
+
+     <script src="js/tools.js"></script>   <!-- Tool, SeedTool, HarvestTool 정의 -->
+    <script src="js/plot.js"></script>    <!-- Plot 클래스 정의 -->
+    <script src="js/game.js"></script>    <!-- Game 클래스 정의 -->
+    <script src="script.js"></script>     <!-- 게임 시작 및 DOMContentLoaded 로직 -->
 </body>
 </html>
