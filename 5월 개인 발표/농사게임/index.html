@@ -39,6 +39,32 @@
         </div>
     </div>
 
+    <!-- 인터넷 창이 팝업 되면 바로 설명서가 나오도록 함. -->
+     <div id="tutorial-modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <button id="tutorial-close-button" class="modal-close-button">&times;</button>
+            <h2>게임 설명서</h2>
+            <p>안녕하세요! 🌱 농장 게임에 오신 것을 환영합니다.</p>
+            <p><strong>게임 목표:</strong> 열심히 농사를 지어 부자가 되어보세요! 💰</p>
+            <h3>기본 조작:</h3>
+            <ul>
+                <li><strong>도구 선택:</strong>
+                    <ul>
+                        <li><strong>씨앗:</strong> 🛒 아이콘을 눌러 상점을 여세요. 원하는 씨앗을 구매한 후, 화면 상단의 해당 씨앗 버튼 (예: 🥕)을 클릭하여 씨앗 도구를 선택합니다.</li>
+                        <li><strong>수확 도구:</strong> 낫(🌾) 모양의 수확 도구 버튼을 클릭하여 선택합니다.</li>
+                    </ul>
+                </li>
+                <li><strong>씨앗 심기:</strong> 씨앗 도구를 선택한 상태에서 비어있는 밭을 클릭하면 씨앗이 심어집니다. 씨앗은 시간이 지나면 자동으로 자랍니다.</li>
+                <li><strong>수확하기:</strong> 수확 도구를 선택한 후, 다 자란 작물(아이콘이 바뀜)을 클릭하여 수확합니다. 수확한 작물은 왼쪽 창고로 이동합니다.</li>
+                <li><strong>작물 판매하기:</strong> 창고에 있는 작물을 클릭하면 즉시 판매되어 돈을 얻을 수 있습니다.</li>
+                <li><strong>상점 이용:</strong> 🛒 버튼을 눌러 상점을 열고 닫을 수 있습니다. 상점에서 다양한 씨앗을 구매하세요. 현재 가진 돈으로 구매할 수 있습니다.</li>
+            </ul>
+            <p>화면 상단에서 현재 가진 돈과 선택된 도구를 확인할 수 있습니다.</p>
+            <p>즐거운 농장 생활 되세요! 👨‍🌾👩‍🌾</p>
+        </div>
+    </div>
+
+
      <script src="js/tools.js"></script>   <!-- Tool, SeedTool, HarvestTool 정의 -->
     <script src="js/plot.js"></script>    <!-- Plot 클래스 정의 -->
     <script src="js/game.js"></script>    <!-- Game 클래스 정의 -->

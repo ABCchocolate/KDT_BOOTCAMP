@@ -218,4 +218,97 @@ body {
     font-weight: bold;
     min-width: 120px; /* 내용이 바뀌어도 레이아웃이 크게 흔들리지 않도록 최소 너비 설정 */
     text-align: center;
+}/* --- Tutorial Modal Styles --- */
+.modal-overlay {
+    position: fixed; /* 화면 전체를 덮도록 고정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65); /* 반투명 검은색 배경 */
+    display: flex; /* 내부 컨텐츠 중앙 정렬용 */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* 다른 요소들 위에 표시 */
+    visibility: hidden; /* 기본적으로 숨김 */
+    opacity: 0; /* 기본적으로 투명 */
+    /* 부드러운 등장/사라짐 효과 */
+    transition: opacity 0.4s ease-in-out, visibility 0s linear 0.4s;
+}
+
+.modal-overlay.open {
+    visibility: visible; /* 보이도록 설정 */
+    opacity: 1; /* 불투명하게 설정 */
+    transition-delay: 0s; /* 열릴 때 visibility 지연 없앰 */
+}
+
+.modal-content {
+    background-color: #fdfdfd; /* 모달 내용 배경색 */
+    padding: 25px 35px;
+    border-radius: 12px; /* 모서리 둥글게 */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    position: relative; /* 닫기 버튼 위치 기준 */
+    max-width: 650px; /* 최대 너비 */
+    width: 90%; /* 화면 너비의 90% */
+    max-height: 85vh; /* 최대 높이 (화면 높이의 85%) */
+    overflow-y: auto; /* 내용이 길면 스크롤 */
+    transform: translateY(-20px) scale(0.95); /* 나타날 때 약간 위에서 작게 시작 */
+    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+    opacity: 0; /* 내용도 처음엔 투명 */
+}
+
+.modal-overlay.open .modal-content {
+    transform: translateY(0) scale(1); /* 제자리로, 원래 크기로 */
+    opacity: 1; /* 내용도 불투명하게 */
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #777;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    padding: 5px;
+    line-height: 1; /* 버튼 크기 일관성 */
+}
+
+.modal-close-button:hover {
+    color: #333; /* 마우스 올리면 색상 변경 */
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #4CAF50; /* 제목 색상 (게임 테마와 맞추면 좋음) */
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+}
+
+.modal-content p,
+.modal-content ul {
+    line-height: 1.7;
+    color: #444; /* 본문 텍스트 색상 */
+    margin-bottom: 18px;
+    font-size: 0.95em;
+}
+
+.modal-content ul {
+    padding-left: 25px;
+}
+.modal-content ul ul { /* 중첩된 ul 스타일 */
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.modal-content li {
+    margin-bottom: 10px;
+}
+
+.modal-content strong {
+    color: #333;
+    font-weight: 600;
 }

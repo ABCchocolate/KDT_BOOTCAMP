@@ -187,7 +187,7 @@ class Game {
             if (this.selectedTool instanceof SeedTool && this.selectedTool.cropKey === cropKey) {
                 this.updateCurrentToolDisplay();
             }
-            // 상점이 열려있다면 상점 UI 다시 렌더링 (선택적)
+            // 상점이 열려있다면 상점 UI 다시 렌더링 => 실행 안됨... 나중에 다시 
             // if (this.shopPanel.classList.contains('open')) {
             //     this._renderShop();
             // }

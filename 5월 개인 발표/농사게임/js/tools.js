@@ -9,7 +9,7 @@ class Tool {
     }
 
     useOnPlot(plot) { // plot은 Plot 클래스의 인스턴스
-        console.warn(`도구 ${this.name}는 밭에 대한 특정 작업이 정의되지 않았습니다.`);
+        console.log(`도구 ${this.name}는 밭에 대한 특정 작업이 정의되지 않았습니다.`);
         return false;
     }
 }
