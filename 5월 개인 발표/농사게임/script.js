@@ -32,10 +32,10 @@ function gameinit(){
             strawberry: plantStrawberryButton
         },
         harvestToolButton,
-        // --- 튜토리얼 모달 요소 추가 ---
+        
         tutorialModalOverlay: document.getElementById('tutorial-modal-overlay'),
         tutorialCloseButton: document.getElementById('tutorial-close-button')
-        // --- ---
+    
     };
 
     // Game 인스턴스 생성

@@ -7,26 +7,47 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id = "title">
+        <!-- 게임 타이틀 이미지가 들어갈 장소 -->
+    </div>
+    <div id = "wrapper">
     <h1>나만의 농장</h1>
-    <div class="toolbar">
-        <!-- 당근 씨앗 버튼 추가 -->
-        <button id="seed-carrot">당근 씨앗</button>
-        <!-- 감자 씨앗 버튼 추가 -->
-        <button id="seed-potato">감자 씨앗</button>
-         <!--딸기 씨앗 버튼 추가  -->
-        <button id = "seed-strawberry">딸기 씨앗</button>
-        <button id="tool-harvest">수확하기</button>
+    
+    <!-- 왼쪽 패널: 밭, 씨앗 현황, 도구 버튼 -->
+    <div class="left-panel">
+        <!-- 밭 -->
+        <div id="farm-grid" class="farm-grid">
+            <!-- JavaScript로 밭 칸 생성 -->
+        </div>
+
+        <div class="status-bar"> <!-- 씨앗 현황만 표시 -->
+            <div class="seed-status">
+                <span>🥕 당근 씨앗: <span id="seed-count-carrot">0</span>개</span>
+                <span>🥔 감자 씨앗: <span id="seed-count-potato">0</span>개</span>
+                <span>🍓 딸기 씨앗: <span id="seed-count-strawberry">0</span>개</span>
+                <!-- 다른 씨앗 종류가 있다면 여기에 추가 -->
+            </div>
+            <!-- .info 부분은 오른쪽 패널로 이동 -->
+        </div>
+
+        <div class="toolbar">
+            <button id="seed-carrot">🥕당근 씨앗</button>
+            <button id="seed-potato">🥔 감자 씨앗</button>
+            <button id="seed-strawberry">🍓딸기 씨앗</button>
+            <button id="tool-harvest">🌾수확하기</button>
+        </div>
     </div>
-    <div id="farm-grid" class="farm-grid">
-        <!-- JavaScript로 밭 칸 생성 -->
-    </div>
-    <div class="info">
-        <p>💰내 돈: <span id="money">100</span>원</p>
-        <p>선택된 도구: <span id="current-tool">없음</span></p>
-    </div>
-    <h2>Inventory</h2> 
-    <div id="inventory-grid" class="inventory-grid">
-        <!-- 수확한 작물을 인벤토리에.. -->
+
+    <!-- 오른쪽 패널: 현재 금액, 선택된 도구, 인벤토리 -->
+    <div class="right-panel">
+        <div class="info">
+            <p>💰내 돈: <span id="money">100</span>원</p>
+            <p>선택된 도구: <span id="current-tool">없음</span></p>
+        </div>
+        <h2>Inventory</h2>
+        <div id="inventory-grid" class="inventory-grid">
+            <!-- 수확한 작물을 인벤토리에.. -->
+        </div>
     </div>
 
     <!-- 상점 UI 추가 -->
@@ -60,13 +81,13 @@
                 <li><strong>도구 선택:</strong>
                     <ul>
                         <li><strong>씨앗:</strong> 🛒 아이콘을 눌러 상점을 여세요. 원하는 씨앗을 구매한 후, 화면 상단의 해당 씨앗 버튼 (예: 🥕)을 클릭하여 씨앗 도구를 선택합니다.</li>
+                        <li><strong>요리:</strong> 🧑‍🍳 아이콘을 누르면 부엌으로 이동할 수 있습니다. 키우신 작물을 요리해서 더 높은 가격에 팔아보세요.</li>
                         <li><strong>수확 도구:</strong> 낫(🌾) 모양의 수확 도구 버튼을 클릭하여 선택합니다.</li>
                     </ul>
                 </li>
                 <li><strong>씨앗 심기:</strong> 씨앗 도구를 선택한 상태에서 비어있는 밭을 클릭하면 씨앗이 심어집니다. 씨앗은 시간이 지나면 자동으로 자랍니다.</li>
                 <li><strong>수확하기:</strong> 수확 도구를 선택한 후, 다 자란 작물(아이콘이 바뀜)을 클릭하여 수확합니다. 수확한 작물은 왼쪽 창고로 이동합니다.</li>
                 <li><strong>작물 판매하기:</strong> 창고에 있는 작물을 클릭하면 즉시 판매되어 돈을 얻을 수 있습니다.</li>
-                <li><strong>상점 이용:</strong> 🛒 버튼을 눌러 상점을 열고 닫을 수 있습니다. 상점에서 다양한 씨앗을 구매하세요. 현재 가진 돈으로 구매할 수 있습니다.</li>
             </ul>
             <p>화면 상단에서 현재 가진 돈과 선택된 도구를 확인할 수 있습니다.</p>
             <p>즐거운 농장 생활 되세요! 👨‍🌾👩‍🌾</p>
@@ -75,9 +96,9 @@
 
     <script src="js/plot.js"></script>
     <script src="js/tools.js"></script>
-    <script src="js/ShopManager.js"></script>    <!-- 추가 -->
-    <script src="js/CookingManager.js"></script> <!-- 추가 -->
-    <script src="js/TutorialManager.js"></script><!-- 추가 -->
+    <script src="js/ShopManager.js"></script>    
+    <script src="js/CookingManager.js"></script> 
+    <script src="js/TutorialManager.js"></script>
     <script src="js/game.js"></script>
     <script src="script.js"></script>
 </body>

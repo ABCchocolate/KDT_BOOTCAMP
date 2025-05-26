@@ -21,7 +21,7 @@ class CookingManager {
             this.cookingPanel.classList.add('open');
             this.cookingToggleButton.classList.add('cooking-open');
             this.cookingToggleButton.textContent = '➡️';
-            this.cookingToggleButton.style.zIndex = '1002'; // 활성 버튼 z-index 증가
+            this.cookingToggleButton.style.zIndex = '1002'; 
             document.body.classList.add('cooking-is-open');
             console.log("CookingManager: 패널 열림");
             this.renderCooking();
@@ -67,12 +67,13 @@ class CookingManager {
             recipeItemElement.innerHTML = `
                 <span class="cooking-item-icon">${recipe.icon || '🍳'}</span>
                 <span class="cooking-item-name">${recipe.name}</span>
-                <span class="cooking-item-ingredients">${ingredientsText}</span>
-                <span class="cooking-item-value">판매가: ${recipe.sellValue}원</span>
+                <span class="cooking-item-ingredients">${ingredientsText} | </span>
+                <span class="cooking-item-value"> | 판매가: ${recipe.sellValue}원</span>
             `;
             const cookButton = document.createElement('button');
-            cookButton.textContent = '요리하기';
+            cookButton.innerText = "요리하기";
             cookButton.classList.add('cook-button');
+            cookButton.style.borderRadius = "5px";
             cookButton.addEventListener('click', () => this.cookRecipe(recipeKey));
             cookButton.disabled = !this.canCookRecipe(recipeKey);
 

@@ -11,7 +11,7 @@ class ShopManager {
         // 만약 요리 패널이 열려있다면 먼저 닫는다.
         if (this.game.cookingManager && this.game.cookingManager.isOpen()) {
             this.game.cookingManager.closePanel(); // 요리 패널 명시적으로 닫기
-        }   
+        }
 
         if (currentlyOpen) {
             // 이미 열려있었다면 닫는다.
@@ -71,6 +71,7 @@ class ShopManager {
             this.game.currentMoney -= cropToBuy.seedCost;
             this.game.seedInventory[cropKey]++;
             this.game.updateMoneyDisplay();
+            this.game._updateSeedCountDisplay(); // 씨앗 구매 후 개수 표시 업데이트
             alert(`${cropToBuy.name} 씨앗을 구매했습니다!`);
             console.log(`${cropToBuy.name} 씨앗 구매. 현재 ${cropKey} 씨앗: ${this.game.seedInventory[cropKey]}개. 남은 돈: ${this.game.currentMoney}원`);
             

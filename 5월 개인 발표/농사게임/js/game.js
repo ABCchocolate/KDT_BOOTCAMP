@@ -24,7 +24,10 @@ class Game {
         this.plots = []; // Plot 인스턴스 배열
         this.inventoryItems = [];
         this.gridSize = 5 * 3;
-        this.seedInventory = { carrot: 0, potato: 0, strawberry: 0 };
+        // this.seedInventory = { carrot: 0, potato: 0, strawberry: 0 }; // 아래 initialize에서 동적으로 생성
+        this.seedInventory = {};
+
+        this.uiElements = uiElements; // 나중에 씨앗 개수 표시를 위해 uiElements 저장
     }
 
     initialize() {
@@ -37,6 +40,10 @@ class Game {
             })
             .then(seedData => {
                 this.CROP_TYPES = seedData;
+                // CROP_TYPES를 기반으로 seedInventory 초기화
+                Object.keys(this.CROP_TYPES).forEach(cropKey => {
+                    this.seedInventory[cropKey] = 0; // 초기 씨앗 개수는 0 (또는 원하는 기본값)
+                });
                 console.log("작물 데이터 로드 성공:", this.CROP_TYPES);
 
                 
@@ -58,6 +65,7 @@ class Game {
                 this._setupEventListeners();
                 this.updateMoneyDisplay();
                 this.updateCurrentToolDisplay();
+                this._updateSeedCountDisplay(); // 게임 시작 시 씨앗 개수 표시
                 this.tutorialManager.showTutorial(); // TutorialManager를 통해 호출
                 return true; // 모든 초기화 성공
             })
@@ -173,6 +181,19 @@ class Game {
     updateCurrentToolDisplay() {
         this.currentToolDisplay.textContent = this.selectedTool ? this.selectedTool.getDisplayName() : '없음';
     }
+
+    _updateSeedCountDisplay() {
+        // HTML에 정의된 ID를 사용하여 각 씨앗의 개수를 업데이트합니다.
+        // CROP_TYPES에 있는 모든 작물에 대해 시도합니다.
+        Object.keys(this.CROP_TYPES).forEach(cropKey => {
+            const countElement = document.getElementById(`seed-count-${cropKey}`);
+            if (countElement) {
+                countElement.textContent = this.seedInventory[cropKey] || 0;
+            }
+        });
+        console.log("씨앗 개수 표시 업데이트됨:", this.seedInventory);
+    }
+
 
     _selectSeedTool(cropKey) {
         if (!this.CROP_TYPES[cropKey]) {
