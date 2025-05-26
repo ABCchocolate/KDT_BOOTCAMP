@@ -189,18 +189,6 @@ body {
     font-size: 24px; /* 이모티콘 크기를 위한 기본 폰트 크기 (조절 가능) */
 }
 
-/* .inventory_plot 스타일은 현재 사용되지 않으므로 제거합니다.
-.inventory_plot {
-    width: 50px;
-    height: 50px;
-    background-color: var(--color-brown-light);
-    border: 1px solid var(--color-brown-dark);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-*/
 
 .toolbar button {
     padding: 10px;
@@ -230,7 +218,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1000; /* 다른 요소들 위에 표시 */
-    visibility: hidden; /* 기본적으로 숨김 */
+    /* visibility: hidden; 기본적으로 숨김 */
     opacity: 0; /* 기본적으로 투명 */
     /* 부드러운 등장/사라짐 효과 */
     transition: opacity 0.4s ease-in-out, visibility 0s linear 0.4s;

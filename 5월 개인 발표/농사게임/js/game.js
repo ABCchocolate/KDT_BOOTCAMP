@@ -20,23 +20,31 @@ class Game {
         this.seedInventory = { carrot: 0, potato: 0, strawberry: 0 };
     }
 
-    async initialize() {
-        try {
-            const response = await fetch('seed.json'); // seed.json 경로 확인
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            this.CROP_TYPES = await response.json();
-        } catch (error) {
-            console.error('작물 데이터를 불러오는 데 실패했습니다:', error);
-            document.body.innerHTML = `<p style="color: red; text-align: center; font-size: 18px;">게임 데이터를 불러오는데 실패했습니다. seed.json 파일이 올바른지 확인해주세요. (${error.message})</p>`;
-            return false;
-        }
+    initialize() {
+        return fetch('seed.json') // fetch는 Promise를 반환합니다.
+            .then(response => {
+                if (!response.ok) {
+                    // 에러를 발생시켜 아래 .catch()에서 처리하도록 합니다.
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json(); // response.json()도 Promise를 반환합니다.
+            })
+            .then(data => {
+                this.CROP_TYPES = data;
 
-        this._initializeFarm();
-        this._renderInventory();
-        this._setupEventListeners();
-        this.updateMoneyDisplay();
-        this.updateCurrentToolDisplay();
-        return true;
+                // 데이터 로딩 성공 후 나머지 초기화 진행
+                this._initializeFarm();
+                this._renderInventory();
+                this._setupEventListeners();
+                this.updateMoneyDisplay();
+                this.updateCurrentToolDisplay();
+                return true; // 초기화 성공 시 true를 반환하는 Promise가 됩니다.
+            })
+            .catch(error => {
+                console.error('작물 데이터를 불러오는 데 실패했습니다:', error);
+                document.body.innerHTML = `<p style="color: red; text-align: center; font-size: 18px;">게임 데이터를 불러오는데 실패했습니다. seed.json 파일이 올바른지 확인해주세요. (${error.message})</p>`;
+                return false; // 초기화 실패 시 false를 반환하는 Promise가 됩니다.
+            });
     }
 
     _setupEventListeners() {
