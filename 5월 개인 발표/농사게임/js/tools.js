@@ -9,7 +9,7 @@ class Tool {
     }
 
     useOnPlot(plot) { // plot은 Plot 클래스의 인스턴스
-        console.warn(`도구 ${this.name}는 밭에 대한 특정 작업이 정의되지 않았습니다.`);
+        console.log(`도구 ${this.name}는 밭에 대한 특정 작업이 정의되지 않았습니다.`);
         return false;
     }
 }
@@ -39,6 +39,7 @@ class SeedTool extends Tool {
                 this.game.seedInventory[this.cropKey]--;
                 plot.plant(this.cropKey); // Plot 객체의 plant 메소드 사용
                 this.game.updateCurrentToolDisplay(); // 씨앗 개수 변경 표시
+                this.game._updateSeedCountDisplay(); // 씨앗 사용 후 개수 표시 업데이트
                 console.log(`밭 ${plot.id}에 ${this.cropInfo.name} 심음. 남은 ${this.cropInfo.name} 씨앗: ${this.game.seedInventory[this.cropKey]}개`);
                 return true;
             } else {

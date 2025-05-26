@@ -1,0 +1,20 @@
+{
+  "carrot_soup": {
+    "name": "당근 수프",
+    "ingredients": { "carrot": 3 },
+    "sellValue": 100,
+    "icon": "🍲"
+  },
+  "potato_fries": {
+    "name": "감자튀김",
+    "ingredients": { "potato": 2 },
+    "sellValue": 180,
+    "icon": "🍟"
+  },
+  "strawberry_jam": {
+    "name": "딸기잼",
+    "ingredients": { "strawberry": 5 },
+    "sellValue": 200,
+    "icon": "🍓"
+  }
+}
