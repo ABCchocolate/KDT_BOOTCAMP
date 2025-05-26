@@ -24,7 +24,7 @@
         <p>💰내 돈: <span id="money">100</span>원</p>
         <p>선택된 도구: <span id="current-tool">없음</span></p>
     </div>
-    <h2>Inventory</h2> >
+    <h2>Inventory</h2> 
     <div id="inventory-grid" class="inventory-grid">
         <!-- 수확한 작물을 인벤토리에.. -->
     </div>
@@ -38,6 +38,15 @@
             <!-- 나중에 실제 상점 아이템들을 여기에 추가합니다. -->
         </div>
     </div>
+
+    <!-- 요리 UI 추가 -->
+     <div id = "cooking-container">
+        <button id="cooking-toggle-button" class="cooking-toggle-button">🧑‍🍳</button>
+        <div id="cooking-panel" class="cooking-panel">
+            <h2>요리</h2>
+            <p>만들 수 있는 요리 아이템들 추가</p>
+        </div>
+     </div>
 
     <!-- 인터넷 창이 팝업 되면 바로 설명서가 나오도록 함. -->
      <div id="tutorial-modal-overlay" class="modal-overlay">
@@ -64,10 +73,12 @@
         </div>
     </div>
 
-
-     <script src="js/tools.js"></script>   <!-- Tool, SeedTool, HarvestTool 정의 -->
-    <script src="js/plot.js"></script>    <!-- Plot 클래스 정의 -->
-    <script src="js/game.js"></script>    <!-- Game 클래스 정의 -->
-    <script src="script.js"></script>     <!-- 게임 시작 및 DOMContentLoaded 로직 -->
+    <script src="js/plot.js"></script>
+    <script src="js/tools.js"></script>
+    <script src="js/ShopManager.js"></script>    <!-- 추가 -->
+    <script src="js/CookingManager.js"></script> <!-- 추가 -->
+    <script src="js/TutorialManager.js"></script><!-- 추가 -->
+    <script src="js/game.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

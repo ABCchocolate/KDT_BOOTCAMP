@@ -89,6 +89,95 @@ body {
     background-color: var(--color-button-sell-hover);
 }
 
+/* 부엌 스타일 */
+.cooking-toggle-button{
+    position: fixed;
+    top: 80px;
+    right: 0px;
+    background-color: var(--color-button-shop-toggle);
+    color: var(--color-text-light);
+    border: none;
+    padding: 10px 12px;
+    font-size: 1.8em;   /* 이모티콘 크기 */
+    cursor: pointer;
+    border-top-left-radius: 10px;   /* 왼쪽 모서리 둥글게 */
+    border-bottom-left-radius: 10px;
+    z-index: 1001; /* 다른 요소들보다 위에 있도록 (패널 포함) */
+    transition: right 0.4s ease-in-out; /* 오른쪽 위치 변경 시 부드럽게 이동 */
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
+}
+/* 상점 패널이 열렸을 때, 요리 토글 버튼의 위치를 조정 */
+body.cooking-is-open .cooking-toggle-button {
+    right: 320px; /* 상점 패널 너비(320px)만큼 왼쪽으로 이동 */
+}
+
+.cooking-panel{
+position: fixed; /* 화면에 고정 */
+    top: 60px;      /* 토글 버튼과 시각적으로 어울리는 위치 */
+    right: 0;        /* 초기 위치 (transform으로 숨김) */
+    width: 320px;    /* 상점 패널 너비 */
+    height: calc(100vh - 160px); /* 화면 높이 기반으로 계산 (상단 130px, 하단 여유 30px) */
+    max-height: 450px; /* 최대 높이 제한 */
+    background-color: var(--color-cream-darker);
+    border: 2px solid var(--color-shop-border);
+    border-right: none; /* 화면 오른쪽에 붙으므로 오른쪽 테두리는 제거 */
+    box-shadow: -5px 0px 15px rgba(0,0,0,0.15); /* 그림자 효과 */
+    padding: 20px;
+    box-sizing: border-box;
+    transform: translateX(100%); /* 초기에는 화면 오른쪽 바깥으로 완전히 숨김 */
+    transition: transform 0.4s ease-in-out; /* 부드러운 슬라이드 효과 */
+    z-index: 1000; /* 토글 버튼 바로 아래에 있도록 */
+    border-top-left-radius: 15px;   /* 패널의 왼쪽 모서리 둥글게 */
+    border-bottom-left-radius: 15px;
+    overflow-y: auto; /* 내용이 많아지면 스크롤바 표시 */
+}
+
+.cooking-panel.open {
+    transform: translateX(0%);
+}
+
+/* 요리 패널 내부 제목 스타일 */
+.cooking-panel h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--color-shop-title);
+}
+
+/* 요리 패널 내부의 각 아이템 스타일 */
+.cooking-item { /* 클래스 이름 변경: cooking-panel-item -> cooking-item */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 13px;
+    margin-bottom: 10px;
+    background-color: var(--color-cream); /* 인벤토리 배경과 유사하게 또는 약간 다르게 */
+    border: 1px solid var(--color-button-shop-toggle);
+    border-radius: 5px;
+}
+
+
+/* 요리 아이템 내부의 이름 부분 스타일 */
+.cooking-item-name { /* 클래스 이름 변경: cooking-panel-item-name -> cooking-item-name */
+    flex-grow: 1; /* 이름이 남은 공간을 채우도록 */
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.cooking-button { /* 구매 버튼 스타일은 기존 .inventory-cell button과 유사하게 하거나 다르게 지정 가능 */
+    padding: 5px 10px;
+    background-color: var(--color-button-buy);
+    color: var(--color-text-light);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.cooking-button:hover {
+    background-color: var(--color-button-buy-hover);
+}
+
 /* 상점 스타일 */
 .shop-toggle-button {
     position: fixed; /* 화면에 고정 */
@@ -106,6 +195,15 @@ body {
     transition: right 0.4s ease-in-out; /* 오른쪽 위치 변경 시 부드럽게 이동 */
     box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
 }
+
+/* 요리 패널이 열렸을 때, 상점 토글 버튼의 위치를 조정 */
+/* 이 규칙은 body.shop-is-open .cooking-toggle-button 와 짝을 이루어
+   한쪽 패널이 열리면 다른 쪽 버튼이 이동하도록 합니다. */
+body.shop-is-open .shop-toggle-button {
+    right: 320px; /* 요리 패널 너비(320px)만큼 왼쪽으로 이동 */
+}
+
+
 
 .shop-panel {
     position: fixed; /* 화면에 고정 */
@@ -132,10 +230,7 @@ body {
     transform: translateX(0%); /* 'open' 클래스가 추가되면 화면 안으로 슬라이드 */
 }
 
-/* 상점이 열렸을 때 토글 버튼 위치 조정 */
-.shop-toggle-button.shop-open {
-    right: 320px; /* 상점 패널의 너비만큼 왼쪽으로 이동 */
-}
+
 
 /* 상점 패널 내부 아이템 스타일 */
 .shop-panel h2 {
@@ -218,7 +313,8 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1000; /* 다른 요소들 위에 표시 */
-    /* visibility: hidden; 기본적으로 숨김 */
+    /* 기본적으로 숨김 */
+    visibility: hidden; 
     opacity: 0; /* 기본적으로 투명 */
     /* 부드러운 등장/사라짐 효과 */
     transition: opacity 0.4s ease-in-out, visibility 0s linear 0.4s;
@@ -248,6 +344,7 @@ body {
 .modal-overlay.open .modal-content {
     transform: translateY(0) scale(1); /* 제자리로, 원래 크기로 */
     opacity: 1; /* 내용도 불투명하게 */
+    /* pointer-events: none  */
 }
 
 .modal-close-button {
@@ -299,4 +396,10 @@ body {
 .modal-content strong {
     color: #333;
     font-weight: 600;
+}
+
+/* 책갈피가 가장 위로 올라오면 z-index 증가시키기 */
+.cooking-toggle-button,
+.shop-toggle-button {
+    z-index: 1000; /* 기본 z-index */
 }

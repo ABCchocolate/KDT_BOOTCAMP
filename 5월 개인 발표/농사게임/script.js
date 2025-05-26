@@ -9,6 +9,9 @@
     const harvestToolButton = document.getElementById('tool-harvest');
     const shopToggleButton = document.getElementById('shop-toggle-button');
     const shopPanel = document.getElementById('shop-panel');
+    const cookingToggleButton = document.getElementById('cooking-toggle-button');
+    const cookingPanel = document.getElementById('cooking-panel');
+    
 
 
 function gameinit(){
@@ -21,12 +24,18 @@ function gameinit(){
         currentToolDisplay,
         shopToggleButton,
         shopPanel,
+        cookingToggleButton,
+        cookingPanel,
         seedButtons: {
             carrot: plantCarrotButton,
             potato: plantPotatoButton,
             strawberry: plantStrawberryButton
         },
-        harvestToolButton
+        harvestToolButton,
+        // --- 튜토리얼 모달 요소 추가 ---
+        tutorialModalOverlay: document.getElementById('tutorial-modal-overlay'),
+        tutorialCloseButton: document.getElementById('tutorial-close-button')
+        // --- ---
     };
 
     // Game 인스턴스 생성
