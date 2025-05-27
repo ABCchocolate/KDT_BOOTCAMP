@@ -2,30 +2,167 @@
 :root {
     --font-primary: sans-serif;
 
-    --color-brown-dark: #8B4513;   /* 짙은 갈색 (테두리 등) */
-    --color-brown-medium: #A0522D; /* 중간 흙색 (밭 배경) */
-    --color-brown-light: #DEB887;  /* 밝은 흙색 (빈 밭 칸) */
-    --color-cream: #f5deb3;        /* 크림색 (인벤토리 배경) */
-    --color-cream-darker: #fff8e1; /* 더 연한 크림색 (상점 패널 배경) */
+    --color-brown-dark: #8B4513;
+    /* 짙은 갈색 (테두리 등) */
+    --color-brown-medium: #A0522D;
+    /* 중간 흙색 (밭 배경) */
+    --color-brown-light: #DEB887;
+    /* 밝은 흙색 (빈 밭 칸) */
+    --color-cream: #f5deb3;
+    /* 크림색 (인벤토리 배경) */
+    --color-cream-darker: #fff8e1;
+    /* 더 연한 크림색 (상점 패널 배경) */
 
     --color-text-light: white;
 
-    --color-button-sell: #e74c3c;       /* 판매 버튼 (붉은 계열) */
+    --color-button-sell: #e74c3c;
+    /* 판매 버튼 (붉은 계열) */
     --color-button-sell-hover: #c0392b;
-    --color-button-buy: #27ae60;        /* 구매 버튼 (녹색 계열) */
+    --color-button-buy: #27ae60;
+    /* 구매 버튼 (녹색 계열) */
     --color-button-buy-hover: #229954;
-    --color-button-shop-toggle: #f39c12; /* 상점 토글 (주황 계열) */
-    --color-shop-border: #e67e22;       /* 상점 테두리 */
-    --color-shop-title: #c0392b;        /* 상점 제목 */
+    --color-button-shop-toggle: #f39c12;
+    /* 상점 토글 (주황 계열) */
+    --color-shop-border: #e67e22;
+    /* 상점 테두리 */
+    --color-shop-title: #c0392b;
+    /* 상점 제목 */
 }
 
+/* =================== 제목과 나누어서 row 형식으로 배열하기 ======================*/
+.side {
+    /* 현재 제목과 너무 붙어있음! */
+    padding-top: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+
+}
+
+/* ================== left / right side 나뉘는 곳   ======================= */
+.left-side {
+    width: 30%; 
+    height: 100%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; 
+    padding: 30px; 
+    border: 1px solid var(--color-brown-dark);
+    background-color: rgba(245, 222, 179, 0.75); 
+    border-radius: 10px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box; 
+    
+    padding-right : 30px;
+}
+
+.right-side {
+    width: 80%; 
+    height: 100%; 
+    padding-right: 0; 
+    box-sizing: border-box;
+    padding-left : 30px; 
+
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px   ;
+}
+
+/* ================== TIMER CSS ==================== */
+.time{
+    display: flex;
+    width: 100%;
+    height: 80px; 
+
+    background-color: white;
+    border: #A0522D;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.num-box {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: calc(100% + 18%);
+    left: calc(-18% / 2);
+    height: 40px;
+    top: calc(50% - 40px/2);
+    font-weight: 600;
+}
+
+/* ==================TOTAL_COST ==================== */
+.total_cost {
+    padding: 15px;
+    margin-bottom: 20px; /* Space below this element */
+    background-color: #e9ecef; /* A light grey background */
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center the text inside */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* A subtle shadow */
+}
+
+.total_cost div:first-child { 
+    font-size: 1e   m;
+    font-weight: bold;
+    color: #495057; /* Darker text color */
+    margin-bottom: 8px;
+}
+
+#total-money-value { /* Styles for the actual money amount */
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #28a745; /* Green color for money, like cash! */
+}
+
+.button-container {
+    margin-top: 60px;
+}
+
+.control {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #555;
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+    color: rgb(255, 57, 50);
+}
+.control:active {
+    transform: scale(.96);
+}
+
+.time-container {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+.time-container .total-time {
+    font-size: 13px;
+    margin-top: 5px;
+}
 
 body {
     background-image: url(./images/Background.jpeg);
     background-repeat: no-repeat;
-    background-size: cover; /* 또는 contain, 100% 100% 등 원하는 효과에 따라 선택 */
-    background-position: center; /* 중앙 정렬 */
-    
+    background-size: cover;
+    /* 또는 contain, 100% 100% 등 원하는 효과에 따라 선택 */
+    background-position: center;
+    /* 중앙 정렬 */
+
     width: 1200px;
     height: 1000px;
     font-family: var(--font-primary);
@@ -33,107 +170,134 @@ body {
     flex-direction: column;
     align-items: center;
 }
-#title{
+
+#title {
     width: 400px;
-    height: 150px;  
+    height: 150px;
     margin: auto;
-    background-size: cover; 
+    background-size: cover;
     background-position: center;
     background-image: url(./images/GameTitlePanel.png);
-    margin:0;
+    margin: 0;
 }
-#wrapper{
-    margin-top: 10px;   
+
+#wrapper {
+    margin-top: 10px;
     width: 1000px;
-    min-height: 600px; /* Use min-height to allow content to expand */
+    min-height: 600px;
     border-radius: 15px;
     margin: auto;
-    background-size: 33%; /* Better background coverage */
-    background-position: center; /* Center the background image */
+    background-size: 33%;
+    /* Better background coverage */
+    background-position: center;
+    /* Center the background image */
     background-image: url(./images/backyard.jpeg);
-    border: 1px solid black; /* 테두리 두께는 필요에 따라 조절하세요 (예: 2px) */
-    padding: 20px; /* 내부 여백 조정 */
+    border: 1px solid black;
+    /* 테두리 두께는 필요에 따라 조절하세요 (예: 2px) */
+    padding: 20px;
+    /* 내부 여백 조정 */
     box-shadow: 0 0 10px;
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
-
+    box-sizing: border-box;
+    position: relative;
     display: flex;
-    flex-direction: column; /* Stack title and panels-container vertically */
-    align-items: center;   /* Center title and panels-container horizontally */
-    gap: 20px; /* Space between title and panels-container */
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Style for the "나만의 농장" title if it's an h1 inside #wrapper */
-#wrapper > h1 {
+
+#wrapper>h1 {
     font-size: 2.2em;
     color: var(--color-text-light, white);
     text-shadow: 1px 1px 3px var(--color-brown-dark, black);
-    margin-bottom: 0; /* Spacing handled by #wrapper's gap */
+    margin-bottom: 0;
+    /* Spacing handled by #wrapper's gap */
     text-align: center;
 }
 
 .panels-container {
     display: flex;
-    flex-direction: row; /* Arrange left and right panels side-by-side */
-    gap: 20px;           /* Space between left and right panels */
-    width: 100%;         /* Occupy full width of #wrapper's content area */
-    align-items: flex-start; /* Align panels to the top if they have different heights */
+    flex-direction: row;
+    /* Arrange left and right panels side-by-side */
+    gap: 20px;
+    /* Space between left and right panels */
+    width: 100%;
+    /* Occupy full width of #wrapper's content area */
+    align-items: flex-start;
+    /* Align panels to the top if they have different heights */
 }
 
-.left-panel, .right-panel {
+.left-panel,
+.right-panel {
     display: flex;
-    flex-direction: column; /* Stack items vertically within each panel */
-    align-items: center;   /* Center items horizontally within each panel */
-    gap: 15px;             /* Space between items within a panel */
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
     padding: 15px;
-    background-color: rgba(245, 222, 179, 0.75); /* Semi-transparent background for panels */
+    background-color: rgba(245, 222, 179, 0.75);
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--color-brown-dark);
 }
 
 .farm-grid {
     display: grid;
-    grid-template-columns: repeat(5, 50px); /* 5xN 밭 */
-    grid-template-rows: repeat(3, 50px);    
+    grid-template-columns: repeat(5, 50px);
+    /* 5xN 밭 */
+    grid-template-rows: repeat(3, 50px);
     gap: 5px;
-    border: 2px solid var(--color-brown-dark); /* 갈색 테두리 */
+    border: 2px solid var(--color-brown-dark);
+    /* 갈색 테두리 */
     padding: 10px;
-    background-color: var(--color-brown-medium); /* 흙색 배경 */
-    margin-bottom: 0; /* Spacing handled by .left-panel's gap */
+    background-color: var(--color-brown-medium);
+    /* 흙색 배경 */
+    margin-bottom: 0;
+    /* Spacing handled by .left-panel's gap */
 }
 
 .left-panel {
-    flex: 3; /* Left panel takes more space (e.g., 60%) */
+    flex: 3;
+    /* Left panel takes more space (e.g., 60%) */
 }
 
 .right-panel {
-    flex: 2; /* Right panel takes less space (e.g., 40%) */
+    flex: 2;
+    /* Right panel takes less space (e.g., 40%) */
 }
 
 /* style.css 에 추가하거나 수정 */
 .inventory-grid {
     display: grid;
-    width: 100%; /* Take full width of the .right-panel */
+    width: 100%;
+    /* Take full width of the .right-panel */
     /* max-width: 460px; /* Remove or adjust if panel is wider */
     /* margin-left: auto; /* Centering handled by .right-panel's align-items: center */
     /* margin-right: auto; */
-    box-sizing: border-box; /* padding과 border를 width 계산에 포함 */
+    box-sizing: border-box;
+    /* padding과 border를 width 계산에 포함 */
 
-    grid-template-columns: repeat(5, 70px); /* 인벤토리 칸 너비를 70px로 늘림 */
-    grid-template-rows: repeat(3, 70px);    /* 인벤토리 칸 높이를 70px로 늘림 */
-    gap: 5px; /* 밭과 동일한 간격 */
-    padding: 10px; /* 밭과 동일한 내부 여백 */
-    border: 2px solid var(--color-brown-dark); /* 테두리 색상 통일 */
+    grid-template-columns: repeat(5, 70px);
+    /* 인벤토리 칸 너비를 70px로 늘림 */
+    grid-template-rows: repeat(3, 70px);
+    /* 인벤토리 칸 높이를 70px로 늘림 */
+    gap: 5px;
+    /* 밭과 동일한 간격 */
+    padding: 10px;
+    /* 밭과 동일한 내부 여백 */
+    border: 2px solid var(--color-brown-dark);
+    /* 테두리 색상 통일 */
     background-color: var(--color-cream);
-    margin-top: 0; /* Spacing handled by .right-panel's gap */
+    margin-top: 0;
+    /* Spacing handled by .right-panel's gap */
     /* min-height는 이제 grid-template-rows로 인해 자동 계산되므로 주석 처리하거나 삭제 가능 */
-    overflow: hidden;   
-    
+    overflow: hidden;
+
 }
 
 .inventory-cell {
     border: 1px solid #ccc;
     background-color: #fff;
-    padding: 5px; /* 셀 내부 여백을 5px로 더 줄여서 내용 공간 확보 */
+    padding: 5px;
+    /* 셀 내부 여백을 5px로 더 줄여서 내용 공간 확보 */
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -144,36 +308,48 @@ body {
 
 /* 인벤토리 셀 내부 아이템 이미지 스타일 */
 .inventory-cell img {
-    max-width: 28px; /* 이미지 크기를 셀에 맞게 적절히 조절 */
+    max-width: 28px;
+    /* 이미지 크기를 셀에 맞게 적절히 조절 */
     max-height: 28px;
-    margin-bottom: 3px; /* 이미지와 아래 텍스트 사이 간격 살짝 줄임 */
-    object-fit: contain; /* 이미지 비율 유지하면서 칸 안에 맞춤 */
+    margin-bottom: 3px;
+    /* 이미지와 아래 텍스트 사이 간격 살짝 줄임 */
+    object-fit: contain;
+    /* 이미지 비율 유지하면서 칸 안에 맞춤 */
 }
 
-.inventory-cell span { /* 아이템 내부 텍스트 스타일 (선택 사항) */
+.inventory-cell span {
+    /* 아이템 내부 텍스트 스타일 (선택 사항) */
     display: block;
-    margin-bottom: 2px; /* 텍스트 간 간격 더 줄임 */
-    font-size: 0.75em; /* 셀 내부 글자 크기를 더 작게 조절 */
-    line-height: 1.2; /* 줄 간격 조절 (텍스트가 두 줄 이상일 경우) */
+    margin-bottom: 2px;
+    /* 텍스트 간 간격 더 줄임 */
+    font-size: 0.75em;
+    /* 셀 내부 글자 크기를 더 작게 조절 */
+    line-height: 1.2;
+    /* 줄 간격 조절 (텍스트가 두 줄 이상일 경우) */
 }
 
 /* 인벤토리 셀 내부 판매 버튼 스타일 */
 .inventory-cell button {
-    margin-top: 3px; /* 아이템 내용과 버튼 사이 간격 살짝 줄임 */
-    padding: 2px 5px; /* 버튼 내부 여백 줄임 */
-    font-size: 0.75em; /* 버튼 글자 크기도 텍스트와 통일감 있게 조절 */
-    cursor: pointer; /* 마우스 올리면 손가락 모양으로 */
+    margin-top: 3px;
+    /* 아이템 내용과 버튼 사이 간격 살짝 줄임 */
+    padding: 2px 5px;
+    /* 버튼 내부 여백 줄임 */
+    font-size: 0.75em;
+    /* 버튼 글자 크기도 텍스트와 통일감 있게 조절 */
+    cursor: pointer;
+    /* 마우스 올리면 손가락 모양으로 */
     background-color: var(--color-button-sell);
     color: var(--color-text-light);
     border: none;
     border-radius: 3px;
 }
+
 .inventory-cell button:hover {
     background-color: var(--color-button-sell-hover);
 }
 
 /* 부엌 스타일 */
-.cooking-toggle-button{
+.cooking-toggle-button {
     position: fixed;
     top: 80px;
     right: 0px;
@@ -181,38 +357,57 @@ body {
     color: var(--color-text-light);
     border: none;
     padding: 10px 12px;
-    font-size: 1.8em;   /* 이모티콘 크기 */
+    font-size: 1.8em;
+    /* 이모티콘 크기 */
     cursor: pointer;
-    border-top-left-radius: 10px;   /* 왼쪽 모서리 둥글게 */
+    border-top-left-radius: 10px;
+    /* 왼쪽 모서리 둥글게 */
     border-bottom-left-radius: 10px;
-    z-index: 1001; /* 다른 요소들보다 위에 있도록 (패널 포함) */
-    transition: right 0.4s ease-in-out; /* 오른쪽 위치 변경 시 부드럽게 이동 */
-    box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
-}
-/* 상점 패널이 열렸을 때, 요리 토글 버튼의 위치를 조정 */
-body.cooking-is-open .cooking-toggle-button {
-    right: 400px; /* 상점 패널 너비(320px)만큼 왼쪽으로 이동 */
+    z-index: 1001;
+    /* 다른 요소들보다 위에 있도록 (패널 포함) */
+    transition: right 0.4s ease-in-out;
+    /* 오른쪽 위치 변경 시 부드럽게 이동 */
+    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.cooking-panel{
-position: fixed; /* 화면에 고정 */
-    top: 60px;      /* 토글 버튼과 시각적으로 어울리는 위치 */
-    right: 0;        /* 초기 위치 (transform으로 숨김) */
-    width: 400px;    /* 상점 패널 너비 */
-    height: calc(100vh - 160px); /* 화면 높이 기반으로 계산 (상단 130px, 하단 여유 30px) */
-    max-height: 450px; /* 최대 높이 제한 */
+/* 상점 패널이 열렸을 때, 요리 토글 버튼의 위치를 조정 */
+body.cooking-is-open .cooking-toggle-button {
+    right: 400px;
+    /* 상점 패널 너비(320px)만큼 왼쪽으로 이동 */
+}
+
+.cooking-panel {
+    position: fixed;
+    /* 화면에 고정 */
+    top: 60px;
+    /* 토글 버튼과 시각적으로 어울리는 위치 */
+    right: 0;
+    /* 초기 위치 (transform으로 숨김) */
+    width: 400px;
+    /* 상점 패널 너비 */
+    height: calc(100vh - 160px);
+    /* 화면 높이 기반으로 계산 (상단 130px, 하단 여유 30px) */
+    max-height: 450px;
+    /* 최대 높이 제한 */
     background-color: var(--color-cream-darker);
     border: 2px solid var(--color-shop-border);
-    border-right: none; /* 화면 오른쪽에 붙으므로 오른쪽 테두리는 제거 */
-    box-shadow: -5px 0px 15px rgba(0,0,0,0.15); /* 그림자 효과 */
+    border-right: none;
+    /* 화면 오른쪽에 붙으므로 오른쪽 테두리는 제거 */
+    box-shadow: -5px 0px 15px rgba(0, 0, 0, 0.15);
+    /* 그림자 효과 */
     padding: 20px;
     box-sizing: border-box;
-    transform: translateX(100%); /* 초기에는 화면 오른쪽 바깥으로 완전히 숨김 */
-    transition: transform 0.4s ease-in-out; /* 부드러운 슬라이드 효과 */
-    z-index: 1000; /* 토글 버튼 바로 아래에 있도록 */
-    border-top-left-radius: 15px;   /* 패널의 왼쪽 모서리 둥글게 */
+    transform: translateX(100%);
+    /* 초기에는 화면 오른쪽 바깥으로 완전히 숨김 */
+    transition: transform 0.4s ease-in-out;
+    /* 부드러운 슬라이드 효과 */
+    z-index: 1000;
+    /* 토글 버튼 바로 아래에 있도록 */
+    border-top-left-radius: 15px;
+    /* 패널의 왼쪽 모서리 둥글게 */
     border-bottom-left-radius: 15px;
-    overflow-y: auto; /* 내용이 많아지면 스크롤바 표시 */
+    overflow-y: auto;
+    /* 내용이 많아지면 스크롤바 표시 */
 }
 
 .cooking-panel.open {
@@ -228,27 +423,32 @@ position: fixed; /* 화면에 고정 */
 }
 
 /* 요리 패널 내부의 각 아이템 스타일 */
-.cooking-item { /* 클래스 이름 변경: cooking-panel-item -> cooking-item */
+.cooking-item {
+    /* 클래스 이름 변경: cooking-panel-item -> cooking-item */
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px;
     font-size: 13px;
     margin-bottom: 10px;
-    background-color: var(--color-cream); /* 인벤토리 배경과 유사하게 또는 약간 다르게 */
+    background-color: var(--color-cream);
+    /* 인벤토리 배경과 유사하게 또는 약간 다르게 */
     border: 1px solid var(--color-button-shop-toggle);
     border-radius: 5px;
 }
 
 
 /* 요리 아이템 내부의 이름 부분 스타일 */
-.cooking-item-name { /* 클래스 이름 변경: cooking-panel-item-name -> cooking-item-name */
-    flex-grow: 1; /* 이름이 남은 공간을 채우도록 */
+.cooking-item-name {
+    /* 클래스 이름 변경: cooking-panel-item-name -> cooking-item-name */
+    flex-grow: 1;
+    /* 이름이 남은 공간을 채우도록 */
     margin-left: 10px;
     margin-right: 10px;
 }
 
-.cooking-button { /* 구매 버튼 스타일은 기존 .inventory-cell button과 유사하게 하거나 다르게 지정 가능 */
+.cooking-button {
+    /* 구매 버튼 스타일은 기존 .inventory-cell button과 유사하게 하거나 다르게 지정 가능 */
     padding: 5px 10px;
     background-color: var(--color-button-buy);
     color: var(--color-text-light);
@@ -261,7 +461,7 @@ position: fixed; /* 화면에 고정 */
     background-color: var(--color-button-buy-hover);
 }
 
-.cook-button{
+.cook-button {
     padding: 5px 10px;
     background-color: var(--color-button-buy);
     color: var(--color-text-light);
@@ -278,54 +478,74 @@ position: fixed; /* 화면에 고정 */
 
 /* 상점 스타일 */
 .shop-toggle-button {
-    position: fixed; /* 화면에 고정 */
-    top: 150px;      /* 화면 상단에서 적절한 위치 */
-    right: 0px;      /* 초기에는 화면 오른쪽에 붙어있음 */
+    position: fixed;
+    /* 화면에 고정 */
+    top: 150px;
+    /* 화면 상단에서 적절한 위치 */
+    right: 0px;
+    /* 초기에는 화면 오른쪽에 붙어있음 */
     background-color: var(--color-button-shop-toggle);
     color: var(--color-text-light);
     border: none;
-    padding: 10px 12px; /* 버튼 내부 여백 */
-    font-size: 1.8em;   /* 이모티콘 크기 */
+    padding: 10px 12px;
+    /* 버튼 내부 여백 */
+    font-size: 1.8em;
+    /* 이모티콘 크기 */
     cursor: pointer;
-    border-top-left-radius: 10px;   /* 왼쪽 모서리 둥글게 */
+    border-top-left-radius: 10px;
+    /* 왼쪽 모서리 둥글게 */
     border-bottom-left-radius: 10px;
-    z-index: 1001; /* 다른 요소들보다 위에 있도록 (패널 포함) */
-    transition: right 0.4s ease-in-out; /* 오른쪽 위치 변경 시 부드럽게 이동 */
-    box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
+    z-index: 1001;
+    /* 다른 요소들보다 위에 있도록 (패널 포함) */
+    transition: right 0.4s ease-in-out;
+    /* 오른쪽 위치 변경 시 부드럽게 이동 */
+    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* 요리 패널이 열렸을 때, 상점 토글 버튼의 위치를 조정 */
-/* 이 규칙은 body.shop-is-open .cooking-toggle-button 와 짝을 이루어
-   한쪽 패널이 열리면 다른 쪽 버튼이 이동하도록 합니다. */
 body.shop-is-open .shop-toggle-button {
-    right: 400px; /* 요리 패널 너비(320px)만큼 왼쪽으로 이동 */
+    right: 400px;
+    /* 요리 패널 너비(320px)만큼 왼쪽으로 이동 */
 }
 
 
 
 .shop-panel {
-    position: fixed; /* 화면에 고정 */
-    top: 130px;      /* 토글 버튼과 시각적으로 어울리는 위치 */
-    right: 0;        /* 초기 위치 (transform으로 숨김) */
-    width: 400px;    /* 상점 패널 너비 */
-    height: calc(100vh - 160px); /* 화면 높이 기반으로 계산 (상단 130px, 하단 여유 30px) */
-    max-height: 450px; /* 최대 높이 제한 */
+    position: fixed;
+    /* 화면에 고정 */
+    top: 130px;
+    /* 토글 버튼과 시각적으로 어울리는 위치 */
+    right: 0;
+    /* 초기 위치 (transform으로 숨김) */
+    width: 400px;
+    /* 상점 패널 너비 */
+    height: calc(100vh - 160px);
+    /* 화면 높이 기반으로 계산 (상단 130px, 하단 여유 30px) */
+    max-height: 450px;
+    /* 최대 높이 제한 */
     background-color: var(--color-cream-darker);
     border: 2px solid var(--color-shop-border);
-    border-right: none; /* 화면 오른쪽에 붙으므로 오른쪽 테두리는 제거 */
-    box-shadow: -5px 0px 15px rgba(0,0,0,0.15); /* 그림자 효과 */
+    border-right: none;
+    /* 화면 오른쪽에 붙으므로 오른쪽 테두리는 제거 */
+    box-shadow: -5px 0px 15px rgba(0, 0, 0, 0.15);
+    /* 그림자 효과 */
     padding: 20px;
     box-sizing: border-box;
-    transform: translateX(100%); /* 초기에는 화면 오른쪽 바깥으로 완전히 숨김 */
-    transition: transform 0.4s ease-in-out; /* 부드러운 슬라이드 효과 */
-    z-index: 1000; /* 토글 버튼 바로 아래에 있도록 */
-    border-top-left-radius: 15px;   /* 패널의 왼쪽 모서리 둥글게 */
+    transform: translateX(100%);
+    /* 초기에는 화면 오른쪽 바깥으로 완전히 숨김 */
+    transition: transform 0.4s ease-in-out;
+    /* 부드러운 슬라이드 효과 */
+    z-index: 1000;
+    /* 토글 버튼 바로 아래에 있도록 */
+    border-top-left-radius: 15px;
+    /* 패널의 왼쪽 모서리 둥글게 */
     border-bottom-left-radius: 15px;
-    overflow-y: auto; /* 내용이 많아지면 스크롤바 표시 */
+    overflow-y: auto;
+    /* 내용이 많아지면 스크롤바 표시 */
 }
 
 .shop-panel.open {
-    transform: translateX(0%); /* 'open' 클래스가 추가되면 화면 안으로 슬라이드 */
+    transform: translateX(0%);
+    /* 'open' 클래스가 추가되면 화면 안으로 슬라이드 */
 }
 
 
@@ -344,18 +564,21 @@ body.shop-is-open .shop-toggle-button {
     justify-content: space-between;
     padding: 10px;
     margin-bottom: 10px;
-    background-color: var(--color-cream); /* 인벤토리 배경과 유사하게 또는 약간 다르게 */
+    background-color: var(--color-cream);
+    /* 인벤토리 배경과 유사하게 또는 약간 다르게 */
     border: 1px solid var(--color-button-shop-toggle);
     border-radius: 5px;
 }
 
 .shop-item-name {
-    flex-grow: 1; /* 이름이 남은 공간을 채우도록 */
+    flex-grow: 1;
+    /* 이름이 남은 공간을 채우도록 */
     margin-left: 10px;
     margin-right: 10px;
 }
 
-.buy-button { /* 구매 버튼 스타일은 기존 .inventory-cell button과 유사하게 하거나 다르게 지정 가능 */
+.buy-button {
+    /* 구매 버튼 스타일은 기존 .inventory-cell button과 유사하게 하거나 다르게 지정 가능 */
     padding: 5px 10px;
     background-color: var(--color-button-buy);
     color: var(--color-text-light);
@@ -371,38 +594,43 @@ body.shop-is-open .shop-toggle-button {
 .plot {
     width: 50px;
     height: 50px;
-    background-color: var(--color-brown-light); /* 밝은 흙색 */
+    background-color: var(--color-brown-light);
+    /* 밝은 흙색 */
     border: 1px solid var(--color-brown-dark);
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    /* 작물 표시는 JavaScript에서 innerHTML로 직접 하므로 ::before 스타일은 제거합니다. */
-    /* 필요한 경우, .plot.empty 등의 클래스에 기본 스타일을 줄 수 있습니다. */
-    font-size: 24px; /* 이모티콘 크기를 위한 기본 폰트 크기 (조절 가능) */
+    font-size: 24px;
+    /* 이모티콘 크기를 위한 기본 폰트 크기 (조절 가능) */
 }
 
 
 .toolbar button {
-    background-color: var(--color-cream, white) ; /* Use a variable or a consistent color */
+    background-color: var(--color-cream, white);
     padding: 10px;
-    /* margin: 5px; /* Spacing handled by .toolbar's gap if .toolbar is flex */
     cursor: pointer;
     border: 1px solid var(--color-brown-dark);
     border-radius: 5px;
 }
 
-.toolbar { /* Ensure toolbar itself is styled if it's a container */
+.toolbar button:hover {
+    background-color: var(--color-cream-darker, white);
+}
+
+.toolbar {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
-    width: 100%; /* Take full width of its panel */
+    width: 100%;
+    /* Take full width of its panel */
 }
 
 .info {
     text-align: center;
-    width: 100%; /* Take full width of its panel */
+    width: 100%;
+    /* Take full width of its panel */
     padding: 10px;
     background-color: var(--color-cream, #f5deb3);
     border-radius: 8px;
@@ -411,53 +639,77 @@ body.shop-is-open .shop-toggle-button {
 
 /* .seed-info 스타일은 현재 사용되는지 확인 후 정리 필요 */
 .seed-info {
-    margin: 0 10px; /* 이전/다음 버튼과의 간격 */
+    margin: 0 10px;
+    /* 이전/다음 버튼과의 간격 */
     font-weight: bold;
-    min-width: 120px; /* 내용이 바뀌어도 레이아웃이 크게 흔들리지 않도록 최소 너비 설정 */
+    min-width: 120px;
+    /* 내용이 바뀌어도 레이아웃이 크게 흔들리지 않도록 최소 너비 설정 */
     text-align: center;
-}/* --- Tutorial Modal Styles --- */
+}
+
+/* --- Tutorial Modal Styles --- */
 .modal-overlay {
-    position: fixed; /* 화면 전체를 덮도록 고정 */
+    position: fixed;
+    /* 화면 전체를 덮도록 고정 */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.65); /* 반투명 검은색 배경 */
-    display: flex; /* 내부 컨텐츠 중앙 정렬용 */
+    background-color: rgba(0, 0, 0, 0.65);
+    /* 반투명 검은색 배경 */
+    display: flex;
+    /* 내부 컨텐츠 중앙 정렬용 */
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* 다른 요소들 위에 표시 */
+    z-index: 1000;
+    /* 다른 요소들 위에 표시 */
     /* 기본적으로 숨김 */
-    visibility: hidden; 
-    opacity: 0; /* 기본적으로 투명 */
+    visibility: hidden;
+    opacity: 0;
+    /* 기본적으로 투명 */
     /* 부드러운 등장/사라짐 효과 */
     transition: opacity 0.4s ease-in-out, visibility 0s linear 0.4s;
 }
 
 .modal-overlay.open {
-    visibility: visible; /* 보이도록 설정 */
-    opacity: 1; /* 불투명하게 설정 */
-    transition-delay: 0s; /* 열릴 때 visibility 지연 없앰 */
+    visibility: visible;
+    /* 보이도록 설정 */
+    opacity: 1;
+    /* 불투명하게 설정 */
+    transition-delay: 0s;
+    /* 열릴 때 visibility 지연 없앰 */
 }
 
 .modal-content {
-    background-color: #fdfdfd; /* 모달 내용 배경색 */
+    background-color: #fdfdfd;
+    /* 모달 내용 배경색 */
     padding: 25px 35px;
-    border-radius: 12px; /* 모서리 둥글게 */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
-    position: relative; /* 닫기 버튼 위치 기준 */
-    max-width: 650px; /* 최대 너비 */
-    width: 90%; /* 화면 너비의 90% */
-    max-height: 85vh; /* 최대 높이 (화면 높이의 85%) */
-    overflow-y: auto; /* 내용이 길면 스크롤 */
-    transform: translateY(-20px) scale(0.95); /* 나타날 때 약간 위에서 작게 시작 */
+    border-radius: 12px;
+    /* 모서리 둥글게 */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    /* 그림자 효과 */
+    position: relative;
+    /* 닫기 버튼 위치 기준 */
+    max-width: 650px;
+    /* 최대 너비 */
+    width: 90%;
+    /* 화면 너비의 90% */
+    max-height: 85vh;
+    /* 최대 높이 (화면 높이의 85%) */
+    overflow-y: auto;
+    /* 내용이 길면 스크롤 */
+    transform: translateY(-20px) scale(0.95);
+    /* 나타날 때 약간 위에서 작게 시작 */
     transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
-    opacity: 0; /* 내용도 처음엔 투명 */
+    opacity: 0;
+    /* 내용도 처음엔 투명 */
 }
 
 .modal-overlay.open .modal-content {
-    transform: translateY(0) scale(1); /* 제자리로, 원래 크기로 */
-    opacity: 1; /* 내용도 불투명하게 */
+    transform: translateY(0) scale(1);
+    /* 제자리로, 원래 크기로 */
+    opacity: 1;
+    /* 내용도 불투명하게 */
     /* pointer-events: none  */
 }
 
@@ -472,16 +724,19 @@ body.shop-is-open .shop-toggle-button {
     border: none;
     background: transparent;
     padding: 5px;
-    line-height: 1; /* 버튼 크기 일관성 */
+    line-height: 1;
+    /* 버튼 크기 일관성 */
 }
 
 .modal-close-button:hover {
-    color: #333; /* 마우스 올리면 색상 변경 */
+    color: #333;
+    /* 마우스 올리면 색상 변경 */
 }
 
 .modal-content h2 {
     margin-top: 0;
-    color: #4CAF50; /* 제목 색상 (게임 테마와 맞추면 좋음) */
+    color: #4CAF50;
+    /* 제목 색상 (게임 테마와 맞추면 좋음) */
     text-align: center;
     margin-bottom: 25px;
     font-size: 1.8em;
@@ -490,7 +745,8 @@ body.shop-is-open .shop-toggle-button {
 .modal-content p,
 .modal-content ul {
     line-height: 1.7;
-    color: #444; /* 본문 텍스트 색상 */
+    color: #444;
+    /* 본문 텍스트 색상 */
     margin-bottom: 18px;
     font-size: 0.95em;
 }
@@ -498,7 +754,9 @@ body.shop-is-open .shop-toggle-button {
 .modal-content ul {
     padding-left: 25px;
 }
-.modal-content ul ul { /* 중첩된 ul 스타일 */
+
+.modal-content ul ul {
+    /* 중첩된 ul 스타일 */
     margin-top: 8px;
     margin-bottom: 8px;
 }
@@ -507,10 +765,12 @@ body.shop-is-open .shop-toggle-button {
     margin-bottom: 10px;
 }
 
-.right-panel > h2 { /* For "Inventory" title */
+.right-panel>h2 {
+    /* For "Inventory" title */
     font-size: 1.5em;
     color: var(--color-brown-dark);
-    margin-bottom: 0; /* Spacing handled by .right-panel's gap */
+    margin-bottom: 0;
+    /* Spacing handled by .right-panel's gap */
     text-align: center;
     width: 100%;
 }
@@ -523,35 +783,69 @@ body.shop-is-open .shop-toggle-button {
 /* 책갈피가 가장 위로 올라오면 z-index 증가시키기 */
 .cooking-toggle-button,
 .shop-toggle-button {
-    z-index: 1000; /* 기본 z-index */
+    z-index: 1000;
+    /* 기본 z-index */
 }
 
 
 /* 상태 표시줄 스타일 */
 .status-bar {
-    background-color: var(--color-light-brown); /* 연한 갈색 배경 */
+    background-color: var(--color-light-brown);
+    /* 연한 갈색 배경 */
     padding: 10px;
-    margin-bottom: 0; /* Spacing handled by .left-panel's gap */
+    margin-bottom: 0;
     border-radius: 8px;
     text-align: center;
-    /* background-color: white; /* This overrides the light-brown above, choose one */
-    box-shadow: 0 0 10px;
-    border : 1px solid black;
-    width: 100%; /* Take full width of the .left-panel */
-    /* max-width: 460px; /* Remove or adjust if panel is wider */
-    /* margin-left: auto; /* Centering handled by .left-panel's align-items: center */
-    /* margin-right: auto; */
+    border: 1px solid black;
+    width: 100%;
     box-sizing: border-box;
 }
 
 .seed-status span {
-    margin: 0 10px; /* 씨앗 정보 간 간격 */
+    margin: 0 10px;
+    /* 씨앗 정보 간 간격 */
     font-size: 0.95em;
-    color: var(--color-brown-dark); /* 어두운 갈색 텍스트 (정의된 변수로 수정) */
+    color: var(--color-brown-dark);
+    /* 어두운 갈색 텍스트 (정의된 변수로 수정) */
     font-weight: 500;
 }
 
 * {
-  margin: 0;
-  cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDc1MywgMjAyMS8wMi8xNS0xMTo1MjoxMyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjMgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDE1MzlFMUEwRTZFMTFGMDk1QjBCNjAzQTc0REU0QkYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDE1MzlFMUIwRTZFMTFGMDk1QjBCNjAzQTc0REU0QkYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0MTUzOUUxODBFNkUxMUYwOTVCMEI2MDNBNzRERTRCRiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0MTUzOUUxOTBFNkUxMUYwOTVCMEI2MDNBNzRERTRCRiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PpZdxf4AAAmtSURBVHjaxFd5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), auto !important;
+    margin: 0;
+    cursor: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyVpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDYuMC1jMDA2IDc5LjE2NDc1MywgMjAyMS8wMi8xNS0xMTo1MjoxMyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIDIyLjMgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDE1MzlFMUEwRTZFMTFGMDk1QjBCNjAzQTc0REU0QkYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDE1MzlFMUIwRTZFMTFGMDk1QjBCNjAzQTc0REU0QkYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0MTUzOUUxODBFNkUxMUYwOTVCMEI2MDNBNzRERTRCRiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0MTUzOUUxOTBFNkUxMUYwOTVCMEI2MDNBNzRERTRCRiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PpZdxf4AAAmtSURBVHjaxFd5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), auto !important;
+}
+
+/* 달성 목표 (업적) 스타일 */
+.game-goals {
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f8f9fa; /* 약간 다른 배경색 */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.game-goals h3 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #343a40;
+}
+
+#achievement-list {
+    list-style-type: none; /* 기본 리스트 스타일 제거 */
+    padding-left: 0;
+}
+
+#achievement-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #e9ecef; /* 항목 구분선 */
+}
+
+#achievement-list li:last-child {
+    border-bottom: none; /* 마지막 항목은 구분선 제거 */
+}
+
+#achievement-list li.completed {
+    text-decoration: line-through; /* 완료된 항목에 취소선 */
+    color: #6c757d; /* 완료된 항목은 회색으로 */
 }

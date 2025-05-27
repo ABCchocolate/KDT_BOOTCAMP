@@ -11,7 +11,8 @@
     const shopPanel = document.getElementById('shop-panel');
     const cookingToggleButton = document.getElementById('cooking-toggle-button');
     const cookingPanel = document.getElementById('cooking-panel');
-    
+    const totalMoneyValueDisplay = document.getElementById('total-money-value'); // 왼쪽 사이드바 금액 표시
+    const achievementListUI = document.getElementById('achievement-list'); // 업적 목록 UI
 
 
 function gameinit(){
@@ -26,6 +27,8 @@ function gameinit(){
         shopPanel,
         cookingToggleButton,
         cookingPanel,
+        achievementListUI, // Game 클래스로 전달할 UI 요소에 추가
+        totalMoneyValueDisplay, // Game 클래스로 전달할 UI 요소에 추가
         seedButtons: {
             carrot: plantCarrotButton,
             potato: plantPotatoButton,
