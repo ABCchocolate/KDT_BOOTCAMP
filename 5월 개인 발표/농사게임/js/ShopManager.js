@@ -72,7 +72,7 @@ class ShopManager {
             this.game.seedInventory[cropKey]++;
             this.game.updateMoneyDisplay();
             this.game._updateSeedCountDisplay(); // 씨앗 구매 후 개수 표시 업데이트
-            alert(`${cropToBuy.name} 씨앗을 구매했습니다!`);
+            //alert(`${cropToBuy.name} 씨앗을 구매했습니다!`);
             console.log(`${cropToBuy.name} 씨앗 구매. 현재 ${cropKey} 씨앗: ${this.game.seedInventory[cropKey]}개. 남은 돈: ${this.game.currentMoney}원`);
             
             if (this.game.selectedTool instanceof SeedTool && this.game.selectedTool.cropKey === cropKey) {

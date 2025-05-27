@@ -12,7 +12,30 @@
     </div>
     <div id = "wrapper">
     <h1>나만의 농장</h1>
-    
+    <div class="side">
+    <!-- 왼쪽 바.. 시간, 이 때까지 모은 금액, 현재 달성하고 하는 목표 -->
+    <div class = "left-side" id = "left-side">
+        <!-- 가장 상단에 타이머 위치 -->
+        <div class = "time" id = "time">
+           <div id="timer">00:00</div>
+        <hr>
+        </div>
+        
+        <!-- 중간에 이때까지 모은 금액 표시 -->
+        <div class="total_cost" id="total_cost">
+            <div> 현재 금액 💸</div>
+            <div id="total-money-value">0원</div>
+        </div>
+
+        <!-- 달성하고자 하는 목표 -->
+        <div class="game-goals">
+            <h3>🏆 달성 목표 🏆</h3>
+            <ul id="achievement-list">
+                <!-- 업적 항목을 여기에 동적으로 추가-->
+            </ul>
+        </div>
+    </div>
+    <div class="right-side">
     <!-- 왼쪽 패널: 밭, 씨앗 현황, 도구 버튼 -->
     <div class="left-panel">
         <!-- 밭 -->
@@ -49,7 +72,8 @@
             <!-- 수확한 작물을 인벤토리에.. -->
         </div>
     </div>
-
+    </div>
+    
     <!-- 상점 UI 추가 -->
     <div id="shop-container">
         <button id="shop-toggle-button" class="shop-toggle-button">🛒</button>
@@ -93,9 +117,10 @@
             <p>즐거운 농장 생활 되세요! 👨‍🌾👩‍🌾</p>
         </div>
     </div>
-
+    
     <script src="js/plot.js"></script>
     <script src="js/tools.js"></script>
+    <script src="js/AchievementManager.js"></script> 
     <script src="js/ShopManager.js"></script>    
     <script src="js/CookingManager.js"></script> 
     <script src="js/TutorialManager.js"></script>

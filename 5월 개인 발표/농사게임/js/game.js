@@ -1,11 +1,11 @@
-
-
 class Game {
     constructor(uiElements) {
         this.farmGrid = uiElements.farmGrid;
         this.inventoryGrid = uiElements.inventoryGrid;
         this.moneyDisplay = uiElements.moneyDisplay;
+        this.totalMoneyValueDisplay = uiElements.totalMoneyValueDisplay; // 왼쪽 사이드바 금액 표시 요소
         this.currentToolDisplay = uiElements.currentToolDisplay;
+        this.achievementListUI = uiElements.achievementListUI; // 업적 목록 UI 요소
         this.seedButtons = uiElements.seedButtons; // { carrot: button, potato: button, strawberry: button }
         this.harvestToolButton = uiElements.harvestToolButton;
 
@@ -14,24 +14,23 @@ class Game {
         this.cookingManager = new CookingManager(this, uiElements.cookingPanel, uiElements.cookingToggleButton);
         this.tutorialManager = new TutorialManager(this, uiElements.tutorialModalOverlay, uiElements.tutorialCloseButton);
 
-        // Game 클래스에서 직접 사용할 UI 요소들 (필요한 경우)
-        // this.shopToggleButton = uiElements.shopToggleButton; // 이제 ShopManager가 관리
 
         this.CROP_TYPES = {};
         this.COOKING_TYPES = {};
         this.currentMoney = 100;
+        this.totalEarnings = 0; // 지금까지 번 총 수익
+        this.harvestedCounts = {}; // 작물별 수확량 { 'carrot': 0, 'potato': 0, ... }
         this.selectedTool = null; // Tool 인스턴스 또는 null
         this.plots = []; // Plot 인스턴스 배열
         this.inventoryItems = [];
         this.gridSize = 5 * 3;
-        // this.seedInventory = { carrot: 0, potato: 0, strawberry: 0 }; // 아래 initialize에서 동적으로 생성
         this.seedInventory = {};
 
         this.uiElements = uiElements; // 나중에 씨앗 개수 표시를 위해 uiElements 저장
     }
 
     initialize() {
-        return fetch('./json/seed.json') 
+        return fetch('./json/seed.json')
             .then(seedResponse => {
                 if (!seedResponse.ok) {
                     throw new Error(`HTTP error! status: ${seedResponse.status} (seed.json)`);
@@ -46,7 +45,7 @@ class Game {
                 });
                 console.log("작물 데이터 로드 성공:", this.CROP_TYPES);
 
-                
+
                 return fetch('./json/food.json'); // food.json 또는 실제 사용하시는 파일명으로 변경
             })
             .then(foodResponse => {
@@ -66,6 +65,11 @@ class Game {
                 this.updateMoneyDisplay();
                 this.updateCurrentToolDisplay();
                 this._updateSeedCountDisplay(); // 게임 시작 시 씨앗 개수 표시
+                this._startTimer(); // 타이머 시작하기
+
+                // AchievementManager 초기화
+                this.achievementManager = new AchievementManager(this.achievementListUI, this);
+
                 this.tutorialManager.showTutorial(); // TutorialManager를 통해 호출
                 return true; // 모든 초기화 성공
             })
@@ -77,6 +81,30 @@ class Game {
                 document.body.innerHTML = `<p class="error-message">${userMessage}</p>`;
                 return false; // 초기화 실패
             });
+    }
+    //게임시작하고 timer 실행되도록함.
+    _startTimer() {
+        const timerElement = document.getElementById('timer');
+        let timer;
+        // 현재 시간을 가져옵니다.
+        let startTime = new Date().getTime();
+
+        // setInterval을 사용하여 매 초마다 시간을 업데이트합니다.
+        timer = setInterval(() => {
+            const currentTime = new Date().getTime();
+            const elapsedTime = currentTime - startTime;
+
+            // 초, 분, 시간으로 변환합니다.
+            const hours = Math.floor((elapsedTime / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((elapsedTime / (1000 * 60)) % 60);
+            const seconds = Math.floor((elapsedTime / 1000) % 60);
+
+            // 시간 형식을 조정합니다.
+            const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+            // 타이머를 업데이트합니다.
+            timerElement.textContent = formattedTime;
+        }, 1000); // 1초마다
     }
 
     _setupEventListeners() {
@@ -124,7 +152,7 @@ class Game {
     _renderInventory() {
         this.inventoryGrid.innerHTML = '';
         if (this.inventoryItems.length === 0) {
-            this.inventoryGrid.innerHTML = '<p class="inventory-empty-message">창고가 비어있습니다.</p>';
+            this.inventoryGrid.innerHTML = '<p class="inventory-empty-message"></p>';
             return;
         }
         this.inventoryItems.forEach((item, index) => {
@@ -153,29 +181,47 @@ class Game {
     _addItemToInventory(cropType) {
         const cropInfo = this.CROP_TYPES[cropType];
         if (cropInfo) {
-            this.inventoryItems.push({
+            const harvestedItem = {
                 type: cropType,
                 name: cropInfo.name, // 아이템 이름
                 harvestValue: cropInfo.harvestValue,
                 icon: cropInfo.stages[cropInfo.stages.length - 1]
-            });
+            };
+            this.inventoryItems.push(harvestedItem);
+
+            // 작물별 수확량 업데이트
+            this.harvestedCounts[cropType] = (this.harvestedCounts[cropType] || 0) + 1;
+            console.log(`${cropInfo.name} 수확! 현재 ${cropType} 수확량: ${this.harvestedCounts[cropType]}`);
+
             this._renderInventory();
+            this.achievementManager.checkAchievements(); // 수확 후 업적 확인
         }
     }
 
     _sellItemFromInventory(itemIndex) {
         if (itemIndex >= 0 && itemIndex < this.inventoryItems.length) {
             const itemSold = this.inventoryItems.splice(itemIndex, 1)[0];
-            const value = itemSold.sellValue || itemSold.harvestValue;
-            this.currentMoney += value;
-            this.updateMoneyDisplay();
-            this._renderInventory();
-            console.log(`${itemSold.name}을(를) 판매하여 ${value}원을 얻었습니다.`);
+            // 판매 가격 또는 수확 가치를 가져오되, 정의되지 않았다면 0으로 처리
+            const value = Number(itemSold.sellValue || itemSold.harvestValue || 0);
+
+            if (!isNaN(value)) { // value가 유효한 숫자인 경우에만 업데이트
+                this.totalEarnings += value; // 번 돈을 totalEarnings에 추가
+                this.currentMoney += value;
+                this.updateMoneyDisplay();
+                this._renderInventory();
+                this.achievementManager.checkAchievements(); // 판매 후 업적 확인
+                console.log(`${itemSold.name}을(를) 판매하여 ${value}원을 얻었습니다. 현재 돈: ${this.currentMoney}`);
+            } else {
+                console.error(`${itemSold.name}의 판매 가격(value)이 유효하지 않습니다:`, itemSold.sellValue, itemSold.harvestValue);
+            }
         }
     }
 
     updateMoneyDisplay() {
         this.moneyDisplay.textContent = this.currentMoney;
+        if (this.totalMoneyValueDisplay) {
+            this.totalMoneyValueDisplay.textContent = `${this.totalEarnings}원`;
+        }
     }
 
     updateCurrentToolDisplay() {
