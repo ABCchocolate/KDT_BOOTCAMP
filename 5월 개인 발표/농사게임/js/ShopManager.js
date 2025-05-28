@@ -34,7 +34,7 @@ class ShopManager {
             this.shopPanel.classList.remove('open');
             this.shopToggleButton.classList.remove('shop-open');
             this.shopToggleButton.textContent = '🛒';
-            this.shopToggleButton.style.zIndex = ''; // 기본 z-index로 복원 (CSS에 정의된 값)
+            this.shopToggleButton.style.zIndex = ''; 
             document.body.classList.remove('shop-is-open');
             console.log("ShopManager: 패널 닫힘");
         }
