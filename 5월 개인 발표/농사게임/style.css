@@ -849,3 +849,32 @@ body.shop-is-open .shop-toggle-button {
     text-decoration: line-through; /* 완료된 항목에 취소선 */
     color: #6c757d; /* 완료된 항목은 회색으로 */
 }
+
+/* ========= cooking now... 부분! class = current-cooking, ul id = cooking-list ========== */
+.current-cooking{
+    width: 100%;
+    height: 180px;
+    background-color: white;
+    border-radius: 8px ;
+
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    
+    position: relative;
+   
+}
+.current-cooking h3 {
+   margin-bottom: 10px;
+}
+
+
+
+#cooking-list{
+    list-style-type: none; 
+    padding-left: 0;
+    
+}

@@ -24,6 +24,8 @@ class Game {
         this.plots = []; // Plot 인스턴스 배열
         this.inventoryItems = [];
         this.gridSize = 5 * 3;
+        this.gameTimerId = null; // 게임 타이머 ID
+        this.isGameOver = false; // 게임 종료 상태 플래그
         this.seedInventory = {};
 
         this.uiElements = uiElements; // 나중에 씨앗 개수 표시를 위해 uiElements 저장
@@ -82,30 +84,63 @@ class Game {
                 return false; // 초기화 실패
             });
     }
-    //게임시작하고 timer 실행되도록함.
     _startTimer() {
-        const timerElement = document.getElementById('timer');
-        let timer;
-        // 현재 시간을 가져옵니다.
-        let startTime = new Date().getTime();
+    const timerElement = document.getElementById('timer');
+    const totalDuration = 240; //4분... test용으로 10초
+    let remainingTime = totalDuration;
 
-        // setInterval을 사용하여 매 초마다 시간을 업데이트합니다.
-        timer = setInterval(() => {
-            const currentTime = new Date().getTime();
-            const elapsedTime = currentTime - startTime;
+    this.gameTimerId = setInterval(() => { // 타이머 ID를 this.gameTimerId에 저장
+        if (remainingTime <= 0) {
+            clearInterval(this.gameTimerId); // 저장된 ID로 타이머 정지
+            timerElement.textContent = '00:00:00';
+            this._stopgame(); // 시간이 다 되면 게임 종료 처리
+            return;
+        }
 
-            // 초, 분, 시간으로 변환합니다.
-            const hours = Math.floor((elapsedTime / (1000 * 60 * 60)) % 24);
-            const minutes = Math.floor((elapsedTime / (1000 * 60)) % 60);
-            const seconds = Math.floor((elapsedTime / 1000) % 60);
+        // 초, 분, 시간으로 변환
+        const hours = Math.floor((remainingTime / 3600) % 24);
+        const minutes = Math.floor((remainingTime / 60) % 60);
+        const seconds = Math.floor(remainingTime % 60);
 
-            // 시간 형식을 조정합니다.
-            const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        // 시간 형식을 조정
+        const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-            // 타이머를 업데이트합니다.
-            timerElement.textContent = formattedTime;
-        }, 1000); // 1초마다
+        // 타이머 업데이트
+        timerElement.textContent = formattedTime;
+
+        // 남은 시간 감소
+        remainingTime--;
+    }, 1000);
+}
+    _stopgame(){
+        if (this.isGameOver) return; // 이미 게임이 종료되었다면 아무것도 하지 않음
+
+        this.isGameOver = true;
+        console.log("게임 종료!");
+
+        // 게임 종료 오버레이 생성 및 표시
+        const gameOverOverlay = document.createElement('div');
+        gameOverOverlay.id = 'game-over-overlay';
+        gameOverOverlay.style.position = 'fixed';
+        gameOverOverlay.style.top = '0';
+        gameOverOverlay.style.left = '0';
+        gameOverOverlay.style.width = '100%';
+        gameOverOverlay.style.height = '100%';
+        gameOverOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        gameOverOverlay.style.color = 'white';
+        gameOverOverlay.style.display = 'flex';
+        gameOverOverlay.style.justifyContent = 'center';
+        gameOverOverlay.style.alignItems = 'center';
+        gameOverOverlay.style.fontSize = '3em';
+        gameOverOverlay.style.zIndex = 3000;
+        gameOverOverlay.textContent = '게임 종료!';
+        document.body.appendChild(gameOverOverlay);
+
+    
+        if (this.shopManager && this.shopManager.isOpen()) this.shopManager.closePanel();
+        if (this.cookingManager && this.cookingManager.isOpen()) this.cookingManager.closePanel();
     }
+
 
     _setupEventListeners() {
         this.seedButtons.carrot.addEventListener('click', () => this._selectSeedTool('carrot'));
@@ -113,6 +148,7 @@ class Game {
         this.seedButtons.strawberry.addEventListener('click', () => this._selectSeedTool('strawberry'));
 
         this.harvestToolButton.addEventListener('click', () => {
+            if (this.isGameOver) return;
             this.selectedTool = new HarvestTool(this);
             this.updateCurrentToolDisplay();
             console.log("수확 도구 선택됨");
@@ -120,17 +156,34 @@ class Game {
 
         // ShopManager에 이벤트 리스너 위임 (ShopManager 생성자에서 처리하거나, 여기서 직접 호출)
         if (this.shopManager.shopToggleButton && this.shopManager.shopPanel) {
-            this.shopManager.shopToggleButton.addEventListener('click', () => this.shopManager.togglePanel());
+            this.shopManager.shopToggleButton.addEventListener('click', () => {
+                if (this.isGameOver) return;
+                this.shopManager.togglePanel();
+            });
         } else {
             console.error("상점 토글 버튼 또는 패널 요소를 찾을 수 없습니다.");
         }
 
         // CookingManager에 이벤트 리스너 위임
         if (this.cookingManager.cookingToggleButton && this.cookingManager.cookingPanel) {
-            this.cookingManager.cookingToggleButton.addEventListener('click', () => this.cookingManager.togglePanel());
+            this.cookingManager.cookingToggleButton.addEventListener('click', () => {
+                if (this.isGameOver) return;
+                this.cookingManager.togglePanel();
+            });
         } else {
             console.error("조리 버튼 또는 패널 요소를 찾을 수 없습니다. (Game.js)");
         }
+
+        // 인벤토리 아이템 클릭 이벤트 위임
+        this.inventoryGrid.addEventListener('click', (event) => {
+            if (this.isGameOver) return;
+            const clickedItemElement = event.target.closest('.inventory-cell'); // 클릭된 요소 또는 가장 가까운 .inventory-cell 조상
+            if (clickedItemElement && clickedItemElement.dataset.itemIndex !== undefined) {
+                const itemIndex = parseInt(clickedItemElement.dataset.itemIndex, 10);
+                event.stopPropagation(); // 필요하다면 이벤트 전파 중단
+                this._sellItemFromInventory(itemIndex);
+            }
+        });
 
     }
 
@@ -179,6 +232,7 @@ class Game {
     }
 
     _addItemToInventory(cropType) {
+        if (this.isGameOver) return;
         const cropInfo = this.CROP_TYPES[cropType];
         if (cropInfo) {
             const harvestedItem = {
@@ -199,6 +253,7 @@ class Game {
     }
 
     _sellItemFromInventory(itemIndex) {
+        if (this.isGameOver) return;
         if (itemIndex >= 0 && itemIndex < this.inventoryItems.length) {
             const itemSold = this.inventoryItems.splice(itemIndex, 1)[0];
             // 판매 가격 또는 수확 가치를 가져오되, 정의되지 않았다면 0으로 처리
@@ -242,6 +297,7 @@ class Game {
 
 
     _selectSeedTool(cropKey) {
+        if (this.isGameOver) return;
         if (!this.CROP_TYPES[cropKey]) {
             alert("선택한 씨앗 정보가 올바르지 않습니다.");
             this.selectedTool = null;
@@ -257,6 +313,7 @@ class Game {
 
     // plot은 Plot 클래스의 인스턴스
     handlePlotClick(plot) {
+        if (this.isGameOver) return;
         if (this.selectedTool) {
             this.selectedTool.useOnPlot(plot);
         } else {
