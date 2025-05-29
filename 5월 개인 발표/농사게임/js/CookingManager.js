@@ -134,8 +134,7 @@ class CookingManager {
 
         // 2. "요리 중" UI 생성 및 표시
         const cookingProgressDiv = document.createElement("div");
-        cookingProgressDiv.classList.add('cooking-progress-item'); // CSS 클래스 사용 권장
-        // 인라인 스타일 대신 CSS 클래스로 관리하는 것이 좋습니다. 예시로 몇 가지만 남깁니다.
+        cookingProgressDiv.classList.add('cooking-progress-item'); 
         cookingProgressDiv.style.width = "100%";
         cookingProgressDiv.style.height = "30px";
         cookingProgressDiv.style.background = "lightyellow"; // "요리 중"을 나타내는 배경색
@@ -157,7 +156,7 @@ class CookingManager {
         }
 
         // 3. 요리 시간 설정 (레시피에 cookingTime이 정의되어 있으면 사용, 없으면 기본값)
-        const cookingTime = recipe.cookingTime || 5000; // 예: 기본 5초, food.json에 "cookingTime": 5000 추가 가능
+        const cookingTime = recipe.cookingTime || 5000; //기본 5초로 설정
 
         // 4. 일정 시간 후 요리 완료 처리
         setTimeout(() => {
@@ -171,8 +170,8 @@ class CookingManager {
                 name: recipe.name,
                 sellValue: recipe.sellValue,
                 icon: recipe.icon || '🍲',
-                type: 'cookedFood', // 일반 작물과 구분하기 위한 타입
-                originalRecipeKey: recipeKey // 어떤 레시피로 만들어졌는지 추적 가능
+                type: 'cookedFood', 
+                originalRecipeKey: recipeKey 
             };
             this.game.inventoryItems.push(cookedFood);
 
