@@ -153,7 +153,7 @@ class CookingManager {
             this.cookingContainer.appendChild(cookingProgressDiv);
         } else {
             console.error("CookingManager: cookingContainer (cooking-list) 요소를 찾을 수 없습니다.");
-            // cookingContainer가 없으면 시각적 피드백 없이 요리만 진행될 수 있습니다.
+            
         }
 
         // 3. 요리 시간 설정 (레시피에 cookingTime이 정의되어 있으면 사용, 없으면 기본값)
@@ -182,7 +182,7 @@ class CookingManager {
             
             console.log(`${recipe.name} 요리 완료! 창고에 추가됨.`);
             alert(`${recipe.name} 요리가 완료되어 창고에 추가되었습니다!`);
-            
+
             // 요리 패널 버튼 상태 
             this.renderCooking();
         }, cookingTime);

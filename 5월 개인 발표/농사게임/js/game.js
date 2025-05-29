@@ -86,14 +86,14 @@ class Game {
     }
     _startTimer() {
     const timerElement = document.getElementById('timer');
-    const totalDuration = 240; //4분... test용으로 10초
+    const totalDuration = 60; //1분... test용으로 10초
     let remainingTime = totalDuration;
 
     this.gameTimerId = setInterval(() => { // 타이머 ID를 this.gameTimerId에 저장
         if (remainingTime <= 0) {
             clearInterval(this.gameTimerId); // 저장된 ID로 타이머 정지
             timerElement.textContent = '00:00:00';
-            this._stopgame(); // 시간이 다 되면 게임 종료 처리
+            //this._stopgame(); // 시간이 다 되면 게임 종료 처리
             return;
         }
 

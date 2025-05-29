@@ -8,14 +8,18 @@ class Plot {
         this.stageIndex = 0;  // 현재 작물의 성장 단계 (0은 비어있음, 1부터 시작)
         this.growthTimer = null; // 작물 성장을 위한 타이머 ID
 
-        // 밭(HTML 요소)을 클릭했을 때 Game 클래스의 handlePlotClick 메소드를 호출합니다.
-        // this를 전달하여 어떤 밭이 클릭되었는지 Game 클래스가 알 수 있도록 합니다.
-        this.element.addEventListener('click', () => this.game.handlePlotClick(this));
+        // 밭(HTML 요소)을 클릭했을 때 Game 클래스의 handlePlotClick 메소드를 호출하기
+        // this를 전달하여 어떤 밭이 클릭되었는지 Game 클래스가 알 수 있도록 하기
+        this.element.addEventListener('click', () => {
+            console.log(`[Plot ${this.id}] 클릭됨`);
+            this.game.handlePlotClick(this);
+        });
+        console.log(`[Plot ${this.id}] 생성됨:`, this);
     }
 
     // 작물 심기 메소드
     plant(cropKey) {
-        // 1. game 인스턴스를 통해 CROP_TYPES에서 심으려는 작물(cropKey)의 정보를 가져옵니다.
+        console.log(`[Plot ${this.id}] plant 호출됨 - cropKey: ${cropKey}`);
         const cropInfo = this.game.CROP_TYPES[cropKey];
         if (!cropInfo) {
             // 작물 정보가 없으면 오류를 출력하고 실패를 반환합니다.
@@ -23,17 +27,19 @@ class Plot {
             return false;
         }
 
-        // 2. 밭의 상태를 업데이트합니다.
+        // 2. 밭의 상태를 업데이트한다.
         this.cropType = cropKey; // 심은 작물 종류 저장
         this.stageIndex = 1;     // 심은 직후는 첫 번째 성장 단계
         this.element.innerHTML = cropInfo.stages[0]; // HTML 요소에 첫 번째 성장 단계의 아이콘 표시
         this.element.classList.remove('empty'); // 'empty' 클래스를 제거하여 빈 밭이 아님을 표시
+        console.log(`[Plot ${this.id}] ${cropKey} 심음. 현재 단계: ${this.stageIndex}`);
         this.startGrowth(); // 작물 성장 시작
         return true; // 성공적으로 심었음을 반환
     }
 
     // 작물 수확하기 메소드
     harvest() {
+        console.log(`[Plot ${this.id}] harvest 호출됨`);
         // 1. 현재 밭에 작물이 없거나, 아직 수확할 수 없는 상태라면 아무것도 하지 않고 false를 반환합니다.
         if (!this.cropType || !this.isHarvestable()) return false;
 
@@ -41,7 +47,7 @@ class Plot {
         const harvestedCropInfo = this.game.CROP_TYPES[this.cropType];
         // 3. Game 클래스의 _addItemToInventory 메소드를 호출하여 수확한 작물을 인벤토리에 추가합니다.
         this.game._addItemToInventory(this.cropType);
-        console.log(`밭 ${this.id}에서 ${harvestedCropInfo.name} 수확하여 창고로 이동!`);
+        console.log(`[Plot ${this.id}] ${harvestedCropInfo.name} 수확하여 창고로 이동!`);
 
         // 4. 밭을 초기 상태로 되돌립니다.
         this.reset();
@@ -50,6 +56,7 @@ class Plot {
 
     // 작물이 수확 가능한 상태인지 판단하는 메소드
     isHarvestable() {
+        // console.log(`[Plot ${this.id}] isHarvestable 호출됨 - cropType: ${this.cropType}, stageIndex: ${this.stageIndex}`);
         // 1. 밭에 작물이 심어져 있지 않으면 수확할 수 없으므로 false를 반환합니다.
         if (!this.cropType) return false;
 
@@ -64,6 +71,7 @@ class Plot {
 
     // 작물 성장 시작 및 관리 메소드
     startGrowth() {
+        console.log(`[Plot ${this.id}] startGrowth 호출됨 - cropType: ${this.cropType}, stageIndex: ${this.stageIndex}`);
         // 1. 만약 이전에 설정된 성장 타이머(this.growthTimer)가 있다면, 이를 초기화(제거)합니다.
         //    이는 중복된 타이머 실행을 방지합니다.
         if (this.growthTimer) clearTimeout(this.growthTimer);
@@ -78,32 +86,38 @@ class Plot {
         //    - this.cropType이 없거나 (작물이 안 심겨 있음)
         //    - this.stageIndex가 0이거나 (초기 상태, plant 메소드에서 1로 설정됨)
         //    - this.stageIndex가 이미 마지막 성장 단계를 넘었거나 같다면 (다 자랐거나 오류)
-        //    이런 경우, 함수를 그냥 종료합니다.
+        //    이런 경우, 함수를 그냥 종료하기
         if (!this.cropType || this.stageIndex == 0 || this.stageIndex >= this.game.CROP_TYPES[this.cropType].stages.length) {
+            console.log(`[Plot ${this.id}] 성장 조건 미충족 또는 이미 다 자람. 성장 중단.`);
             return;
         }
 
-        // 5. setTimeout을 사용하여 'timeToNextStage' 밀리초 후에 다음 성장 로직을 실행하도록 예약합니다.
-        //    이 타이머의 ID를 this.growthTimer에 저장합니다.
-        this.growthTimer = setTimeout(() => {
-            this.stageIndex++; // 성장 단계를 1 증가시킵니다.
-            // HTML 요소의 내용을 새로운 성장 단계의 아이콘으로 업데이트합니다.
-            this.element.innerHTML = cropInfo.stages[this.stageIndex - 1];
-            console.log(`밭 ${this.id} (${cropInfo.name}) 성장: 단계 ${this.stageIndex}/${cropInfo.stages.length}`);
+        const callTime = performance.now(); // setTimeout 호출 직전 시간 기록
 
+        // 5. setTimeout을 사용하여 'timeToNextStage' 밀리초 후에 다음 성장 로직을 실행하도록 예약하기
+        //    이 타이머의 ID를 this.growthTimer에 저장하기
+        this.growthTimer = setTimeout(() => {
+            const executionTime = performance.now(); // 콜백 함수 실제 실행 시간 기록
+            this.stageIndex++; // 성장 단계를 1 증가시키기
+            console.log(`[Plot ${this.id}] (${cropInfo.name}) 성장!  ${(executionTime - callTime).toFixed(2)}ms`);
+            // HTML 요소의 내용을 새로운 성장 단계의 아이콘으로 업데이트하기
+            this.element.innerHTML = cropInfo.stages[this.stageIndex - 1];
             // 만약 현재 성장 단계가 마지막 단계보다 작다면 (아직 더 자라야 한다면)
             if (this.stageIndex < cropInfo.stages.length) {
+                console.log(`[Plot ${this.id}] (${cropInfo.name}) 다음 성장 예약.`);
                 this.startGrowth(); // startGrowth 메소드를 다시 호출하여 다음 성장을 예약합니다 (재귀적 호출).
             } else {
                 // 작물이 마지막 단계까지 다 자랐다면
-                console.log(`밭 ${this.id} (${cropInfo.name}) 수확 준비 완료`);
+                console.log(`[Plot ${this.id}] (${cropInfo.name}) 수확 준비 완료!`);
                 this.growthTimer = null; // 성장 타이머를 null로 설정하여 더 이상 동작하지 않도록 합니다.
             }
-        }, timeToNextStage);
+        }, timeToNextStage); // timeToNextStage가 undefined가 아닌지 확인하는 것이 좋습니다.
+        console.log(`[Plot ${this.id}] (${cropInfo.name}) 다음 성장까지 ${timeToNextStage}ms 후 실행 예약됨.`);
     }
 
     // 밭을 초기 상태로 되돌리는 메소드
     reset() {
+        console.log(`[Plot ${this.id}] reset 호출됨`);
         if (this.growthTimer) clearTimeout(this.growthTimer); // 진행 중인 성장 타이머가 있다면 취소합니다.
         this.cropType = null;    // 심어진 작물 종류를 null로 설정합니다.
         this.stageIndex = 0;     // 성장 단계를 0으로 설정합니다.
